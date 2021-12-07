@@ -5,7 +5,7 @@ import Nav from './Nav';
 import CreateEvent from './CreateEvent';
 import EventSchedule from './EventSchedule';
 import Home from './Home';
-import Login from '../services/Login';
+import Login from './Login';
 import NewUser from './NewUser';
 
 import {

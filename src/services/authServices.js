@@ -4,3 +4,11 @@ export async function signUp(data) {
         jwt: "token"
     }
 }
+
+export async function signIn(data) {
+    return {
+        username: "Test",
+        jwt: "token"
+    }
+}
+

@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
+import { signIn } from '../services/authServices';
+import { useGlobalState } from '../utils/stateContext';
 
-const Login = ({history, activateUser}) => {
+export default function Login({ navigate }) {
     const initialFormData = {
         email: "",
         password: ""
     }
 
     const [formData, setFormData] = useState(initialFormData)
+    const { dispatch } = useGlobalState();
 
     function handleFormData(event) {
         setFormData({
             ...formData,
-            [event.target.name] : event.target.value
+            [event.target.name]: event.target.value
         })
     }
 
     function handleSubmit(event) {
         event.preventDefault()
-        activateUser(formData.email)
-        return history.push("/home")
+        signIn(formData)
+        .then(({email, jwt}) => {
+            dispatch({type: 'setLoggedInUser', data: email})
+            dispatch({type: 'setToken', data: jwt})
+            navigate('/home');
+        })
+        .catch((error) => console.log(error))   
     }
 
     return(
@@ -34,4 +42,3 @@ const Login = ({history, activateUser}) => {
     )
 }
 
-export default Login

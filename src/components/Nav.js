@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 const Nav = ({loggedInUser, setLoggedInUser}) => {
     function logout(event) {
@@ -8,27 +11,29 @@ const Nav = ({loggedInUser, setLoggedInUser}) => {
     }
 
     return (
-        <nav>
+        <AppBar>
+            <Toolbar>
+                <Typography>Skemi</Typography>
             <ul>
-                <li><Link to="/">Home</Link></li>
+                <Typography><li><Link to="/">Home</Link></li></Typography>
             </ul>
                 {loggedInUser?
             <ul>
-                <li>{loggedInUser.first_name}</li>
-                <li><Link to="/create-event">Create an Event</Link></li>
-                <li><Link to="/event-schedule">Event Schedule</Link></li>
-                <li><Link to="/home" onClick ={logout}>Logout</Link></li>
+                <Typography><li>{loggedInUser.first_name}</li></Typography>
+                <Typography><li><Link to="/create-event">Create an Event</Link></li></Typography>
+                <Typography><li><Link to="/event-schedule">Event Schedule</Link></li></Typography>
+                <Typography><li><Link to="/home" onClick ={logout}>Logout</Link></li></Typography>
             </ul>
                 :
 
             <ul>
-                <li><Link to="/login">Login</Link></li>
-                <li><Link to="/new-user">Register</Link></li>
+                <Typography><li><Link to="/login">Login</Link></li></Typography>
+                <Typography><li><Link to="/new-user">Register</Link></li></Typography>
             </ul>
 
                 }
-            
-        </nav>
+            </Toolbar>
+        </AppBar>
     )
 }
 
