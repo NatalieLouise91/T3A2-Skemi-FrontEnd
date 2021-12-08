@@ -1,10 +1,11 @@
 import React, { useEffect, useReducer } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import initialOccasionList from "../data/initial_occasions.json";
+// import initialOccasionList from "../data/initial_occasions.json";
 import Occasions from "./Occasions";
 import CreateOccasionForm from "./CreateOccasionForm";
 import About from "./About";
 import stateReducer from "../utils/stateReducer";
+import { getOccasions } from "../services/occasionServices";
 // import Occasion from "./Occasion";
 
 const App = () => {
@@ -16,11 +17,25 @@ const App = () => {
    const [store, dispatch] = useReducer(stateReducer, initialState);
    const { occasionList } = store;
 
-   const addOccasion = (name, description, date) => {
+   const addOccasion = (
+      name,
+      description,
+      date,
+      attendees,
+      locaton_,
+      time,
+      contact_name,
+      contact_phone
+   ) => {
       const occasion = {
          name: name,
          description: description,
          date: date,
+         attendees: attendees,
+         // location: location, LOCATION IS A GLOBAL KEYWORD AND CANNOT BE USED?
+         time: time,
+         contact_name: contact_name,
+         contact_phone: contact_phone,
       };
 
       dispatch({
@@ -36,11 +51,16 @@ const App = () => {
    };
 
    useEffect(() => {
-      dispatch({
-         type: "setOccasionList",
-         data: initialOccasionList,
-      });
-      // setOccasionList(initialOccasionList);
+      getOccasions()
+         .then((events) => {
+            dispatch({
+               type: "setOccasionList",
+               data: events,
+            });
+         })
+         .catch((error) => {
+            console.log(error);
+         });
    }, []);
 
    // const getOccasionById = (id) => {
@@ -54,7 +74,7 @@ const App = () => {
             <Routes>
                <Route
                   exact
-                  path="/"
+                  path="/events"
                   element={<Occasions occasionList={occasionList} />}
                />
                <Route exact path="/about" element={<About />} />

@@ -5,3 +5,9 @@ export async function getOccasions() {
    console.log(response);
    return response.data;
 }
+
+export async function createOccasion(data) {
+   const response = await skemiAPI.post("/api/events",data);
+   console.log(response);
+   return response.data;
+}

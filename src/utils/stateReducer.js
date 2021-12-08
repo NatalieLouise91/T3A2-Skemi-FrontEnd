@@ -12,6 +12,12 @@ export default function stateReducer(state, action) {
             occasionList: [action.data, ...state.occasionList],
          };
       }
+      // case "": {
+      //    return {
+      //       ...state,
+      //       occasionList: [action.data, ...state.occasionList],
+      //    };
+      // }
       // case "setLoggedInUser": {
       //    return {
       //       ...state,
