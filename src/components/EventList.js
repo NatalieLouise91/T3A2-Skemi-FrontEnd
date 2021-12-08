@@ -12,7 +12,9 @@ const EventList = (props) => {
       <div>
          <div>
             {events.map((event, index) => (
-               <div key={index}>{event.name}</div>
+               <div key={index}>
+                  {event.name} | {event.description}
+               </div>
             ))}
          </div>
       </div>
