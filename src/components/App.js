@@ -1,25 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import initialOccasionList from "../data/initial_occasions.json";
 import Occasions from "./Occasions";
 import CreateOccasionForm from "./CreateOccasionForm";
 import About from "./About";
+import stateReducer from "../utils/stateReducer";
 // import Occasion from "./Occasion";
 
 const App = () => {
-   const [occasionList, setOccasionList] = useState([]);
+   // const [occasionList, setOccasionList] = useState([]);
+
+   const initialState = {
+      occasionList: [],
+   };
+   const [store, dispatch] = useReducer(stateReducer, initialState);
+   const { occasionList } = store;
 
    const addOccasion = (name, description, date) => {
-      setOccasionList((prevOccasionList) => {
-         return [
-            ...prevOccasionList,
-            { name: name, description: description, date: date },
-         ];
+      const occasion = {
+         name: name,
+         description: description,
+         date: date,
+      };
+
+      dispatch({
+         type: "addOccasion",
+         data: occasion,
       });
+      // setOccasionList((prevOccasionList) => {
+      //    return [
+      //       ...prevOccasionList,
+      //       { name: name, description: description, date: date },
+      //    ];
+      // });
    };
 
    useEffect(() => {
-      setOccasionList(initialOccasionList);
+      dispatch({
+         type: "setOccasionList",
+         data: initialOccasionList,
+      });
+      // setOccasionList(initialOccasionList);
    }, []);
 
    // const getOccasionById = (id) => {
@@ -29,6 +50,7 @@ const App = () => {
    return (
       <div>
          <BrowserRouter>
+            <CreateOccasionForm addOccasion={addOccasion} />
             <Routes>
                <Route
                   exact
