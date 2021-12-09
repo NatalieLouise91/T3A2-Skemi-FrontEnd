@@ -3,7 +3,7 @@ import { StateContext } from "../utils/stateContext";
 import stateReducer from "../utils/stateReducer";
 import Home from "./Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import CreateOccasionForm from "./CreateOccasionForm";
+import CreateOccasion from "./CreateOccasion";
 
 const App = () => {
    const initialState = {
@@ -19,7 +19,7 @@ const App = () => {
             <BrowserRouter>
                <Routes>
                   <Route exact path="/" element={<Home />} />
-                  <Route path="/create-event" element={<CreateOccasionForm />} />
+                  <Route path="/create-event" element={<CreateOccasion />} />
                </Routes>
             </BrowserRouter>
          </StateContext.Provider>

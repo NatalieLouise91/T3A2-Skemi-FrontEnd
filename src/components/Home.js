@@ -4,7 +4,7 @@ import stateReducer from "../utils/stateReducer";
 import { getOccasions } from "../services/occasionServices";
 // import Occasion from "./Occasion";
 
-const App = () => {
+const Home = () => {
    // const [occasionList, setOccasionList] = useState([]);
 
    const initialState = {
@@ -34,4 +34,4 @@ const App = () => {
    );
 };
 
-export default App;
+export default Home;
