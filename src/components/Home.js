@@ -29,7 +29,10 @@ const Home = () => {
 
    return (
       <div>
-        <Occasions occasionList={occasionList} />
+         <div>
+            <h1>Upcoming Events</h1>
+            <Occasions occasionList={occasionList} />
+         </div>
       </div>
    );
 };
