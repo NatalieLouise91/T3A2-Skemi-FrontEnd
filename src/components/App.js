@@ -14,6 +14,7 @@ import {
   Route,
   Routes
 } from 'react-router-dom'
+import { CssBaseline } from '@mui/material';
 
 const App = () => {
 
@@ -25,7 +26,8 @@ const App = () => {
   const [store, dispatch] = useReducer(stateReducer, initialState);
 
   return (
-    <div >
+    <div>
+      <CssBaseline />
       <StateContext.Provider value={{store, dispatch}}>
           <BrowserRouter>
             <Nav/>
