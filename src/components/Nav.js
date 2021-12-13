@@ -1,15 +1,45 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { Button } from '@mui/material';
+import {
+    AppBar,
+    Toolbar,
+    CssBaseline,
+    Typography,
+    makeStyles,
+    useTheme,
+    Button
+} from '@material-ui/core';
+
+
+const useStyles = makeStyles((theme) => ({
+    navlinks: {
+        marginLeft: theme.spacing(5),
+        display: "flex",
+    },
+    logo: {
+        flexGrow: "1",
+        cursor: "pointer",
+    },
+    link: {
+        textDecoration: "none",
+        color: "white",
+        fontSize: "20px",
+        marginLeft: theme.spacing(20),
+        "&:hover": {
+            color: "yellow",
+            borderBottom: "1px solid white",
+        },
+    },
+}));
 
 const Nav = ({loggedInUser, setLoggedInUser}) => {
+
     function logout(event) {
         event.preventDefault();
         setLoggedInUser("");
     }
+    
+    const classes = useStyles();
 
     return (
         <AppBar position="static">
