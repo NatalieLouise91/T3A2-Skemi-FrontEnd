@@ -6,15 +6,13 @@ import {
    Paper,
    Typography,
    Grid,
+   Button,
 } from "@material-ui/core";
 import { getOccasionById, deleteOccasion } from "../services/occasionServices";
 import { useGlobalState } from "../utils/stateContext";
 
-import { Button } from "@material-ui/core";
-
 const ViewOccasion = () => {
    const { dispatch } = useGlobalState();
-   // const { loggedInUser } = store;
    const [occasion, setOccasion] = useState();
    const { id } = useParams();
    const navigate = useNavigate();
@@ -25,17 +23,9 @@ const ViewOccasion = () => {
          .catch((error) => console.log(error));
    }, [id]);
 
-   function removeOccasion(e) {
-      e.preventDefault();
+   function removeOccasion() {
       deleteOccasion(id)
-         .then((occasion) => {
-            dispatch({
-               type: "deleteOccasion",
-               data: id,
-            });
-            return navigate("/events");
-         })
-
+         .then(navigate("/"))
          .catch((error) => console.log(error));
    }
 
@@ -45,11 +35,11 @@ const ViewOccasion = () => {
          {occasion ? (
             <>
                <Container>
-                  <Container>
+                  <Container align="center">
                      <Typography variant="h5">{occasion.name}</Typography>
                   </Container>
                   <Paper>
-                     <Container >
+                     <Container>
                         <p>
                            <strong>Event Description:</strong>{" "}
                            {occasion.description}
@@ -67,16 +57,15 @@ const ViewOccasion = () => {
                            <strong>Time:</strong> {occasion.time}
                         </p>
                         <p>
-                           <strong>Primary Contact:</strong>{" "}
+                           <strong>Primary Contact:</strong>
                            {occasion.contact_name}
                         </p>
                         <p>
-                           <strong>Primary Phone:</strong>{" "}
+                           <strong>Primary Phone:</strong>
                            {occasion.contact_phone}
                         </p>
                      </Container>
                   </Paper>
-
                   <div>
                      <Grid container spacing={2} justify="center">
                         <Grid item>
@@ -92,9 +81,21 @@ const ViewOccasion = () => {
                         </Grid>
                         <Grid item>
                            <Link
-                              to="/events"
+                              to={`events/update/${occasion.id}`}
                               style={{ textDecoration: "none" }}
                            >
+                              <Button
+                                 size="small"
+                                 type="submit"
+                                 variant="contained"
+                                 color="primary"
+                              >
+                                 Edit Event
+                              </Button>
+                           </Link>
+                        </Grid>
+                        <Grid item>
+                           <Link to="/" style={{ textDecoration: "none" }}>
                               <Button
                                  size="small"
                                  type="submit"
