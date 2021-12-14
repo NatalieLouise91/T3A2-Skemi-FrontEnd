@@ -92,7 +92,7 @@ const ViewOccasion = () => {
                         </Grid>
                         <Grid item>
                            <Link
-                              to="/events"
+                              to="/"
                               style={{ textDecoration: "none" }}
                            >
                               <Button

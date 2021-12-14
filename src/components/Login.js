@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { signIn } from '../services/authServices';
 import { useGlobalState } from '../utils/stateContext';
+import { useNavigate } from 'react-router-dom'
 
-export default function Login({ navigate }) {
+export default function Login() {
     const initialFormData = {
         email: "",
         password: ""
@@ -10,7 +11,7 @@ export default function Login({ navigate }) {
 
     const [formData, setFormData] = useState(initialFormData)
     const { dispatch } = useGlobalState();
-
+    let navigate = useNavigate();
     function handleFormData(event) {
         setFormData({
             ...formData,
@@ -24,7 +25,7 @@ export default function Login({ navigate }) {
         .then(({email, jwt}) => {
             dispatch({type: 'setLoggedInUser', data: email})
             dispatch({type: 'setToken', data: jwt})
-            navigate('/home');
+            navigate('/')
         })
         .catch((error) => console.log(error))   
     }
