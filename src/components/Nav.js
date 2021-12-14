@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import {
     AppBar,
     Toolbar,
@@ -8,6 +7,7 @@ import {
     Typography,
     makeStyles,
     useTheme,
+    Button
 } from '@material-ui/core';
 
 
@@ -43,30 +43,27 @@ const Nav = ({loggedInUser, setLoggedInUser}) => {
 
     return (
         <AppBar position="static">
-            <CssBaseline />
             <Toolbar>
-                <Typography variant="h4" className={classes.logo}>
-                    Skemi
-                </Typography>
+                <Typography>Skemi</Typography>
+                <ul>
+                    <Typography><li><Link to="/">Home</Link></li></Typography>
+                </ul>
 
-                <>
-                <Typography><Link to="/">Home</Link></Typography>
-                </>
-                    {loggedInUser?
-                <>
-                    <Typography>{loggedInUser.first_name}</Typography>
-                    <Typography><Link to="/create-event">Create an Event</Link></Typography>
-                    <Typography><Link to="/event-schedule">Event Schedule</Link></Typography>
-                    <Typography><Link to="/home" onClick ={logout}>Logout</Link></Typography>
-                </>
+                {loggedInUser
+                    ?
+                        <ul>
+                            <Typography><li>{loggedInUser.first_name}</li></Typography>
+                            <Button><Link to="/create-event">Create an Event</Link></Button>
+                            <Typography><li><Link to="/event-schedule">Event Schedule</Link></li></Typography>
+                            <Typography><li><Link to="/home" onClick ={logout}>Logout</Link></li></Typography>
+                        </ul>
                     :
+                        <ul>
+                            <Typography><li><Link to="/login">Login</Link></li></Typography>
+                            <Typography><li><Link to="/new-user">Register</Link></li></Typography>
+                        </ul>
 
-                <>
-                    <Typography><Link to="/login">Login</Link></Typography>
-                    <Typography><Link to="/new-user">Register</Link></Typography>
-                </>
-                    }
-
+                }
             </Toolbar>
         </AppBar>
     )

@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import { InputLabel } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Container, Paper } from '@mui/material';
 
 
 const useStyles = makeStyles({
@@ -53,104 +54,105 @@ export default function NewUser() {
 
     }
     return (
-        <div>
-            <h1>User Registration</h1>
+        <Container maxWidth='sm'>
+            <Paper style={{ padding: 24, marginTop: 24 }}>
+                <h1>User Registration</h1>
 
-            <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
 
-                <TextField type="text" name="email" id="email" value={formData.email} onChange={handleFormData}
-                    className={classes.field} 
-                    label="Email"
-                    variant="outlined"
-                    fullWidth
-                    required
-                />
-                {/* <label htmlFor="email">Email</label> */}
-                {/* <input type="text" name="email" id="email" value={formData.email} onChange={handleFormData}/> */}
+                    <TextField type="text" name="email" id="email" value={formData.email} onChange={handleFormData}
+                        className={classes.field} 
+                        label="Email"
+                        variant="outlined"
+                        fullWidth
+                        required
+                    />
+                    {/* <label htmlFor="email">Email</label> */}
+                    {/* <input type="text" name="email" id="email" value={formData.email} onChange={handleFormData}/> */}
 
-                <TextField type="password" name="password" id="password" value={formData.password} onChange={handleFormData}
-                    className={classes.field} 
-                    label="Password"
-                    variant="outlined"
-                    fullWidth
-                    required
-                />
+                    <TextField type="password" name="password" id="password" value={formData.password} onChange={handleFormData}
+                        className={classes.field} 
+                        label="Password"
+                        variant="outlined"
+                        fullWidth
+                        required
+                    />
 
-                {/* <label htmlFor="password">Password</label> */}
-                {/* <input type="password" name="password" id="password" value={formData.password} onChange={handleFormData}/> */}
+                    {/* <label htmlFor="password">Password</label> */}
+                    {/* <input type="password" name="password" id="password" value={formData.password} onChange={handleFormData}/> */}
 
-                <TextField type="password" name="password_confirmation" id="password_confirmation" value={formData.password_confirmation} onChange={handleFormData}
-                    className={classes.field} 
-                    label="Password Confirmation"
-                    variant="outlined"
-                    fullWidth
-                    required
-                />
+                    <TextField type="password" name="password_confirmation" id="password_confirmation" value={formData.password_confirmation} onChange={handleFormData}
+                        className={classes.field} 
+                        label="Password Confirmation"
+                        variant="outlined"
+                        fullWidth
+                        required
+                    />
 
-                {/* <label htmlFor="password_confirmation">Password Confirmation</label>
-                <input type="password" name="password_confirmation" id="password_confirmation" value={formData.password_confirmation} onChange={handleFormData}/> */}
+                    {/* <label htmlFor="password_confirmation">Password Confirmation</label>
+                    <input type="password" name="password_confirmation" id="password_confirmation" value={formData.password_confirmation} onChange={handleFormData}/> */}
 
-                <TextField type="text" name="first_name" id="first_name" value={formData.first_name} onChange={handleFormData}
-                    className={classes.field} 
-                    label="First Name"
-                    variant="outlined"
-                    fullWidth
-                    required
-                />
+                    <TextField type="text" name="first_name" id="first_name" value={formData.first_name} onChange={handleFormData}
+                        className={classes.field} 
+                        label="First Name"
+                        variant="outlined"
+                        fullWidth
+                        required
+                    />
 
-                {/* <label htmlFor="first_name">First Name</label>
-                <input type="text" name="first_name" id="first_name" value={formData.first_name} onChange={handleFormData}/> */}
+                    {/* <label htmlFor="first_name">First Name</label>
+                    <input type="text" name="first_name" id="first_name" value={formData.first_name} onChange={handleFormData}/> */}
 
-                <TextField type="text" name="last_name" id="last_name" value={formData.last_name} onChange={handleFormData}
-                    className={classes.field} 
-                    label="Last Name"
-                    variant="outlined"
-                    fullWidth
-                    required
-                />
+                    <TextField type="text" name="last_name" id="last_name" value={formData.last_name} onChange={handleFormData}
+                        className={classes.field} 
+                        label="Last Name"
+                        variant="outlined"
+                        fullWidth
+                        required
+                    />
 
-                {/* <label htmlFor="last_name">Last Name</label>
-                <input type="text" name="last_name" id="last_name" value={formData.last_name} onChange={handleFormData}/> */}
+                    {/* <label htmlFor="last_name">Last Name</label>
+                    <input type="text" name="last_name" id="last_name" value={formData.last_name} onChange={handleFormData}/> */}
 
-                <TextField type="text" name="phone" id="phone" value={formData.phone} onChange={handleFormData}
-                    className={classes.field} 
-                    label="Phone"
-                    variant="outlined"
-                    fullWidth
-                    required
-                />
+                    <TextField type="text" name="phone" id="phone" value={formData.phone} onChange={handleFormData}
+                        className={classes.field} 
+                        label="Phone"
+                        variant="outlined"
+                        fullWidth
+                        required
+                    />
 
-                {/* <label htmlFor="phone">Phone Number</label>
-                <input type="text" name="phone" id="phone" value={formData.phone} onChange={handleFormData}/> */}
-                
+                    {/* <label htmlFor="phone">Phone Number</label>
+                    <input type="text" name="phone" id="phone" value={formData.phone} onChange={handleFormData}/> */}
+                    
 
-                <InputLabel id="role">Role</InputLabel>
-                <Select 
-                    labelId ="job"
-                    id="job"
-                    label="Role"
-                    name="job"
-                    value={formData.job} 
-                    onChange={handleFormData}
-                >
-                    <MenuItem value="WaitStaff">Wait Staff</MenuItem>
-                    <MenuItem value="BarStaff">Bar Staff</MenuItem>
-                    <MenuItem value="Chef">Chef</MenuItem>
-                
-                </Select>
+                    <InputLabel id="role">Role</InputLabel>
+                    <Select 
+                        labelId ="job"
+                        id="job"
+                        label="Role"
+                        name="job"
+                        value={formData.job} 
+                        onChange={handleFormData}
+                    >
+                        <MenuItem value="WaitStaff">Wait Staff</MenuItem>
+                        <MenuItem value="BarStaff">Bar Staff</MenuItem>
+                        <MenuItem value="Chef">Chef</MenuItem>
+                    
+                    </Select>
 
-                {/* <label htmlFor="job">Job Department</label> */}
+                    {/* <label htmlFor="job">Job Department</label> */}
 
-                {/* <select name="job" id="job" value={formData.job} onChange={handleFormData}>
-                    <option value = "bar">Bar Staff</option>
-                    <option value = "bar">Wait Staff</option>
-                    <option value = "bar">Chef</option>
-                </select> */}
-            
-                <Button type="submit" color="primary">Login</Button>
+                    {/* <select name="job" id="job" value={formData.job} onChange={handleFormData}>
+                        <option value = "bar">Bar Staff</option>
+                        <option value = "bar">Wait Staff</option>
+                        <option value = "bar">Chef</option>
+                    </select> */}
 
-            </form>
-            
-        </div>
+                    <Button type="submit" color="primary">Login</Button>
+
+                </form>
+            </Paper>
+        </Container>
     )
 }
