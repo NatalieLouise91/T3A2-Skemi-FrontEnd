@@ -36,37 +36,42 @@ const ViewOccasion = () => {
             <>
                <Container>
                   <Container align="center">
-                     <Typography variant="h5">{occasion.name}</Typography>
+                     <Typography
+                        variant="h5"
+                        style={{ padding: 5, marginTop: 25 }}
+                     >
+                        {occasion.name}
+                     </Typography>
                   </Container>
-                  <Paper>
-                     <Container>
+                  <Paper style={{ padding: 24, marginTop: 25 }}>
+                     <div>
                         <p>
-                           <strong>Event Description:</strong>{" "}
-                           {occasion.description}
+                           <strong>Date: </strong> {occasion.date}
                         </p>
                         <p>
-                           <strong>Date:</strong> {occasion.date}
+                           <strong>Attendees: </strong> {occasion.attendees}
                         </p>
                         <p>
-                           <strong>Attendees:</strong> {occasion.attendees}
+                           <strong>Location: </strong> {occasion.location}
                         </p>
                         <p>
-                           <strong>Location:</strong> {occasion.location}
+                           <strong>Time: </strong> {occasion.time}
                         </p>
                         <p>
-                           <strong>Time:</strong> {occasion.time}
-                        </p>
-                        <p>
-                           <strong>Primary Contact:</strong>
+                           <strong>Primary Contact: </strong>
                            {occasion.contact_name}
                         </p>
                         <p>
-                           <strong>Primary Phone:</strong>
+                           <strong>Primary Phone: </strong>
                            {occasion.contact_phone}
                         </p>
-                     </Container>
+                        <p>
+                           <strong>Event Description: </strong>{" "}
+                           {occasion.description}
+                        </p>
+                     </div>
                   </Paper>
-                  <div>
+                  <Container style={{ padding: 24, marginTop: 25 }}>
                      <Grid container spacing={2} justify="center">
                         <Grid item>
                            <Button
@@ -107,7 +112,7 @@ const ViewOccasion = () => {
                            </Link>
                         </Grid>
                      </Grid>
-                  </div>
+                  </Container>
                </Container>
             </>
          ) : (

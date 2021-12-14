@@ -40,7 +40,11 @@ const Home = () => {
          <CssBaseline />
          <StateContext.Provider value={{ store, dispatch }}>
             <Container maxWidth="sm">
-               <Typography variant="h4" textAlign="center">
+               <Typography
+                  variant="h4"
+                  align="center"
+                  style={{ padding: 24, marginTop: 5 }}
+               >
                   Upcoming Events
                </Typography>
                <Link to="/create-event" style={{ textDecoration: "none" }}>
