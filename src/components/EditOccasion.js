@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGlobalState } from "../utils/stateContext";
 import { Button, TextField, Container, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { createOccasion } from "../services/occasionServices";
+import { updateOccasion, getOccasionById } from "../services/occasionServices";
 import "@fontsource/roboto/400.css";
 
 const useStyles = makeStyles({
@@ -15,8 +15,6 @@ const useStyles = makeStyles({
 });
 
 const CreateOccasion = () => {
-   const classes = useStyles();
-
    const initialFormData = {
       name: "",
       description: "",
@@ -28,9 +26,19 @@ const CreateOccasion = () => {
       contact_phone: "",
    };
 
+   const classes = useStyles();
+   const { id } = useParams();
    const [formData, setFormData] = useState(initialFormData);
    const { dispatch } = useGlobalState();
+
+   useEffect(() => {
+      getOccasionById(id)
+         .then((occasion) => setFormData(occasion))
+         .catch((error) => console.log(error));
+   }, [id]);
+
    let navigate = useNavigate();
+   console.log(dispatch);
 
    function handleFormData(event) {
       setFormData({
@@ -41,15 +49,10 @@ const CreateOccasion = () => {
 
    function handleSubmit(event) {
       event.preventDefault();
-      createOccasion(formData).then((occasion) => {
-         dispatch({
-            type: "addOccasion",
-            data: occasion,
-         });
+      updateOccasion(formData).then(() => {
          navigate("/");
       });
    }
-
    return (
       <Container maxWidth="md">
          <Typography variant="h4"> Create New Event</Typography>
@@ -69,8 +72,6 @@ const CreateOccasion = () => {
                fullWidth
                required
             />
-            {/* <label htmlFor="email">Email</label> */}
-            {/* <input type="text" name="email" id="email" value={formData.email} onChange={handleFormData}/> */}
 
             <TextField
                InputLabelProps={{ shrink: true }}

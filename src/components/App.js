@@ -10,21 +10,17 @@ import Home from './Home';
 import Login from './Login';
 import NewUser from './NewUser';
 
-import {
-  BrowserRouter,
-  Route,
-  Routes
-} from 'react-router-dom'
-import { CssBaseline } from '@mui/material';
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { CssBaseline } from "@mui/material";
 
 const App = () => {
+   const initialState = {
+      loggedInUser: null,
+      auth: { token: null },
+   };
 
-  const initialState = {
-    loggedInUser: null,
-    auth: {token: null}
-  }
-
-  const [store, dispatch] = useReducer(stateReducer, initialState);
+   const [store, dispatch] = useReducer(stateReducer, initialState);
 
   return (
     <div>
