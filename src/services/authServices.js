@@ -1,3 +1,5 @@
+import skemiAPI from "../config/api";
+
 export async function signUp(data) {
     return {
         username: "Test",

@@ -3,6 +3,7 @@ import { StateContext } from '../utils/stateContext';
 import stateReducer from '../utils/stateReducer';
 import Nav from './Nav';
 import CreateOccasion from './CreateOccasion';
+import CreateRoster from './CreateRoster';
 import ViewOccasion from './ViewOccasion';
 import EventSchedule from './EventSchedule';
 import Home from './Home';
@@ -32,6 +33,7 @@ const App = () => {
             <Routes>
               <Route exact path="/" element={<Home/>}/>
               <Route path="/create-event" element={<CreateOccasion />}/>
+              <Route path="/create-roster" element={<CreateRoster />}/>
               <Route path="/event-schedule" element={<EventSchedule/>}/>
               <Route path="/login" element={<Login/>}/>
               <Route path="/new-user" element={<NewUser/>}/>
