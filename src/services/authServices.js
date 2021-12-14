@@ -1,4 +1,5 @@
-import skemiAPI from "../config/api.js"
+
+import skemiAPI from "../config/api";
 
 export async function signUp(data) {
     const response = await skemiAPI.post(`api/auth/sign_up`,data)
