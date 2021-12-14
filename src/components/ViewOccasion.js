@@ -6,15 +6,13 @@ import {
    Paper,
    Typography,
    Grid,
+   Button,
 } from "@material-ui/core";
 import { getOccasionById, deleteOccasion } from "../services/occasionServices";
 import { useGlobalState } from "../utils/stateContext";
 
-import { Button } from "@material-ui/core";
-
 const ViewOccasion = () => {
    const { dispatch } = useGlobalState();
-   // const { loggedInUser } = store;
    const [occasion, setOccasion] = useState();
    const { id } = useParams();
    const navigate = useNavigate();
@@ -25,17 +23,9 @@ const ViewOccasion = () => {
          .catch((error) => console.log(error));
    }, [id]);
 
-   function removeOccasion(e) {
-      e.preventDefault();
+   function removeOccasion() {
       deleteOccasion(id)
-         .then((occasion) => {
-            dispatch({
-               type: "deleteOccasion",
-               data: id,
-            });
-            return navigate("/events");
-         })
-
+         .then(navigate("/"))
          .catch((error) => console.log(error));
    }
 
@@ -45,39 +35,43 @@ const ViewOccasion = () => {
          {occasion ? (
             <>
                <Container>
-                  <Container>
-                     <Typography variant="h5">{occasion.name}</Typography>
+                  <Container align="center">
+                     <Typography
+                        variant="h5"
+                        style={{ padding: 5, marginTop: 25 }}
+                     >
+                        {occasion.name}
+                     </Typography>
                   </Container>
-                  <Paper>
-                     <Container >
+                  <Paper style={{ padding: 24, marginTop: 25 }}>
+                     <div>
                         <p>
-                           <strong>Event Description:</strong>{" "}
-                           {occasion.description}
+                           <strong>Date: </strong> {occasion.date}
                         </p>
                         <p>
-                           <strong>Date:</strong> {occasion.date}
+                           <strong>Attendees: </strong> {occasion.attendees}
                         </p>
                         <p>
-                           <strong>Attendees:</strong> {occasion.attendees}
+                           <strong>Location: </strong> {occasion.location}
                         </p>
                         <p>
-                           <strong>Location:</strong> {occasion.location}
+                           <strong>Time: </strong> {occasion.time}
                         </p>
                         <p>
-                           <strong>Time:</strong> {occasion.time}
-                        </p>
-                        <p>
-                           <strong>Primary Contact:</strong>{" "}
+                           <strong>Primary Contact: </strong>
                            {occasion.contact_name}
                         </p>
                         <p>
-                           <strong>Primary Phone:</strong>{" "}
+                           <strong>Primary Phone: </strong>
                            {occasion.contact_phone}
                         </p>
-                     </Container>
+                        <p>
+                           <strong>Event Description: </strong>{" "}
+                           {occasion.description}
+                        </p>
+                     </div>
                   </Paper>
-
-                  <div>
+                  <Container style={{ padding: 24, marginTop: 25 }}>
                      <Grid container spacing={2} justify="center">
                         <Grid item>
                            <Button
@@ -92,9 +86,25 @@ const ViewOccasion = () => {
                         </Grid>
                         <Grid item>
                            <Link
+<<<<<<< HEAD
                               to="/"
+=======
+                              to={`events/update/${occasion.id}`}
+>>>>>>> c88d01f949da1f2af711c77b597c176430c21174
                               style={{ textDecoration: "none" }}
                            >
+                              <Button
+                                 size="small"
+                                 type="submit"
+                                 variant="contained"
+                                 color="primary"
+                              >
+                                 Edit Event
+                              </Button>
+                           </Link>
+                        </Grid>
+                        <Grid item>
+                           <Link to="/" style={{ textDecoration: "none" }}>
                               <Button
                                  size="small"
                                  type="submit"
@@ -106,7 +116,7 @@ const ViewOccasion = () => {
                            </Link>
                         </Grid>
                      </Grid>
-                  </div>
+                  </Container>
                </Container>
             </>
          ) : (

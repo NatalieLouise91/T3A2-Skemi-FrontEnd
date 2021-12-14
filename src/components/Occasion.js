@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 
 const Occasion = ({ occasion }) => {
    return (
       <>
          <div>
-            <p>
-               <strong>Event:</strong> {occasion.name}
-            </p>
+            <Typography align="center" variant="h5">
+               {occasion.name}
+            </Typography>
             <p>
                <strong>Description:</strong> {occasion.description}
             </p>
