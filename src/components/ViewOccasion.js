@@ -86,11 +86,7 @@ const ViewOccasion = () => {
                         </Grid>
                         <Grid item>
                            <Link
-<<<<<<< HEAD
-                              to="/"
-=======
                               to={`events/update/${occasion.id}`}
->>>>>>> c88d01f949da1f2af711c77b597c176430c21174
                               style={{ textDecoration: "none" }}
                            >
                               <Button

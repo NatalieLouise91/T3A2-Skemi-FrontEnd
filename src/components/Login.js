@@ -23,6 +23,7 @@ export default function Login() {
         event.preventDefault()
         signIn(formData)
         .then(({email, jwt}) => {
+            console.log(email,jwt)
             dispatch({type: 'setLoggedInUser', data: email})
             dispatch({type: 'setToken', data: jwt})
             navigate('/')

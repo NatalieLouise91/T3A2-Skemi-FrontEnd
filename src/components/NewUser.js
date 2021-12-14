@@ -149,7 +149,7 @@ export default function NewUser() {
                         <option value = "bar">Chef</option>
                     </select> */}
 
-                    <Button type="submit" color="primary">Login</Button>
+                    <Button onClick={handleSubmit} type="submit" color="primary">Register</Button>
 
                 </form>
             </Paper>
