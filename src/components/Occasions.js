@@ -15,7 +15,7 @@ const Occasions = () => {
             {occasionList.map(
                (occasion, index) => (
                   <Grid item key={index} xs={12} md={6} lg={4}>
-                     <Paper><Occasion occasion={occasion} /></Paper>
+                     <Paper style={{ padding: 24, marginTop: 24 }}><Occasion occasion={occasion} /></Paper>
                   </Grid>
                )
             )}
