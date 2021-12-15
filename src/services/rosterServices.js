@@ -1,6 +1,6 @@
 import skemiAPI from "../config/api";
 
-export async function getRoster() {
+export async function getRosters() {
     const response = await skemiAPI.get("/api/rosters");
     console.log(response);
     return response.data;

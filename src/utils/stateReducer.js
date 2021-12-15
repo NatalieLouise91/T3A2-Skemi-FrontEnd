@@ -24,6 +24,21 @@ export default function reducer(state, action) {
       //       // updatedOccasionList,
       //    };
       // }
+      case "setRosterList": {
+          return{
+              ...state,
+              rosterList: action.data,
+          };
+      }
+      
+      case "addRoster": {
+          return {
+              ...state,
+              rosterList: action.data,
+          };
+      }
+
+
 
       case "setLoggedInUser": {
          return {

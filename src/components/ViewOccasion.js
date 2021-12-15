@@ -53,7 +53,7 @@ const ViewOccasion = () => {
                            variant="h5"
                            style={{ padding: 5, marginTop: 25 }}
                         >
-                           {occasion.name}
+                           <h1>{occasion.name}</h1>
                         </Typography>
                      </Container>
                      <Paper
@@ -127,6 +127,38 @@ const ViewOccasion = () => {
                               </Grid>
                            </Grid>
                         </Container>
+                     </Paper>
+                  </Container>
+                  <Container>
+                    <Paper 
+                        elevation={5}
+                        style={{ padding: 24, marginTop: 25 }}>
+                        <Container
+                            align="center"
+                         >
+                        <Typography
+                           variant="h4"
+                           style={{ padding: 5, marginTop: 25 }}
+                        >
+                           Roster
+                        </Typography>
+                     </Container>
+                         
+                         <Grid
+                            align="center"
+                         >
+                         <Link to="/create-roster" style={{ textDecoration: "none" }}>
+                            <Button
+                                size="small"
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                style={{padding: 5, marginTop: 25 }}
+                                >
+                                Add Shifts   
+                            </Button>
+                        </Link>
+                         </Grid>
                      </Paper>
                   </Container>
                </>

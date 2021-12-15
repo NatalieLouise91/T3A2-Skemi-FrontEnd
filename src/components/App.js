@@ -9,6 +9,8 @@ import EventSchedule from './EventSchedule';
 import Home from './Home';
 import Login from './Login';
 import NewUser from './NewUser';
+import Rosters from './Rosters';
+import ViewRoster from './ViewRoster';
 
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -33,6 +35,8 @@ const App = () => {
               <Route path="/create-event" element={<CreateOccasion />}/>
               <Route path="/create-roster" element={<CreateRoster />}/>
               <Route path="/event-schedule" element={<EventSchedule/>}/>
+              <Route path="/rosters" element={<Rosters/>}/>
+              <Route path="/rosters/:id" element={<ViewRoster/>}/>
               <Route path="/login" element={<Login/>}/>
               <Route path="/new-user" element={<NewUser/>}/>
               <Route path="/events/:id" element={<ViewOccasion />} />

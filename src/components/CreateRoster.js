@@ -33,22 +33,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CreateRoster() {
 
+    const times = ["0:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"]
+
     const classes = useStyles();
 
     const [inputField, setInputField] = useState([
-        { job_category: "", first_name: "", last_name: ""},
+        { start_time: "", end_time: "", job_category: "", first_name: "", last_name: ""},
     ]);
 
     const { dispatch } = useGlobalState();
     let navigate = useNavigate();
     console.log(dispatch);
-
-    // function handleFormData(event) {
-    //     setInputField({
-    //         ...inputField,
-    //         [event.target.name]: event.target.value,
-    //     });
-    // }
 
     const handleChangeInput = (index, event) => {
         const values = [...inputField];
@@ -58,14 +53,17 @@ export default function CreateRoster() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        createRoster(inputField).then((user) => {
-            dispatch({ type: "setLoggedInUser", data: user.first_name });
+        createRoster(inputField).then((roster) => {
+            dispatch({ 
+                type: "addRoster", 
+                data: roster 
+            });
             navigate("/");
         });
     }
 
     const handleAddFields = () => {
-        setInputField([...inputField, { job_category: "", first_name: "", last_name: "" }])
+        setInputField([...inputField, { start_time: "", end_time: "", job_category: "", first_name: "", last_name: "" }])
     }
 
     const handleRemoveFields = (index) => {
@@ -83,6 +81,52 @@ export default function CreateRoster() {
 
                 { inputField.map((inputField, index) => (
                     <div key={index}>
+
+                        <InputLabel 
+                            id="start_time"
+                            className={classes.field}
+                            > 
+                            Start Time
+                        </InputLabel>
+
+                        <Select 
+                            labelId ="start_time"
+                            id="start_time"
+                            label="start_time"
+                            name="start_time"
+                            className={classes.field}
+                            required
+                            fullWidth
+                            value={inputField.start_time} 
+                            onChange={event => handleChangeInput(index, event)}
+                        >
+                            {times.map((element, index) => 
+                            <MenuItem key={index} value={element}>{element}</MenuItem>)}
+                        </Select>
+
+
+                        <InputLabel 
+                            id="end_time"
+                            className={classes.field}
+                            > 
+                            End Time
+                        </InputLabel>
+
+                        <Select 
+                            labelId ="end_time"
+                            id="end_time"
+                            label="end_time"
+                            name="end_time"
+                            className={classes.field}
+                            required
+                            fullWidth
+                            value={inputField.end_time} 
+                            onChange={event => handleChangeInput(index, event)}
+                        >
+                            {times.map((element, index) => 
+                            <MenuItem key={index} value={element}>{element}</MenuItem>)}
+                        </Select>
+
                         <InputLabel 
                             id="role"
                             className={classes.field}
@@ -105,11 +149,6 @@ export default function CreateRoster() {
                             <MenuItem value="waiter">Waiter</MenuItem>
                             <MenuItem value="bartender">Bartender</MenuItem>
                             <MenuItem value="chef">Chef</MenuItem>
-                        {/* { role_list.map((role_list, index) => (
-                            <MenuItem value={index}>{role_list[1]["role"]}</MenuItem>
-                        ))} */}
-
-                        
                         </Select>
                         
                         <InputLabel 
@@ -187,19 +226,3 @@ export default function CreateRoster() {
         </Container>
     )
 }
-
-
-let team_members = [
-    {id:1, first_name: "Jane", last_name: "Doe"},
-    {id:2, first_name: "John", last_name: "Smith"},
-    {id:3, first_name: "Jack", last_name: "Sparrow"},
-    {id:4, first_name: "Harry", last_name: "Potter"}
-]
-
-let role_list = [
-    {id:1, role: "waiter"},
-    {id:2, role: "bartender"},
-    {id:3, role: "chef"}
-]
-
-
