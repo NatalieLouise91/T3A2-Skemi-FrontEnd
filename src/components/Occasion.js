@@ -10,16 +10,9 @@ const Occasion = ({ occasion }) => {
                {occasion.name}
             </Typography>
             <p>
-               <strong>Description:</strong> {occasion.description}
+               <strong>Date: </strong> {occasion.date}
             </p>
-            <p>
-               <strong>Date:</strong> {occasion.date}
-            </p>
-            {/* <p>{occasion.attendees}</p>
-            <p>{occasion.location}</p>
-            <p>{occasion.time}</p>
-            <p>{occasion.contact_name}</p>
-            <p>{occasion.contact_phone}</p> */}
+            <p>Time: {occasion.time}</p>
             <div>
                <Link
                   to={`/events/${occasion.id}`}

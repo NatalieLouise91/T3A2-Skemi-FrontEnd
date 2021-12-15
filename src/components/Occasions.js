@@ -12,13 +12,13 @@ const Occasions = () => {
    return (
       <>
          <Grid container>
-            {occasionList.map(
-               (occasion, index) => (
-                  <Grid item key={index} xs={12} md={6} lg={4}>
-                     <Paper style={{ padding: 24, marginTop: 24 }}><Occasion occasion={occasion} /></Paper>
-                  </Grid>
-               )
-            )}
+            {occasionList.map((occasion, index) => (
+               <Grid item key={index} xs={12} md={6} lg={4}>
+                  <Paper style={{ padding: 24, marginTop: 24 }} elevation={5}>
+                     <Occasion occasion={occasion} />
+                  </Paper>
+               </Grid>
+            ))}
          </Grid>
       </>
    );
