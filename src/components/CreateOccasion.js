@@ -58,7 +58,7 @@ const CreateOccasion = () => {
 
    return (
       <Container maxWidth="sm">
-         <Paper style={{ padding: 24, marginTop: 24 }}>
+         <Paper elevation={5} style={{ padding: 24, marginTop: 24 }}>
             <Typography variant="h4"> Create New Event</Typography>
             <form onSubmit={handleSubmit}>
                <TextField
@@ -75,9 +75,6 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
-               {/* <label htmlFor="email">Email</label> */}
-               {/* <input type="text" name="email" id="email" value={formData.email} onChange={handleFormData}/> */}
-
                <TextField
                   InputLabelProps={{ shrink: true }}
                   type="text"
@@ -92,10 +89,6 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
-
-               {/* <label htmlFor="password">Password</label> */}
-               {/* <input type="password" name="password" id="password" value={formData.password} onChange={handleFormData}/> */}
-
                <TextField
                   InputLabelProps={{ shrink: true }}
                   type="date"
@@ -110,10 +103,6 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
-
-               {/* <label htmlFor="password_confirmation">Password Confirmation</label>
-                <input type="password" name="password_confirmation" id="password_confirmation" value={formData.password_confirmation} onChange={handleFormData}/> */}
-
                <TextField
                   InputLabelProps={{ shrink: true }}
                   type="text"
@@ -128,10 +117,6 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
-
-               {/* <label htmlFor="attendees">First Name</label>
-                <input type="text" name="attendees" id="first_name" value={formData.first_name} onChange={handleFormData}/> */}
-
                <TextField
                   InputLabelProps={{ shrink: true }}
                   type="text"
@@ -146,10 +131,6 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
-
-               {/* <label htmlFor="location">Last Name</label>
-                <input type="text" name="last_name" id="last_name" value={formData.last_name} onChange={handleFormData}/> */}
-
                <TextField
                   InputLabelProps={{ shrink: true }}
                   type="text"
@@ -164,7 +145,6 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
-
                <TextField
                   InputLabelProps={{ shrink: true }}
                   type="text"
@@ -179,7 +159,6 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
-
                <TextField
                   InputLabelProps={{ shrink: true }}
                   type="text"
@@ -194,7 +173,6 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
-
                <Button type="submit" variant="contained" color="primary">
                   Create Event
                </Button>

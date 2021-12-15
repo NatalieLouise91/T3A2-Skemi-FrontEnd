@@ -25,7 +25,7 @@ export async function deleteOccasion(id) {
 }
 
 export async function updateOccasion(id) {
-   const response = await skemiAPI.update(`/api/events/${id}`);
+   const response = await skemiAPI.put(`/api/events/${id}`);
    console.log(response.data);
    return response.data;
 }

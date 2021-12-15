@@ -52,7 +52,11 @@ const Home = () => {
                      Create Event
                   </Button>
                </Link>
-               <Occasions />
+               <Grid spacing={10}>
+                  <Grid item>
+                     <Occasions />
+                  </Grid>
+               </Grid>
             </Container>
          </StateContext.Provider>
       </>
