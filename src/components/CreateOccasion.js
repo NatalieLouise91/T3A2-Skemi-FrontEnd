@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGlobalState } from "../utils/stateContext";
 import {
    Button,
@@ -9,9 +9,12 @@ import {
    Paper,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { createOccasion } from "../services/occasionServices";
+import {
+   createOccasion,
+   getOccasionById,
+   updateOccasion,
+} from "../services/occasionServices";
 import "@fontsource/roboto/400.css";
-
 const useStyles = makeStyles({
    field: {
       marginTop: 20,
@@ -22,7 +25,6 @@ const useStyles = makeStyles({
 
 const CreateOccasion = () => {
    const classes = useStyles();
-
    const initialFormData = {
       name: "",
       description: "",
@@ -33,10 +35,35 @@ const CreateOccasion = () => {
       contact_name: "",
       contact_phone: "",
    };
-
    const [formData, setFormData] = useState(initialFormData);
-   const { dispatch } = useGlobalState();
+   const { dispatch, store } = useGlobalState();
    let navigate = useNavigate();
+   let { id } = useParams();
+   const { occasions } = store;
+
+   useEffect(() => {
+      if (id) {
+         getOccasionById(id).then((occasion) => {
+            setFormData({
+               name: occasion.name,
+               description: occasion.description,
+               date: occasion.date,
+               attendees: occasion.attendees,
+               location: occasion.location,
+               time: occasion.time,
+               contact_name: occasion.contact_name,
+               contact_phone: occasion.contact_phone,
+            });
+         });
+      }
+   }, [id]);
+
+   function getLastId() {
+      console.log(occasions);
+      const ids = occasions.map((occasion) => occasion.id);
+      console.log(ids);
+      return Math.max(...ids);
+   }
 
    function handleFormData(event) {
       setFormData({
@@ -47,14 +74,33 @@ const CreateOccasion = () => {
 
    function handleSubmit(event) {
       event.preventDefault();
-      createOccasion(formData).then((occasion) => {
-         dispatch({
-            type: "addOccasion",
-            data: occasion,
+      console.log(id)
+      if (id) {
+         updateOccasion({ id: id, ...formData }).then((occasion) => {
+            dispatch({ type: "updateOccasion", data: { id: id, ...formData } });
+            navigate(`/event/${id}`);
          });
-         navigate("/");
-      });
+      } else {
+         const nextId = getLastId() + 1;
+         createOccasion({ ...formData, id: nextId })
+            .then((occasion) => {
+               dispatch({ type: "addOccasion", data: occasion });
+               navigate("/");
+            })
+            .catch((error) => console.log(error));
+      }
    }
+
+   // function handleSubmit(event) {
+   //    event.preventDefault();
+   //    createOccasion(formData).then((occasion) => {
+   //       dispatch({
+   //          type: "addOccasion",
+   //          data: occasion,
+   //       });
+   //       navigate("/");
+   //    });
+   // }
 
    return (
       <Container maxWidth="sm">
@@ -173,9 +219,16 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
-               <Button type="submit" variant="contained" color="primary">
-                  Create Event
+               <Button
+                  onClick={handleSubmit}
+                  variant="contained"
+                  color="primary"
+               >
+                  {id ? "Edit Event" : "Create Event"}
                </Button>
+               {/* <Button type="submit" variant="contained" color="primary">
+                  Create Event
+               </Button> */}
             </form>
          </Paper>
       </Container>
