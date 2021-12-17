@@ -13,9 +13,9 @@ export default function reducer(state, action) {
          };
       }
       case "updateOccasion": {
-         const occasion = state.occasions.find((occasion) => occasion.id === action.data.id);
+         const occasion = state.occasions.find((occasion) => occasion.id === parseInt(action.data.id));
          const theRest = state.occasions.filter(
-            (occasion) => occasion.id !== action.data.id
+            (occasion) => occasion.id !== parseInt(action.data.id)
          );
          const updatedOccasion = Object.assign(occasion, action.data);
          return {

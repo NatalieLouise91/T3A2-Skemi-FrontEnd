@@ -60,7 +60,7 @@ const CreateOccasion = () => {
 
    function getLastId() {
       console.log(occasions);
-      const ids = occasions.map((joke) => joke.id);
+      const ids = occasions.map((occasion) => occasion.id);
       console.log(ids);
       return Math.max(...ids);
    }
@@ -74,8 +74,9 @@ const CreateOccasion = () => {
 
    function handleSubmit(event) {
       event.preventDefault();
+      console.log(id)
       if (id) {
-         updateOccasion({ id: id, ...formData }).then(() => {
+         updateOccasion({ id: id, ...formData }).then((occasion) => {
             dispatch({ type: "updateOccasion", data: { id: id, ...formData } });
             navigate(`/event/${id}`);
          });

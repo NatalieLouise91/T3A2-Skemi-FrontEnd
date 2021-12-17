@@ -10,7 +10,6 @@ import {
 } from "@material-ui/core";
 import { getOccasionById, deleteOccasion } from "../services/occasionServices";
 // import { useGlobalState } from "../utils/stateContext";
-import EditOccasion from "./EditOccasion";
 
 const ViewOccasion = () => {
    // const { dispatch } = useGlobalState();
