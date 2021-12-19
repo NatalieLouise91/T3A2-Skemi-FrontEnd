@@ -16,8 +16,8 @@ import { CssBaseline } from "@mui/material";
 const App = () => {
    const initialState = {
       occasions: [],
-      loggedInUser: null,
-      auth: { token: null },
+      loggedInUser: sessionStorage.getItem("user") || null,
+      auth: { token: sessionStorage.getItem("token") || null }
    };
 
    const [store, dispatch] = useReducer(stateReducer, initialState);

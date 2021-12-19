@@ -9,6 +9,7 @@ import {
     useTheme,
     Button
 } from '@material-ui/core';
+import { Logout } from '@mui/icons-material';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,6 +37,11 @@ const Nav = ({loggedInUser, setLoggedInUser}) => {
 
     function logout(event) {
         event.preventDefault();
+        logout(loggedInUser)
+        .then(() => {
+            // dispatch({type: 'setLoggedInUser', data: null})
+            // dispatch({type: 'setToken', data: null})
+    })
         setLoggedInUser("");
     }
     
