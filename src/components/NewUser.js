@@ -47,8 +47,10 @@ export default function NewUser() {
     function handleSubmit(event) {
         event.preventDefault();
         signUp(formData)
-        .then((user) => {
-            dispatch({type: 'setLoggedInUser', data: user.first_name})
+        .then((data) => {
+            sessionStorage.setItem('token', data.jwt)
+            sessionStorage.setItem('user', data.email)
+            dispatch({type: 'setLoggedInUser', data: data.first_name})
             navigate('/')
         })
 
