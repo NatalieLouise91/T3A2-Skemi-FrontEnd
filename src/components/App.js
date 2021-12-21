@@ -12,12 +12,21 @@ import NewUser from "./NewUser";
 import { getOccasions } from "../services/occasionServices";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+   palette: {
+      background: {
+         default: "#FAFAFA",
+      },
+   },
+});
 
 const App = () => {
    const initialState = {
       occasions: [],
       loggedInUser: sessionStorage.getItem("user") || null,
-      auth: { token: sessionStorage.getItem("token") || null }
+      auth: { token: sessionStorage.getItem("token") || null },
    };
 
    const [store, dispatch] = useReducer(stateReducer, initialState);
@@ -32,26 +41,31 @@ const App = () => {
 
    return (
       <div>
-         <CssBaseline />
-         <StateContext.Provider value={{ store, dispatch }}>
-            <BrowserRouter>
-               <Nav />
-               <Routes>
-                  <Route exact path="/" element={<Home />} />
-                  <Route path="/create-event" element={<CreateOccasion />} />
-                  <Route path="/create-roster" element={<CreateRoster />} />
-                  <Route path="/event-schedule" element={<EventSchedule />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/new-user" element={<NewUser />} />
-                  <Route path="/event/:id" element={<ViewOccasion />} />
-                  <Route
-                     exact
-                     path="event/update/:id"
-                     element={<CreateOccasion />}
-                  />
-               </Routes>
-            </BrowserRouter>
-         </StateContext.Provider>
+         <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <StateContext.Provider value={{ store, dispatch }}>
+               <BrowserRouter>
+                  <Nav />
+                  <Routes>
+                     <Route exact path="/" element={<Home />} />
+                     <Route path="/create-event" element={<CreateOccasion />} />
+                     <Route path="/create-roster" element={<CreateRoster />} />
+                     <Route
+                        path="/event-schedule"
+                        element={<EventSchedule />}
+                     />
+                     <Route path="/login" element={<Login />} />
+                     <Route path="/new-user" element={<NewUser />} />
+                     <Route path="/event/:id" element={<ViewOccasion />} />
+                     <Route
+                        exact
+                        path="event/update/:id"
+                        element={<CreateOccasion />}
+                     />
+                  </Routes>
+               </BrowserRouter>
+            </StateContext.Provider>
+         </ThemeProvider>
       </div>
    );
 };
