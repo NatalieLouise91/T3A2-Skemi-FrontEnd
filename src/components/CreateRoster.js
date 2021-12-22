@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGlobalState } from "../utils/stateContext";
 import { createRoster } from "../services/rosterServices"
+import { getOccasions } from "../services/occasionServices";
 import "@fontsource/roboto/400.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { 
@@ -38,10 +39,26 @@ export default function CreateRoster() {
     const classes = useStyles();
 
     const [inputField, setInputField] = useState([
-        { start_time: "", end_time: "", job_category: "", first_name: "", last_name: ""},
+        { select_occasion: "", start_time: "", end_time: "", role: "", name: ""},
     ]);
 
-    const { dispatch } = useGlobalState();
+    const { dispatch, store } = useGlobalState();
+    const { occasionList } = store;
+
+    useEffect(() => {
+        getOccasions()
+           .then((events) => {
+              dispatch({
+                 type: "setOccasionList",
+                 data: events,
+              });
+              console.log(events);
+           })
+           .catch((error) => {
+              console.log(error);
+           });
+     }, []);
+
     let navigate = useNavigate();
     console.log(dispatch);
 
@@ -53,17 +70,20 @@ export default function CreateRoster() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        createRoster(inputField).then((roster) => {
-            dispatch({ 
-                type: "addRoster", 
-                data: roster 
-            });
-            navigate("/");
-        });
+        createRoster(inputField)
+            .then((roster) => {
+                dispatch({ 
+                    type: "addRoster", 
+                    data: roster
+                })
+                navigate("/");   
+            })
+            .catch((error) => console.log(error))
     }
 
+
     const handleAddFields = () => {
-        setInputField([...inputField, { start_time: "", end_time: "", job_category: "", first_name: "", last_name: "" }])
+        setInputField([...inputField, { select_occasion: "", start_time: "", end_time: "", role: "", name: ""}])
     }
 
     const handleRemoveFields = (index) => {
@@ -72,6 +92,8 @@ export default function CreateRoster() {
         setInputField(values);
     }
 
+    
+    const values = Object.values(occasionList);
 
     return (
         <Container maxWidth="md">
@@ -81,6 +103,28 @@ export default function CreateRoster() {
 
                 { inputField.map((inputField, index) => (
                     <div key={index}>
+
+                        <InputLabel
+                            id="select_occasion"
+                            className={classes.field}
+                        >
+                            Select Occasion
+                        </InputLabel>
+                        <Select
+                            labelId="select_occasion"
+                            id="select_occasion"
+                            name="select_occasion"
+                            className={classes.field}
+                            required
+                            fullWidth
+                            value={inputField.select_occasion}
+                            onChange={event => handleChangeInput(index, event)}
+                        >
+                            {values.map((element, index) =>
+                                <MenuItem key={index} value={element}>{element}</MenuItem>)
+                            }
+                        </Select>
+
 
                         <InputLabel 
                             id="start_time"
@@ -135,14 +179,14 @@ export default function CreateRoster() {
                         </InputLabel>
 
                         <Select 
-                            labelId ="job_category"
-                            id="job_category"
+                            labelId ="role"
+                            id="role"
                             label="Role"
-                            name="job_category"
+                            name="role"
                             className={classes.field}
                             required
                             fullWidth
-                            value={inputField.job_category} 
+                            value={inputField.role} 
                             onChange={event => handleChangeInput(index, event)}
                         >
 
@@ -152,41 +196,17 @@ export default function CreateRoster() {
                         </Select>
                         
                         <InputLabel 
-                        id= "first_name"
+                        id= "name"
                         className={classes.field}
                         >
-                            First Name
+                            Name
                         </InputLabel>
                         <Select
-                            labelId= "first_name"
-                            id="first_name"
-                            label="First Name"
-                            name="first_name"
-                            value={inputField.first_name}
-                            className={classes.field}
-                            required
-                            fullWidth
-                            onChange={event => handleChangeInput(index, event)}
-                        >
-                            <MenuItem value="Natalie">Natalie</MenuItem>
-                            <MenuItem value="Jordan">Jordan</MenuItem>
-                            <MenuItem value="Johnny">Johnny</MenuItem>
-                            <MenuItem value="Sam">Sam</MenuItem>
-                            <MenuItem value="Anna">Anna</MenuItem>
-                            <MenuItem value="Stephanie">Stephanie</MenuItem>
-                        </Select>
-                        <InputLabel 
-                        id= "first_name"
-                        className={classes.field}
-                        >
-                            Last Name
-                        </InputLabel>
-                        <Select
-                            labelId= "last_name"
-                            id="last_name"
-                            label="Last Name"
-                            name="last_name"
-                            value={inputField.last_name}
+                            labelId= "name"
+                            id="name"
+                            label="Name"
+                            name="name"
+                            value={inputField.name}
                             className={classes.field}
                             required
                             fullWidth

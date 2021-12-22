@@ -24,17 +24,17 @@ export default function reducer(state, action) {
       //       // updatedOccasionList,
       //    };
       // }
-      case "setRosterList": {
+      case "setRosters": {
           return{
               ...state,
-              rosterList: action.data,
+              rosters: action.data,
           };
       }
       
       case "addRoster": {
           return {
               ...state,
-              rosterList: action.data,
+              rosters: action.data,
           };
       }
 

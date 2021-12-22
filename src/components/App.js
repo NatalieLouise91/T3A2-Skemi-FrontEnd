@@ -1,6 +1,7 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { StateContext } from '../utils/stateContext';
 import stateReducer from '../utils/stateReducer';
+import { getRosters } from '../services/rosterServices';
 import Nav from './Nav';
 import CreateOccasion from './CreateOccasion';
 import CreateRoster from './CreateRoster';
@@ -18,11 +19,18 @@ import { CssBaseline } from "@mui/material";
 
 const App = () => {
    const initialState = {
+      rosters: [],
       loggedInUser: null,
       auth: { token: null },
    };
 
    const [store, dispatch] = useReducer(stateReducer, initialState);
+
+   useEffect(() => {
+     getRosters()
+      .then((rosters) => dispatch({type: 'setRosters', data: rosters}))
+      .catch((error) => console.log(error))
+   }, [])
 
   return (
     <div>

@@ -11,7 +11,7 @@ const Roster = ({ roster }) => {
                   style={{ textDecoration: "none" }}
                >
                 <Typography align="center" variant="h5">
-                {roster.first_name}
+                {roster.name}
                 </Typography>
                 <p>{roster.start_time}-{roster.end_time}</p>
             </Link>    
