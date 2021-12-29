@@ -22,3 +22,9 @@ export async function deleteRoster(id) {
     console.log(response.data);
     return response.data;
 }
+
+export async function updateRoster(data) {
+    const response = await skemiAPI.put(`/api/rosters/${data.id}`, data);
+    console.log(response.data);
+    return response.data;
+}

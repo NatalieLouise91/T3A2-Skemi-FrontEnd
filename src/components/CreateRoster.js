@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGlobalState } from "../utils/stateContext";
-import { createRoster } from "../services/rosterServices"
-import { getOccasions } from "../services/occasionServices";
+import { createRoster, getRoster, updateRoster } from "../services/rosterServices"
+import Occasion from "./Occasion";
 import "@fontsource/roboto/400.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { 
@@ -41,23 +41,16 @@ export default function CreateRoster() {
     const [inputField, setInputField] = useState([
         { select_occasion: "", start_time: "", end_time: "", role: "", name: ""},
     ]);
+    let {id} = useParams();
 
     const { dispatch, store } = useGlobalState();
-    const { occasionList } = store;
+    const { rosters } = store; 
+    const { occasions } = store;
 
-    useEffect(() => {
-        getOccasions()
-           .then((events) => {
-              dispatch({
-                 type: "setOccasionList",
-                 data: events,
-              });
-              console.log(events);
-           })
-           .catch((error) => {
-              console.log(error);
-           });
-     }, []);
+    function getLastId() {
+        const ids = rosters.map((roster) => roster.id);
+        return Math.max(...ids);
+    }
 
     let navigate = useNavigate();
     console.log(dispatch);
@@ -70,15 +63,23 @@ export default function CreateRoster() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        createRoster(inputField)
-            .then((roster) => {
-                dispatch({ 
-                    type: "addRoster", 
-                    data: roster
+        if (id) {
+            updateRoster({ id: id, ...inputField }).then((roster) => {
+                dispatch({ type: "updateRoster", data: { id: id, ...inputField} });
+                navigate(`/roster/${id}`);
+            });
+        } else {
+            const nextId = getLastId() + 1;
+            createRoster({...inputField, id: nextId})
+                .then((roster) => {
+                    dispatch({ 
+                        type: "addRoster", 
+                        data: roster
+                    });
+                    navigate("/rosters");   
                 })
-                navigate("/");   
-            })
-            .catch((error) => console.log(error))
+                .catch((error) => console.log(error));
+        }
     }
 
 
@@ -91,9 +92,6 @@ export default function CreateRoster() {
         values.splice(index, 1);
         setInputField(values);
     }
-
-    
-    const values = Object.values(occasionList);
 
     return (
         <Container maxWidth="md">
@@ -120,9 +118,9 @@ export default function CreateRoster() {
                             value={inputField.select_occasion}
                             onChange={event => handleChangeInput(index, event)}
                         >
-                            {values.map((element, index) =>
-                                <MenuItem key={index} value={element}>{element}</MenuItem>)
-                            }
+                            {/* {occasions.map((occasion) =>
+                                <MenuItem key={occasion.id} value={occasion.id}><Occasion/></MenuItem>)
+                            } */}
                         </Select>
 
 
@@ -218,6 +216,10 @@ export default function CreateRoster() {
                             <MenuItem value="Sam">Sam</MenuItem>
                             <MenuItem value="Anna">Anna</MenuItem>
                             <MenuItem value="Stephanie">Stephanie</MenuItem>
+
+                            {/* {users.map((user, index) => 
+                            <MenuItem key={index} value={user.id}>{user.first_name}, {user.last_name}</MenuItem>)} */}
+
                         </Select>
                     
                         <IconButton
