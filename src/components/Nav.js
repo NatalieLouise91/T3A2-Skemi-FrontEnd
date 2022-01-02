@@ -13,6 +13,7 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import { signOut } from '../services/authServices'
 import LoginIcon from '@mui/icons-material/Login'
 import LogoutIcon from '@mui/icons-material/Logout'
+import { Link } from "react-router-dom";
 
 const Nav = ({ loggedInUser, logout }) => {
   const handleLogout = async event => {
@@ -27,23 +28,23 @@ const Nav = ({ loggedInUser, logout }) => {
         <IconButton
           color="inherit"
           style={{marginRight: 8}}
-          // component={Link}
-          // to='/'
+          component={Link}
+          to='/'
         >
-          <a href='/' style={{ color: 'white' }}><EventNoteIcon fontsize='large' /></a>
+        <EventNoteIcon fontsize='large' />
         </IconButton>
         <Typography variant="h5">Skemi</Typography>
         <div style={{ flexGrow: 1 }} />
         {loggedInUser && <LoggedInTab loggedInUser={loggedInUser} handleLogout={handleLogout} />}
         {!loggedInUser && (
           <Button 
-            // component={Link}
-            // to='/login'
+            component={Link}
+            to='/login'
             style={{ color: "inherit" }}
             size='large'
             endIcon={<LoginIcon />}
           >
-            <a href='/login' style={{ color: 'white' }}>Login</a>
+            Login
           </Button>
         )}
       </Toolbar>
@@ -59,19 +60,19 @@ const LoggedInTab = ({ loggedInUser, handleLogout }) => {
       <ButtonGroup variant='text' color='inherit'>
         <Button 
           size='large'
-          // component={Link}
-          // to='/create-event'
+          component={Link}
+          to='/create-event'
           style={{ marginRight: 10 }}
         >
-          <a href='/create-event' style={{ color: 'white' }}>Create an Event</a>
+          Create an Event
         </Button>
         <Button 
           size='large'
-          // component={Link}
-          // to='/event-schedule'
+          component={Link}
+          to='/event-schedule'
           style={{ marginRight: 10 }}
         >
-          <a href='/event-schedule' style={{ color: 'white' }}>Schedule Event</a>
+          Schedule Event
         </Button>
       </ButtonGroup>
 

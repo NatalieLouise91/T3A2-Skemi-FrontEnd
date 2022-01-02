@@ -30,7 +30,7 @@ export default function NewUser() {
         first_name: "",
         last_name: "",
         phone: "",
-        job: ""
+        // job: ""
     }
 
     const [formData, setFormData] = useState(initialFormData)
