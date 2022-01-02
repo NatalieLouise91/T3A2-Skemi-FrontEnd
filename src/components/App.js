@@ -27,15 +27,13 @@ const theme = createTheme({
   },
 });
 
-const App = () => {
-   const initialState = {
-      occasions: [],
-      rosters: [],
-      users: [],
-      loggedInUser: sessionStorage.getItem("user") || null,
-      auth: { token: sessionStorage.getItem("token") || null },
-   };
+const initialState = {
+   occasions: [],
+   loggedInUser: sessionStorage.getItem("user") || null,
+   auth: { token: sessionStorage.getItem("token") || null }
+};
 
+const App = () => {
    const [store, dispatch] = useReducer(stateReducer, initialState);
 
    useEffect(() => {
@@ -53,42 +51,38 @@ const App = () => {
        )
        .catch((error) => console.log(error));
    }, []);
+   const logout = () => {
+      dispatch({ type: "logout" })
+   }
 
-   useEffect(() => {
-     getRosters()
-      .then((rosters) => dispatch({type: 'setRosters', data: rosters})
-      )
-      .catch((error) => console.log(error));
-   }, []);
-
-  return (
-    <div>
-      <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <StateContext.Provider value={{store, dispatch}}>
-          <BrowserRouter>
-            <Nav/>
-            <Routes>
-              <Route exact path="/" element={<Home/>}/>
-              <Route path="/create-event" element={<CreateOccasion />}/>
-              <Route path="/create-roster" element={<CreateRoster />}/>
-              <Route path="/event-schedule" element={<EventSchedule/>}/>
-              <Route path="/rosters" element={<Rosters/>}/>
-              <Route path="/rosters/:id" element={<ViewRoster/>}/>
-              <Route path="/login" element={<Login/>}/>
-              <Route path="/new-user" element={<NewUser/>}/>
-              <Route path="/events/:id" element={<ViewOccasion />} />
-              <Route 
-              exact 
-              path="event/update/:id"
-              element={<CreateOccasion/>} 
-              />
-            </Routes>
-          </BrowserRouter>
-      </StateContext.Provider>
-      </ThemeProvider>
-    </div>
-  )
-}
+   return (
+      <div>
+         <CssBaseline />
+         <StateContext.Provider value={{ store, dispatch }}>
+            <BrowserRouter>
+               <Nav
+                  loggedInUser={store.loggedInUser}
+                  logout={logout}
+               />
+               <Routes>
+                  <Route exact path="/" element={<Home />} />
+                  <Route path="/create-event" element={<CreateOccasion />} />
+                  <Route path="/create-roster" element={<CreateRoster />} />
+                  <Route path="/event-schedule" element={<EventSchedule />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/new-user" element={<NewUser />} />
+                  <Route path="/event/:id" element={<ViewOccasion />} />
+                  <Route
+                     exact
+                     path="event/update/:id"
+                     element={<CreateOccasion />}
+                  />
+               </Routes>
+            </BrowserRouter>
+         </StateContext.Provider>
+      </div>
+   );
+};
 
 export default App;
+

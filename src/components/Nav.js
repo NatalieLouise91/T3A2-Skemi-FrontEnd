@@ -1,172 +1,94 @@
 // IMPORTING APIS
 import React from "react";
 import {
-   AppBar,
-   Toolbar,
-   IconButton,
-   Typography,
-   useMediaQuery,
-   Button,
-   useScrollTrigger,
-   Slide,
-   Menu,
-   MenuItem,
-   ListItemIcon,
-   CssBaseline,
-} from "@material-ui/core";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-import { Logout } from '@mui/icons-material';
+    AppBar,
+    Toolbar,
+    Typography,
+    makeStyles,
+    Button,
+    IconButton,
+    ButtonGroup
+} from '@material-ui/core';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import { signOut } from '../services/authServices'
+import LoginIcon from '@mui/icons-material/Login'
+import LogoutIcon from '@mui/icons-material/Logout'
 
-// IMPORTING ICONS
-import MenuIcon from "@material-ui/icons/Menu";
-import HomeIcon from "@material-ui/icons/Home";
-import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
-import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+const Nav = ({ loggedInUser, logout }) => {
+  const handleLogout = async event => {
+    event.preventDefault()
+    await signOut()
+    logout()
+  }
 
-const useStyles = makeStyles((theme) => ({
-   root: {
-      flexGrow: 1,
-      padding: 30,
-   },
-   menuButton: {
-      marginRight: theme.spacing(2),
-   },
-   title: {
-      flexGrow: 1,
-   },
-}));
-
-function HideOnScroll(props) {
-   const { children } = props;
-   const trigger = useScrollTrigger();
-   return (
-      <Slide appear={false} direction={"down"} in={!trigger}>
-         {children}
-      </Slide>
-   );
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          style={{marginRight: 8}}
+          component={Link}
+          to='/'
+        >
+          <EventNoteIcon fontsize='large' />
+        </IconButton>
+        <Typography variant="h5">Skemi</Typography>
+        <div style={{ flexGrow: 1 }} />
+        {loggedInUser && <LoggedInTab loggedInUser={loggedInUser} handleLogout={handleLogout} />}
+        {!loggedInUser && (
+          <Button 
+            component={Link}
+            to='/login'
+            style={{ color: "inherit" }}
+            size='large'
+            endIcon={<LoginIcon />}
+          >
+            Login
+          </Button>
+        )}
+      </Toolbar>
+    </AppBar>
+  )
 }
 
-const Header = (props) => {
-   const classes = useStyles();
-   const [anchorEl, setAnchorEl] = React.useState(null);
-   const open = Boolean(anchorEl);
-   const theme = useTheme();
-   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-   const handleMenu = (event) => {
-      setAnchorEl(event.currentTarget);
-   };
-   return (
-      <div className={classes.root}>
-         <HideOnScroll {...props}>
-            {/* <BrowserRouter> */}
-            <AppBar>
-               <Toolbar>
-                  <Typography
-                     variant="h5"
-                     component="p"
-                     color="textSecondary"
-                     className={classes.title}
-                  >
-                     Skemi
-                  </Typography>
-                  {isMobile ? (
-                     <>
-                        <IconButton
-                           color="textPrimary"
-                           className={classes.menuButton}
-                           edge="start"
-                           aria-label="menu"
-                           onClick={handleMenu}
-                        >
-                           <MenuIcon />
-                        </IconButton>
-                        <Menu
-                           id="menu-appbar"
-                           anchorEl={anchorEl}
-                           anchorOrigin={{
-                              vertical: "top",
-                              horizontal: "right",
-                           }}
-                           KeepMounted
-                           transformOrigin={{
-                              vertical: "top",
-                              horizontal: "right",
-                           }}
-                           open={open}
-                        >
-                           <MenuItem
-                              onClick={() => setAnchorEl(null)}
-                              component={Link}
-                              to={process.env.PUBLIC_URL + "/"}
-                           >
-                              <ListItemIcon>
-                                 <HomeIcon />
-                              </ListItemIcon>
-                              <Typography variant="h6"> Home</Typography>
-                           </MenuItem>
+export default Nav;
 
-                           <MenuItem
-                              onClick={() => setAnchorEl(null)}
-                              component={Link}
-                              to={process.env.PUBLIC_URL + "/login"}
-                           >
-                              <ListItemIcon>
-                                 <PermIdentityOutlinedIcon />
-                              </ListItemIcon>
-                              <Typography variant="h6"> Login</Typography>
-                           </MenuItem>
-                           <MenuItem
-                              onClick={() => setAnchorEl(null)}
-                              component={Link}
-                              to={process.env.PUBLIC_URL + "/new-user"}
-                           >
-                              <ListItemIcon>
-                                 <PersonAddOutlinedIcon />
-                              </ListItemIcon>
-                              <Typography variant="h6"> Register </Typography>
-                           </MenuItem>
-                        </Menu>
-                     </>
-                  ) : (
-                     <div style={{ marginRight: "2rem" }}>
-                        <Button
-                           variant="text"
-                           color="default"
-                           component={Link}
-                           to={process.env.PUBLIC_URL + "/"}
-                           onClick={() => setAnchorEl(null)}
-                        >
-                           <HomeIcon />
-                           Home
-                        </Button>
-                        <Button
-                           variant="text"
-                           color="default"
-                           component={Link}
-                           onClick={() => setAnchorEl(null)}
-                           to={process.env.PUBLIC_URL + "/login"}
-                        >
-                           <PermIdentityOutlinedIcon />
-                           Login
-                        </Button>
-                        <Button
-                           variant="text"
-                           color="default"
-                           component={Link}
-                           onClick={() => setAnchorEl(null)}
-                           to={process.env.PUBLIC_URL + "/new-user"}
-                        >
-                           <PersonAddOutlinedIcon />
-                           Register
-                        </Button>
-                     </div>
-                  )}
-               </Toolbar>
-            </AppBar>
-         </HideOnScroll>
-      </div>
-   );
-};
+const LoggedInTab = ({ loggedInUser, handleLogout }) => {
+  return (
+    <>
+      <ButtonGroup variant='text' color='inherit'>
+        <Button 
+          size='large'
+          component={Link}
+          to='/create-event'
+          style={{ marginRight: 10 }}
+        >
+          Create an Event
+        </Button>
+        <Button 
+          size='large'
+          component={Link}
+          to='/event-schedule'
+          style={{ marginRight: 10 }}
+        >
+          Schedule Event
+        </Button>
+      </ButtonGroup>
 
-export default Header;
+      <div style={{ flexGrow: 1 }} />
+      
+      <Typography style={{ marginRight: 20 }}>
+        {loggedInUser}
+      </Typography>
+      <Button 
+        style={{ color: "inherit" }}
+        size='large'
+        endIcon={<LogoutIcon />}
+        onClick={handleLogout}
+      >
+        Logout
+      </Button>
+    </>
+  )
+}
+

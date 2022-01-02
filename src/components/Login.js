@@ -22,18 +22,17 @@ export default function Login() {
       });
    }
 
-   function handleSubmit(event) {
-      event.preventDefault();
-      signIn(formData)
-         .then(({ email, jwt }) => {
-            sessionStorage.setItem("token", jwt);
-            sessionStorage.setItem("user", email);
-            dispatch({ type: "setLoggedInUser", data: email });
-            dispatch({ type: "setToken", data: jwt });
-            navigate("/");
-         })
-         .catch((error) => console.log(error));
-   }
+    function handleSubmit(event) {
+        event.preventDefault()
+        signIn(formData)
+        .then(({email, jwt}) => {
+            sessionStorage.setItem('token', jwt);
+            sessionStorage.setItem('user', email);
+            dispatch({ type: 'login', data: { email, jwt } })
+            navigate('/')
+        })
+        .catch((error) => console.log(error))   
+    }
 
     return(
    
@@ -61,7 +60,8 @@ export default function Login() {
                         value={formData.email}
                         onChange={handleFormData} 
                         fullWidth
-                        margin='normal' 
+                        margin='normal'
+                        required 
                     />
                         {/* <input type="email" name="email" id="email" value={formData.email} onChange={handleFormData}/> */}
                         {/* <label htmlFor="password">Password:</label> */}
@@ -73,7 +73,8 @@ export default function Login() {
                         value={formData.password}
                         onChange={handleFormData}
                         fullWidth
-                        margin='normal' 
+                        margin='normal'
+                        required 
                     />
                         {/* <input type="password" name="password" id="password" value={formData.password} onChange={handleFormData} /> */}
                     <Button

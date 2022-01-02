@@ -48,28 +48,25 @@ export default function reducer(state, action) {
           };
       }
 
-      case "setUsers": {
-         return{
-            ...state,
-            users: action.data,
-         };
-      }
-      
-      case "setLoggedInUser": {
+      case 'login': {
          return {
             ...state,
-            loggedInUser: action.data,
-         };
-      }
-      case "setToken": {
-         return {
-            ...state,
+            loggedInUser: action.data.email,
             auth: {
                ...state.auth,
-               token: action.data,
-            },
-         };
+               token: action.data.jwt
+            }
+         }
       }
+
+      case "logout": {
+         return {
+            ...state,
+            loggedInUser: null,
+            auth: null,
+         }
+      }
+
       default:
          return state;
    }
