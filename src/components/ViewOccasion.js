@@ -9,7 +9,9 @@ import {
    Button,
 } from "@material-ui/core";
 import { getOccasionById, deleteOccasion } from "../services/occasionServices";
+import RostersByOccasion from "./RostersByOccasion";
 // import { useGlobalState } from "../utils/stateContext";
+
 
 
 const ViewOccasion = () => {
@@ -139,6 +141,9 @@ const ViewOccasion = () => {
                         >
                            Roster
                         </Typography>
+                        <Container>
+                           <RostersByOccasion />
+                        </Container>
                      </Container>
                          
                          <Grid
