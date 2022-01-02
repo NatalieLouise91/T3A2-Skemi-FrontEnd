@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGlobalState } from "../utils/stateContext";
-import { createRoster, getRoster, updateRoster } from "../services/rosterServices"
-import Occasion from "./Occasion";
+import { createRoster, getRosterById, updateRoster } from "../services/rosterServices"
 import "@fontsource/roboto/400.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { 
@@ -39,13 +38,33 @@ export default function CreateRoster() {
     const classes = useStyles();
 
     const [inputField, setInputField] = useState([
-        { select_occasion: "", start_time: "", end_time: "", role: "", name: ""},
+        { event_id: "", start_time: "", end_time: "", role: "", name: ""},
     ]);
-    let {id} = useParams();
 
     const { dispatch, store } = useGlobalState();
+
+    let { id } = useParams();
     const { rosters } = store; 
     const { occasions } = store;
+    const { users } = store;
+
+// useEffect hook to return prefilled form data if there is an existing roster with that id.
+
+    useEffect(() => {
+        if (id) {
+           getRosterById(id).then((roster) => {
+              setInputField({
+                event_id: roster.event_id,
+                start_time: roster.start_time,
+                end_time: roster.end_time,
+                role: roster.role,
+                name: roster.name,  
+              });
+           });
+        }
+     }, [id]);
+
+// function to return the last id in the roster database
 
     function getLastId() {
         const ids = rosters.map((roster) => roster.id);
@@ -53,13 +72,15 @@ export default function CreateRoster() {
     }
 
     let navigate = useNavigate();
-    console.log(dispatch);
+    
 
     const handleChangeInput = (index, event) => {
         const values = [...inputField];
         values[index][event.target.name] = event.target.value;
         setInputField(values);
     }
+
+// function to handle submit when user clicks on submit button
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -72,20 +93,20 @@ export default function CreateRoster() {
             const nextId = getLastId() + 1;
             createRoster({...inputField, id: nextId})
                 .then((roster) => {
-                    dispatch({ 
-                        type: "addRoster", 
-                        data: roster
-                    });
-                    navigate("/rosters");   
+                    dispatch({ type: "addRoster", data: roster });
+                    // navigate("/rosters");   
                 })
                 .catch((error) => console.log(error));
         }
     }
 
+// function to add additional input fields to form
 
     const handleAddFields = () => {
-        setInputField([...inputField, { select_occasion: "", start_time: "", end_time: "", role: "", name: ""}])
+        setInputField([...inputField, { event_id: "", start_time: "", end_time: "", role: "", name: ""}])
     }
+
+// function to remove input fields from form
 
     const handleRemoveFields = (index) => {
         const values = [...inputField];
@@ -97,30 +118,32 @@ export default function CreateRoster() {
         <Container maxWidth="md">
             <Typography variant="h4">Add Team Members to Roster</Typography>
 
-            <form className={classes.root} onSubmit={handleSubmit}>
+            
 
                 { inputField.map((inputField, index) => (
-                    <div key={index}>
+                    <form key={index} className={classes.root} onSubmit={handleSubmit}>
+                    {/* <div key={index}> */}
 
                         <InputLabel
-                            id="select_occasion"
+                            id="event_id"
                             className={classes.field}
                         >
                             Select Occasion
                         </InputLabel>
                         <Select
-                            labelId="select_occasion"
-                            id="select_occasion"
-                            name="select_occasion"
+                            labelId="event_id"
+                            id="event_id"
+                            name="event_id"
                             className={classes.field}
                             required
                             fullWidth
-                            value={inputField.select_occasion}
+                            value={inputField.event_id}
                             onChange={event => handleChangeInput(index, event)}
                         >
-                            {/* {occasions.map((occasion) =>
-                                <MenuItem key={occasion.id} value={occasion.id}><Occasion/></MenuItem>)
-                            } */}
+                            {occasions.map((occasion) =>
+                                <MenuItem key={occasion.id} value={occasion.id}>{occasion.name}, {occasion.date}</MenuItem>
+                                )
+                            }
                         </Select>
 
 
@@ -210,18 +233,11 @@ export default function CreateRoster() {
                             fullWidth
                             onChange={event => handleChangeInput(index, event)}
                         >
-                            <MenuItem value="Natalie">Natalie</MenuItem>
-                            <MenuItem value="Jordan">Jordan</MenuItem>
-                            <MenuItem value="Johnny">Johnny</MenuItem>
-                            <MenuItem value="Sam">Sam</MenuItem>
-                            <MenuItem value="Anna">Anna</MenuItem>
-                            <MenuItem value="Stephanie">Stephanie</MenuItem>
 
-                            {/* {users.map((user, index) => 
-                            <MenuItem key={index} value={user.id}>{user.first_name}, {user.last_name}</MenuItem>)} */}
+                            {users.map((user, index) => 
+                            <MenuItem key={index} value={user.first_name + " " + user.last_name}>{user.first_name}, {user.last_name}</MenuItem>)}
 
                         </Select>
-                    
                         <IconButton
                             onClick={() => handleRemoveFields(index)}
                         >
@@ -232,19 +248,20 @@ export default function CreateRoster() {
                         >
                             <AddCircleOutlineIcon />
                         </IconButton>
-                </div>
+                        <Button 
+                            variant= "contained" 
+                            type="submit" 
+                            color="primary"
+                            className={classes.button}
+                            onClick={handleSubmit}
+                        >
+                        Add Shift
+                        </Button>
+                </form>
+                // </div>
                 ))}
 
-                <Button 
-                    variant= "contained" 
-                    type="submit" 
-                    color="primary"
-                    className={classes.button}
-                    onClick={handleSubmit}
-                >
-                    Submit
-                </Button>
-            </form>
+               
         </Container>
     )
 }

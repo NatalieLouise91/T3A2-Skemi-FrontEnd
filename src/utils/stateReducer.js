@@ -1,18 +1,28 @@
 export default function reducer(state, action) {
    switch (action.type) {
-      case "setOccasionList": {
+      case "setOccasions": {
          return {
             ...state,
-            occasionList: action.data,
+            occasions: action.data,
          };
       }
       case "addOccasion": {
          return {
             ...state,
-            occasionList: action.data,
+            occasions: action.data,
          };
       }
-
+      case "updateOccasion": {
+         const occasion = state.occasions.find((occasion) => occasion.id === parseInt(action.data.id));
+         const theRest = state.occasions.filter(
+            (occasion) => occasion.id !== parseInt(action.data.id)
+         );
+         const updatedOccasion = Object.assign(occasion, action.data);
+         return {
+            ...state,
+            occasions: [updatedOccasion, ...theRest],
+         };
+      }
       // This callback/case is supposed to update the occasion list on state without occasion.id
       // case "deleteOccasion": {
       //    // const updatedOccasionList = state.occasionList.filter(
@@ -38,8 +48,13 @@ export default function reducer(state, action) {
           };
       }
 
-
-
+      case "setUsers": {
+         return{
+            ...state,
+            users: action.data,
+         };
+      }
+      
       case "setLoggedInUser": {
          return {
             ...state,

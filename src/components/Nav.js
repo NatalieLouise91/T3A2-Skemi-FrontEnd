@@ -1,72 +1,172 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+// IMPORTING APIS
+import React from "react";
 import {
-    AppBar,
-    Toolbar,
-    CssBaseline,
-    Typography,
-    makeStyles,
-    useTheme,
-    Button
-} from '@material-ui/core';
+   AppBar,
+   Toolbar,
+   IconButton,
+   Typography,
+   useMediaQuery,
+   Button,
+   useScrollTrigger,
+   Slide,
+   Menu,
+   MenuItem,
+   ListItemIcon,
+} from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
+// IMPORTING ICONS
+import MenuIcon from "@material-ui/icons/Menu";
+import HomeIcon from "@material-ui/icons/Home";
+import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
+import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 
 const useStyles = makeStyles((theme) => ({
-    navlinks: {
-        marginLeft: theme.spacing(5),
-        display: "flex",
-    },
-    logo: {
-        flexGrow: "1",
-        cursor: "pointer",
-    },
-    link: {
-        textDecoration: "none",
-        color: "white",
-        fontSize: "20px",
-        marginLeft: theme.spacing(20),
-        "&:hover": {
-            color: "yellow",
-            borderBottom: "1px solid white",
-        },
-    },
+   root: {
+      flexGrow: 1,
+      padding: 30,
+   },
+   menuButton: {
+      marginRight: theme.spacing(2),
+   },
+   title: {
+      flexGrow: 1,
+   },
 }));
 
-const Nav = ({loggedInUser, setLoggedInUser}) => {
+function HideOnScroll(props) {
+   const { children } = props;
+   const trigger = useScrollTrigger();
 
-    function logout(event) {
-        event.preventDefault();
-        setLoggedInUser("");
-    }
-    
-    const classes = useStyles();
-
-    return (
-        <AppBar position="static">
-            <Toolbar>
-                <Typography>Skemi</Typography>
-                <ul>
-                    <Typography><li><Link to="/">Home</Link></li></Typography>
-                </ul>
-
-                {loggedInUser
-                    ?
-                        <ul>
-                            <Typography><li>{loggedInUser.first_name}</li></Typography>
-                            <Button><Link to="/create-event">Create an Event</Link></Button>
-                            <Typography><li><Link to="/event-schedule">Event Schedule</Link></li></Typography>
-                            <Typography><li><Link to="/home" onClick ={logout}>Logout</Link></li></Typography>
-                        </ul>
-                    :
-                        <ul>
-                            <Typography><li><Link to="/login">Login</Link></li></Typography>
-                            <Typography><li><Link to="/new-user">Register</Link></li></Typography>
-                        </ul>
-
-                }
-            </Toolbar>
-        </AppBar>
-    )
+   return (
+      <Slide appear={false} direction={"down"} in={!trigger}>
+         {children}
+      </Slide>
+   );
 }
 
-export default Nav;
+const Header = (props) => {
+   const classes = useStyles();
+   const [anchorEl, setAnchorEl] = React.useState(null);
+   const open = Boolean(anchorEl);
+   const theme = useTheme();
+   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+   const handleMenu = (event) => {
+      setAnchorEl(event.currentTarget);
+   };
+   return (
+      <div className={classes.root}>
+         <HideOnScroll {...props}>
+            {/* <BrowserRouter> */}
+            <AppBar>
+               <Toolbar>
+                  <Typography
+                     variant="h5"
+                     component="p"
+                     color="textSecondary"
+                     className={classes.title}
+                  >
+                     Skemi
+                  </Typography>
+                  {isMobile ? (
+                     <>
+                        <IconButton
+                           color="textPrimary"
+                           className={classes.menuButton}
+                           edge="start"
+                           aria-label="menu"
+                           onClick={handleMenu}
+                        >
+                           <MenuIcon />
+                        </IconButton>
+                        <Menu
+                           id="menu-appbar"
+                           anchorEl={anchorEl}
+                           anchorOrigin={{
+                              vertical: "top",
+                              horizontal: "right",
+                           }}
+                           KeepMounted
+                           transformOrigin={{
+                              vertical: "top",
+                              horizontal: "right",
+                           }}
+                           open={open}
+                        >
+                           <MenuItem
+                              onClick={() => setAnchorEl(null)}
+                              component={Link}
+                              to={process.env.PUBLIC_URL + "/"}
+                           >
+                              <ListItemIcon>
+                                 <HomeIcon />
+                              </ListItemIcon>
+                              <Typography variant="h6"> Home</Typography>
+                           </MenuItem>
+
+                           <MenuItem
+                              onClick={() => setAnchorEl(null)}
+                              component={Link}
+                              to={process.env.PUBLIC_URL + "/login"}
+                           >
+                              <ListItemIcon>
+                                 <PermIdentityOutlinedIcon />
+                              </ListItemIcon>
+                              <Typography variant="h6"> Login</Typography>
+                           </MenuItem>
+                           <MenuItem
+                              onClick={() => setAnchorEl(null)}
+                              component={Link}
+                              to={process.env.PUBLIC_URL + "/new-user"}
+                           >
+                              <ListItemIcon>
+                                 <PersonAddOutlinedIcon />
+                              </ListItemIcon>
+                              <Typography variant="h6"> Register </Typography>
+                           </MenuItem>
+                        </Menu>
+                     </>
+                  ) : (
+                     <div style={{ marginRight: "2rem" }}>
+                        <Button
+                           variant="text"
+                           color="default"
+                           component={Link}
+                           to={process.env.PUBLIC_URL + "/"}
+                           onClick={() => setAnchorEl(null)}
+                        >
+                           <HomeIcon />
+                           Home
+                        </Button>
+
+                        <Button
+                           variant="text"
+                           color="default"
+                           component={Link}
+                           onClick={() => setAnchorEl(null)}
+                           to={process.env.PUBLIC_URL + "/login"}
+                        >
+                           <PermIdentityOutlinedIcon />
+                           Login
+                        </Button>
+                        <Button
+                           variant="text"
+                           color="default"
+                           component={Link}
+                           onClick={() => setAnchorEl(null)}
+                           to={process.env.PUBLIC_URL + "/new-user"}
+                        >
+                           <PersonAddOutlinedIcon />
+                           Register
+                        </Button>
+                     </div>
+                  )}
+               </Toolbar>
+            </AppBar>
+         </HideOnScroll>
+      </div>
+   );
+};
+
+export default Header;

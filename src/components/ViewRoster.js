@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
-import { getRoster } from '../services/rosterServices';
+import { getRosterById } from '../services/rosterServices';
 import { useGlobalState } from '../utils/stateContext';
 import { deleteRoster } from '../services/rosterServices';
 
@@ -12,7 +12,7 @@ export default function ViewRoster() {
     // const { loggedInUser } = store
 
     useEffect(() => {
-        getRoster(id)
+        getRosterById(id)
         .then((roster) => setRoster(roster))
         .catch((error) => console.log(error))
     }, [id])

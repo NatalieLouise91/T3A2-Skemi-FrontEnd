@@ -14,18 +14,18 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
    const initialState = {
-      occasionList: [],
+      occasions: [],
    };
 
    const [store, dispatch] = useReducer(stateReducer, initialState);
-   // const { occasionList } = store;
+   // const { occasions } = store;
 
    useEffect(() => {
       // this function is declared in ../services/occasionServices
       getOccasions()
          .then((events) => {
             dispatch({
-               type: "setOccasionList",
+               type: "setOccasions",
                data: events,
             });
             console.log(events);

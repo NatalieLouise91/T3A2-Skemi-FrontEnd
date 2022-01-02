@@ -11,3 +11,7 @@ export async function signIn(data) {
     return response.data
 }
 
+export async function signOut(data) {
+    sessionStorage.clear()
+    return "Logged out"
+}

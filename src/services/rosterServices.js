@@ -12,7 +12,7 @@ export async function createRoster(data) {
     return response.data;
 }
 
-export async function getRoster(id) {
+export async function getRosterById(id) {
     const response = await skemiAPI.get(`/api/rosters/${id}`);
     return response.data;
 }
