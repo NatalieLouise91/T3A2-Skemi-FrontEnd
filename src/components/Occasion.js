@@ -15,7 +15,7 @@ const Occasion = ({ occasion }) => {
             <p>Time: {occasion.time}</p>
             <div>
                <Link
-                  to={`/events/${occasion.id}`}
+                  to={`/event/${occasion.id}`}
                   style={{ textDecoration: "none" }}
                >
                   <Button

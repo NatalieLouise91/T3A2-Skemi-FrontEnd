@@ -1,14 +1,15 @@
-import React, { useReducer, useEffect } from 'react';
-import { StateContext } from '../utils/stateContext';
-import stateReducer from '../utils/stateReducer';
-import Nav from './Nav';
-import CreateOccasion from './CreateOccasion';
-import CreateRoster from './CreateRoster';
-import ViewOccasion from './ViewOccasion';
-import EventSchedule from './EventSchedule';
-import Home from './Home';
-import Login from './Login';
-import NewUser from './NewUser';
+
+import React, { useReducer, useEffect } from "react";
+import { StateContext } from "../utils/stateContext";
+import stateReducer from "../utils/stateReducer";
+import Nav from "./Nav";
+import CreateOccasion from "./CreateOccasion";
+import CreateRoster from "./CreateRoster";
+import ViewOccasion from "./ViewOccasion";
+import EventSchedule from "./EventSchedule";
+import Home from "./Home";
+import Login from "./Login";
+import NewUser from "./NewUser";
 import { getOccasions } from "../services/occasionServices";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
@@ -32,8 +33,8 @@ const App = () => {
       occasions: [],
       rosters: [],
       users: [],
-      loggedInUser: null,
-      auth: { token: null },
+      loggedInUser: sessionStorage.getItem("user") || null,
+      auth: { token: sessionStorage.getItem("token") || null }
    };
 
    const [store, dispatch] = useReducer(stateReducer, initialState);
@@ -91,4 +92,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;

@@ -12,9 +12,13 @@ import {
    Menu,
    MenuItem,
    ListItemIcon,
+   CssBaseline,
+   makeStyles,
+   useTheme
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { Logout } from '@mui/icons-material';
 
 // IMPORTING ICONS
 import MenuIcon from "@material-ui/icons/Menu";
@@ -38,13 +42,25 @@ const useStyles = makeStyles((theme) => ({
 function HideOnScroll(props) {
    const { children } = props;
    const trigger = useScrollTrigger();
-
    return (
       <Slide appear={false} direction={"down"} in={!trigger}>
          {children}
       </Slide>
    );
 }
+
+    function logout(event) {
+        event.preventDefault();
+        logout(loggedInUser)
+        .then(() => {
+            // dispatch({type: 'setLoggedInUser', data: null})
+            // dispatch({type: 'setToken', data: null})
+    })
+        setLoggedInUser("");
+    }
+    
+    const classes = useStyles();
+
 
 const Header = (props) => {
    const classes = useStyles();
