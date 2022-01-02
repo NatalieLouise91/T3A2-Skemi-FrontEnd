@@ -13,8 +13,6 @@ import {
    MenuItem,
    ListItemIcon,
    CssBaseline,
-   makeStyles,
-   useTheme
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
@@ -48,19 +46,6 @@ function HideOnScroll(props) {
       </Slide>
    );
 }
-
-    function logout(event) {
-        event.preventDefault();
-        logout(loggedInUser)
-        .then(() => {
-            // dispatch({type: 'setLoggedInUser', data: null})
-            // dispatch({type: 'setToken', data: null})
-    })
-        setLoggedInUser("");
-    }
-    
-    const classes = useStyles();
-
 
 const Header = (props) => {
    const classes = useStyles();
@@ -155,7 +140,6 @@ const Header = (props) => {
                            <HomeIcon />
                            Home
                         </Button>
-
                         <Button
                            variant="text"
                            color="default"
