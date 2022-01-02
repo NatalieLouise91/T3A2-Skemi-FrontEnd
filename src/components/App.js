@@ -27,15 +27,6 @@ const theme = createTheme({
   },
 });
 
-
-const theme = createTheme({
-   palette: {
-      background: {
-         default: "#FAFAFA",
-      },
-   },
-});
-
 const App = () => {
    const initialState = {
       occasions: [],
