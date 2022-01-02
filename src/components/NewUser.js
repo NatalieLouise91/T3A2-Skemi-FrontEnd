@@ -56,6 +56,7 @@ export default function NewUser() {
 
     }
     return (
+
     <Grid 
         container
         height = '80vh'
@@ -165,3 +166,4 @@ export default function NewUser() {
     </Grid>
     )
 }
+

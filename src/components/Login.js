@@ -5,21 +5,22 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import {TextField, Typography, Link, Grid, Container, Button, Paper } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 
-export default function Login() {
-    const initialFormData = {
-        email: "",
-        password: ""
-    }
 
-    const [formData, setFormData] = useState(initialFormData)
-    const { dispatch } = useGlobalState();
-    let navigate = useNavigate();
-    function handleFormData(event) {
-        setFormData({
-            ...formData,
-            [event.target.name]: event.target.value
-        })
-    }
+export default function Login() {
+   const initialFormData = {
+      email: "",
+      password: "",
+   };
+
+   const [formData, setFormData] = useState(initialFormData);
+   const { dispatch } = useGlobalState();
+   let navigate = useNavigate();
+   function handleFormData(event) {
+      setFormData({
+         ...formData,
+         [event.target.name]: event.target.value,
+      });
+   }
 
     function handleSubmit(event) {
         event.preventDefault()

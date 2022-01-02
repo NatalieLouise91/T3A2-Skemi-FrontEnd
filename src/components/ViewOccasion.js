@@ -11,6 +11,7 @@ import {
 import { getOccasionById, deleteOccasion } from "../services/occasionServices";
 // import { useGlobalState } from "../utils/stateContext";
 
+
 const ViewOccasion = () => {
    // const { dispatch } = useGlobalState();
    const [occasion, setOccasion] = useState();
@@ -125,6 +126,38 @@ const ViewOccasion = () => {
                   </Container>
                </Paper>
             </Container>
+            <Container>
+                    <Paper 
+                        elevation={5}
+                        style={{ padding: 24, marginTop: 25 }}>
+                        <Container
+                            align="center"
+                         >
+                        <Typography
+                           variant="h4"
+                           style={{ padding: 5, marginTop: 25 }}
+                        >
+                           Roster
+                        </Typography>
+                     </Container>
+                         
+                         <Grid
+                            align="center"
+                         >
+                         <Link to="/create-roster" style={{ textDecoration: "none" }}>
+                            <Button
+                                size="small"
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                style={{padding: 5, marginTop: 25 }}
+                                >
+                                Add Shifts   
+                            </Button>
+                        </Link>
+                         </Grid>
+                     </Paper>
+                  </Container>
          </CssBaseline>
       </div>
    );

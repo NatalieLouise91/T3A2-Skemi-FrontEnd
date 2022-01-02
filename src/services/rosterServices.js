@@ -1,6 +1,6 @@
 import skemiAPI from "../config/api";
 
-export async function getRoster() {
+export async function getRosters() {
     const response = await skemiAPI.get("/api/rosters");
     console.log(response);
     return response.data;
@@ -19,6 +19,12 @@ export async function getRosterById(id) {
 
 export async function deleteRoster(id) {
     const response = await skemiAPI.delete(`/api/rosters/${id}`);
+    console.log(response.data);
+    return response.data;
+}
+
+export async function updateRoster(data) {
+    const response = await skemiAPI.put(`/api/rosters/${data.id}`, data);
     console.log(response.data);
     return response.data;
 }

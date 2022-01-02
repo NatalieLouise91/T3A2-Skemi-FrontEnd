@@ -1,3 +1,4 @@
+
 import React, { useReducer, useEffect } from "react";
 import { StateContext } from "../utils/stateContext";
 import stateReducer from "../utils/stateReducer";
@@ -12,6 +13,19 @@ import NewUser from "./NewUser";
 import { getOccasions } from "../services/occasionServices";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Rosters from './Rosters';
+import ViewRoster from './ViewRoster';
+import { getRosters } from '../services/rosterServices';
+import { getUsers } from '../services/userServices';
+
+const theme = createTheme({
+  palette: {
+     background: {
+        default: "#FAFAFA",
+     },
+  },
+});
 
 const initialState = {
    occasions: [],
@@ -23,11 +37,19 @@ const App = () => {
    const [store, dispatch] = useReducer(stateReducer, initialState);
 
    useEffect(() => {
-      getOccasions()
-         .then((occasions) =>
-            dispatch({ type: "setOccasions", data: occasions })
-         )
-         .catch((error) => console.log(error));
+    getOccasions()
+       .then((occasions) =>
+          dispatch({ type: "setOccasions", data: occasions })
+       )
+       .catch((error) => console.log(error));
+   }, []);
+
+   useEffect(() => {
+    getUsers()
+       .then((users) =>
+          dispatch({ type: "setUsers", data: users })
+       )
+       .catch((error) => console.log(error));
    }, []);
    const logout = () => {
       dispatch({ type: "logout" })
@@ -63,3 +85,4 @@ const App = () => {
 };
 
 export default App;
+

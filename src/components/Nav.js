@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+// IMPORTING APIS
+import React from "react";
 import {
     AppBar,
     Toolbar,
@@ -91,3 +91,4 @@ const LoggedInTab = ({ loggedInUser, handleLogout }) => {
     </>
   )
 }
+
