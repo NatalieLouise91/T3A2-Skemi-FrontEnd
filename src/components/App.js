@@ -1,3 +1,4 @@
+
 import React, { useReducer, useEffect } from "react";
 import { StateContext } from "../utils/stateContext";
 import stateReducer from "../utils/stateReducer";
@@ -12,48 +13,82 @@ import NewUser from "./NewUser";
 import { getOccasions } from "../services/occasionServices";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Rosters from './Rosters';
+import ViewRoster from './ViewRoster';
+import { getRosters } from '../services/rosterServices';
+import { getUsers } from '../services/userServices';
+
+const theme = createTheme({
+  palette: {
+     background: {
+        default: "#FAFAFA",
+     },
+  },
+});
 
 const App = () => {
    const initialState = {
       occasions: [],
+      rosters: [],
+      users: [],
       loggedInUser: sessionStorage.getItem("user") || null,
-      auth: { token: sessionStorage.getItem("token") || null }
+      auth: { token: sessionStorage.getItem("token") || null },
    };
 
    const [store, dispatch] = useReducer(stateReducer, initialState);
 
    useEffect(() => {
-      getOccasions()
-         .then((occasions) =>
-            dispatch({ type: "setOccasions", data: occasions })
-         )
-         .catch((error) => console.log(error));
+    getOccasions()
+       .then((occasions) =>
+          dispatch({ type: "setOccasions", data: occasions })
+       )
+       .catch((error) => console.log(error));
    }, []);
 
-   return (
-      <div>
-         <CssBaseline />
-         <StateContext.Provider value={{ store, dispatch }}>
-            <BrowserRouter>
-               <Nav />
-               <Routes>
-                  <Route exact path="/" element={<Home />} />
-                  <Route path="/create-event" element={<CreateOccasion />} />
-                  <Route path="/create-roster" element={<CreateRoster />} />
-                  <Route path="/event-schedule" element={<EventSchedule />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/new-user" element={<NewUser />} />
-                  <Route path="/event/:id" element={<ViewOccasion />} />
-                  <Route
-                     exact
-                     path="event/update/:id"
-                     element={<CreateOccasion />}
-                  />
-               </Routes>
-            </BrowserRouter>
-         </StateContext.Provider>
-      </div>
-   );
-};
+   useEffect(() => {
+    getUsers()
+       .then((users) =>
+          dispatch({ type: "setUsers", data: users })
+       )
+       .catch((error) => console.log(error));
+   }, []);
+
+   useEffect(() => {
+     getRosters()
+      .then((rosters) => dispatch({type: 'setRosters', data: rosters})
+      )
+      .catch((error) => console.log(error));
+   }, []);
+
+  return (
+    <div>
+      <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <StateContext.Provider value={{store, dispatch}}>
+          <BrowserRouter>
+            <Nav/>
+            <Routes>
+              <Route exact path="/" element={<Home/>}/>
+              <Route path="/create-event" element={<CreateOccasion />}/>
+              <Route path="/create-roster" element={<CreateRoster />}/>
+              <Route path="/event-schedule" element={<EventSchedule/>}/>
+              <Route path="/rosters" element={<Rosters/>}/>
+              <Route path="/rosters/:id" element={<ViewRoster/>}/>
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/new-user" element={<NewUser/>}/>
+              <Route path="/events/:id" element={<ViewOccasion />} />
+              <Route 
+              exact 
+              path="event/update/:id"
+              element={<CreateOccasion/>} 
+              />
+            </Routes>
+          </BrowserRouter>
+      </StateContext.Provider>
+      </ThemeProvider>
+    </div>
+  )
+}
 
 export default App;
