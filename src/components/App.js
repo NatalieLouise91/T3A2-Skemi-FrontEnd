@@ -13,13 +13,13 @@ import { getOccasions } from "../services/occasionServices";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
 
-const App = () => {
-   const initialState = {
-      occasions: [],
-      loggedInUser: sessionStorage.getItem("user") || null,
-      auth: { token: sessionStorage.getItem("token") || null }
-   };
+const initialState = {
+   occasions: [],
+   loggedInUser: sessionStorage.getItem("user") || null,
+   auth: { token: sessionStorage.getItem("token") || null }
+};
 
+const App = () => {
    const [store, dispatch] = useReducer(stateReducer, initialState);
 
    useEffect(() => {
@@ -29,13 +29,19 @@ const App = () => {
          )
          .catch((error) => console.log(error));
    }, []);
+   const logout = () => {
+      dispatch({ type: "logout" })
+   }
 
    return (
       <div>
          <CssBaseline />
          <StateContext.Provider value={{ store, dispatch }}>
             <BrowserRouter>
-               <Nav />
+               <Nav
+                  loggedInUser={store.loggedInUser}
+                  logout={logout}
+               />
                <Routes>
                   <Route exact path="/" element={<Home />} />
                   <Route path="/create-event" element={<CreateOccasion />} />

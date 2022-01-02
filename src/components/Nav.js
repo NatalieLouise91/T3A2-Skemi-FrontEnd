@@ -3,76 +3,91 @@ import { Link } from 'react-router-dom';
 import {
     AppBar,
     Toolbar,
-    CssBaseline,
     Typography,
     makeStyles,
-    useTheme,
-    Button
+    Button,
+    IconButton,
+    ButtonGroup
 } from '@material-ui/core';
-import { Logout } from '@mui/icons-material';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import { signOut } from '../services/authServices'
+import LoginIcon from '@mui/icons-material/Login'
+import LogoutIcon from '@mui/icons-material/Logout'
 
+const Nav = ({ loggedInUser, logout }) => {
+  const handleLogout = async event => {
+    event.preventDefault()
+    await signOut()
+    logout()
+  }
 
-const useStyles = makeStyles((theme) => ({
-    navlinks: {
-        marginLeft: theme.spacing(5),
-        display: "flex",
-    },
-    logo: {
-        flexGrow: "1",
-        cursor: "pointer",
-    },
-    link: {
-        textDecoration: "none",
-        color: "white",
-        fontSize: "20px",
-        marginLeft: theme.spacing(20),
-        "&:hover": {
-            color: "yellow",
-            borderBottom: "1px solid white",
-        },
-    },
-}));
-
-const Nav = ({loggedInUser, setLoggedInUser}) => {
-
-    function logout(event) {
-        event.preventDefault();
-        logout(loggedInUser)
-        .then(() => {
-            // dispatch({type: 'setLoggedInUser', data: null})
-            // dispatch({type: 'setToken', data: null})
-    })
-        setLoggedInUser("");
-    }
-    
-    const classes = useStyles();
-
-    return (
-        <AppBar position="static">
-            <Toolbar>
-                <Typography>Skemi</Typography>
-                <ul>
-                    <Typography><li><Link to="/">Home</Link></li></Typography>
-                </ul>
-
-                {loggedInUser
-                    ?
-                        <ul>
-                            <Typography><li>{loggedInUser.first_name}</li></Typography>
-                            <Button><Link to="/create-event">Create an Event</Link></Button>
-                            <Typography><li><Link to="/event-schedule">Event Schedule</Link></li></Typography>
-                            <Typography><li><Link to="/home" onClick ={logout}>Logout</Link></li></Typography>
-                        </ul>
-                    :
-                        <ul>
-                            <Typography><li><Link to="/login">Login</Link></li></Typography>
-                            <Typography><li><Link to="/new-user">Register</Link></li></Typography>
-                        </ul>
-
-                }
-            </Toolbar>
-        </AppBar>
-    )
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          style={{marginRight: 8}}
+          component={Link}
+          to='/'
+        >
+          <EventNoteIcon fontsize='large' />
+        </IconButton>
+        <Typography variant="h5">Skemi</Typography>
+        <div style={{ flexGrow: 1 }} />
+        {loggedInUser && <LoggedInTab loggedInUser={loggedInUser} handleLogout={handleLogout} />}
+        {!loggedInUser && (
+          <Button 
+            component={Link}
+            to='/login'
+            style={{ color: "inherit" }}
+            size='large'
+            endIcon={<LoginIcon />}
+          >
+            Login
+          </Button>
+        )}
+      </Toolbar>
+    </AppBar>
+  )
 }
 
 export default Nav;
+
+const LoggedInTab = ({ loggedInUser, handleLogout }) => {
+  return (
+    <>
+      <ButtonGroup variant='text' color='inherit'>
+        <Button 
+          size='large'
+          component={Link}
+          to='/create-event'
+          style={{ marginRight: 10 }}
+        >
+          Create an Event
+        </Button>
+        <Button 
+          size='large'
+          component={Link}
+          to='/event-schedule'
+          style={{ marginRight: 10 }}
+        >
+          Schedule Event
+        </Button>
+      </ButtonGroup>
+
+      <div style={{ flexGrow: 1 }} />
+      
+      <Typography style={{ marginRight: 20 }}>
+        {loggedInUser}
+      </Typography>
+      <Button 
+        style={{ color: "inherit" }}
+        size='large'
+        endIcon={<LogoutIcon />}
+        onClick={handleLogout}
+      >
+        Logout
+      </Button>
+    </>
+  )
+}
