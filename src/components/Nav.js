@@ -27,23 +27,23 @@ const Nav = ({ loggedInUser, logout }) => {
         <IconButton
           color="inherit"
           style={{marginRight: 8}}
-          component={Link}
-          to='/'
+          // component={Link}
+          // to='/'
         >
-          <EventNoteIcon fontsize='large' />
+          <a href='/' style={{ color: 'white' }}><EventNoteIcon fontsize='large' /></a>
         </IconButton>
         <Typography variant="h5">Skemi</Typography>
         <div style={{ flexGrow: 1 }} />
         {loggedInUser && <LoggedInTab loggedInUser={loggedInUser} handleLogout={handleLogout} />}
         {!loggedInUser && (
           <Button 
-            component={Link}
-            to='/login'
+            // component={Link}
+            // to='/login'
             style={{ color: "inherit" }}
             size='large'
             endIcon={<LoginIcon />}
           >
-            Login
+            <a href='/login' style={{ color: 'white' }}>Login</a>
           </Button>
         )}
       </Toolbar>
@@ -59,19 +59,19 @@ const LoggedInTab = ({ loggedInUser, handleLogout }) => {
       <ButtonGroup variant='text' color='inherit'>
         <Button 
           size='large'
-          component={Link}
-          to='/create-event'
+          // component={Link}
+          // to='/create-event'
           style={{ marginRight: 10 }}
         >
-          Create an Event
+          <a href='/create-event' style={{ color: 'white' }}>Create an Event</a>
         </Button>
         <Button 
           size='large'
-          component={Link}
-          to='/event-schedule'
+          // component={Link}
+          // to='/event-schedule'
           style={{ marginRight: 10 }}
         >
-          Schedule Event
+          <a href='/event-schedule' style={{ color: 'white' }}>Schedule Event</a>
         </Button>
       </ButtonGroup>
 
