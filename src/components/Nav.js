@@ -12,9 +12,11 @@ import {
    Menu,
    MenuItem,
    ListItemIcon,
+   CssBaseline,
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { Logout } from '@mui/icons-material';
 
 // IMPORTING ICONS
 import MenuIcon from "@material-ui/icons/Menu";
@@ -38,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 function HideOnScroll(props) {
    const { children } = props;
    const trigger = useScrollTrigger();
-
    return (
       <Slide appear={false} direction={"down"} in={!trigger}>
          {children}
@@ -139,7 +140,6 @@ const Header = (props) => {
                            <HomeIcon />
                            Home
                         </Button>
-
                         <Button
                            variant="text"
                            color="default"
