@@ -71,10 +71,10 @@ const App = () => {
                   <Route path="/event-schedule" element={<EventSchedule />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/new-user" element={<NewUser />} />
-                  <Route path="/event/:id" element={<ViewOccasion />} />
+                  <Route path="/events/:id" element={<ViewOccasion />} />
                   <Route
                      exact
-                     path="event/update/:id"
+                     path="events/update/:id"
                      element={<CreateOccasion />}
                   />
                </Routes>

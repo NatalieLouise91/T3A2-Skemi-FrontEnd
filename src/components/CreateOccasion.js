@@ -78,7 +78,7 @@ const CreateOccasion = () => {
       if (id) {
          updateOccasion({ id: id, ...formData }).then((occasion) => {
             dispatch({ type: "updateOccasion", data: { id: id, ...formData } });
-            navigate(`/event/${id}`);
+            navigate(`/events/${id}`);
          });
       } else {
          const nextId = getLastId() + 1;
