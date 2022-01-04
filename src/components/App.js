@@ -75,6 +75,11 @@ const App = () => {
               <Route path="/event-schedule" element={<EventSchedule/>}/>
               <Route path="/rosters" element={<Rosters/>}/>
               <Route path="/rosters/:id" element={<ViewRoster/>}/>
+              <Route 
+               exact 
+               path="rosters/update/:id"
+               element={<CreateRoster />}
+               />
               <Route path="/login" element={<Login/>}/>
               <Route path="/new-user" element={<NewUser/>}/>
               <Route path="/events/:id" element={<ViewOccasion />} />

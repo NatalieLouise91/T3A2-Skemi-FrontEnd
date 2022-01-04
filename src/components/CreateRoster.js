@@ -71,6 +71,8 @@ export default function CreateRoster() {
         return Math.max(...ids);
     }
 
+    console.log()
+
     let navigate = useNavigate();
     
 
@@ -82,22 +84,55 @@ export default function CreateRoster() {
 
 // function to handle submit when user clicks on submit button
 
-    function handleSubmit(event) {
-        event.preventDefault();
-        if (id) {
-            updateRoster({ id: id, ...inputField }).then((roster) => {
-                dispatch({ type: "updateRoster", data: { id: id, ...inputField} });
-                navigate(`/roster/${id}`);
-            });
-        } else {
-            const nextId = getLastId() + 1;
-            createRoster({...inputField, id: nextId})
+
+
+function handleSubmit(event) {
+    event.preventDefault();
+
+    
+
+            if (inputField.length === 1) {
+                const nextId = getLastId() + 1;
+
+                createRoster({...inputField[0], id: nextId})
                 .then((roster) => {
-                    dispatch({ type: "addRoster", data: roster });
-                    // navigate("/rosters");   
+                    dispatch({ type: "addRoster", data: roster });  
                 })
                 .catch((error) => console.log(error));
-        }
+                
+            } 
+            
+            if (inputField.length === 2) {
+                const nextId = getLastId() + 1;
+
+                createRoster({...inputField[0], id: nextId})
+                .then((roster) => {
+                    dispatch({ type: "addRoster", data: roster }); 
+                })
+                createRoster({...inputField[1], id: nextId + 1})
+                .then((roster) => {
+                    dispatch({ type: "addRoster", data: roster }); 
+                })
+                .catch((error) => console.log(error));
+            } 
+            
+            if (inputField.length === 3) {
+                const nextId = getLastId() + 1;
+
+                createRoster({...inputField[0], id: nextId})
+                .then((roster) => {
+                    dispatch({ type: "addRoster", data: roster }); 
+                })
+                createRoster({...inputField[1], id: nextId + 1})
+                .then((roster) => {
+                    dispatch({ type: "addRoster", data: roster }); 
+                })
+                createRoster({...inputField[2], id: nextId + 2})
+                .then((roster) => {
+                    dispatch({ type: "addRoster", data: roster }); 
+                })
+                .catch((error) => console.log(error));
+            }
     }
 
 // function to add additional input fields to form
@@ -118,11 +153,11 @@ export default function CreateRoster() {
         <Container maxWidth="md">
             <Typography variant="h4">Add Team Members to Roster</Typography>
 
-            
+            <form onSubmit={handleSubmit}>
 
                 { inputField.map((inputField, index) => (
-                    <form key={index} className={classes.root} onSubmit={handleSubmit}>
-                    {/* <div key={index}> */}
+                    
+                    <div key={index} className={classes.root}> 
 
                         <InputLabel
                             id="event_id"
@@ -238,30 +273,35 @@ export default function CreateRoster() {
                             <MenuItem key={index} value={user.first_name + " " + user.last_name}>{user.first_name}, {user.last_name}</MenuItem>)}
 
                         </Select>
+                        {index > 0 ?
                         <IconButton
                             onClick={() => handleRemoveFields(index)}
                         >
-                            <RemoveCircleOutlineIcon/>
-                        </IconButton>
+                             <RemoveCircleOutlineIcon/> 
+                        </IconButton> 
+                        : 
+                        null }
+                        {index < 2 ? 
                         <IconButton
                             onClick={()=> handleAddFields()}
                         >
                             <AddCircleOutlineIcon />
                         </IconButton>
-                        <Button 
-                            variant= "contained" 
-                            type="submit" 
-                            color="primary"
-                            className={classes.button}
-                            onClick={handleSubmit}
-                        >
-                        Add Shift
-                        </Button>
-                </form>
-                // </div>
+                        : null}
+                    </div>
+                
                 ))}
-
-               
+                <Button 
+                    variant= "contained" 
+                    type="submit" 
+                    color="primary"
+                    className={classes.button}
+                    onClick={handleSubmit}
+                >
+                Add Shift
+                </Button>
+            </form>
+            {console.log(inputField.length)}
         </Container>
     )
 }
