@@ -1,38 +1,56 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
-import { getRosterById } from '../services/rosterServices';
-import { useGlobalState } from '../utils/stateContext';
-import { deleteRoster } from '../services/rosterServices';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import { IconButton, Typography } from '@material-ui/core';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import { getRosterById, deleteRoster } from "../services/rosterServices";
+import {useGlobalState} from '../utils/stateContext';
 
 export default function ViewRoster() {
+
     const [roster, setRoster] = useState(null);
     const { id } = useParams();
     let navigate = useNavigate();
-    const { store, dispatch } = useGlobalState();
-    // const { loggedInUser } = store
+    const {store, dispatch} = useGlobalState();
 
     useEffect(() => {
         getRosterById(id)
-        .then((roster) => setRoster(roster))
-        .catch((error) => console.log(error))
-    }, [id])
-
-    if(!roster) return null
-
-    function handleDelete() {
+           .then((roster) => setRoster(roster))
+           .catch((error) => console.log(error));
+     }, [id]);
+  
+     if (!roster) return null;
+     const removeRoster = () => {
         deleteRoster(id)
-        .then(() => {
-            dispatch({type: 'deleteRoster', data: id})
-            navigate('/rosters')
-        })
-    }
+           .then(() => {
+               dispatch({type: 'deleteRoster', data: id})
+               navigate('/')
+           })
+           .catch((error) => console.log(error));
+     };
 
     return (
         <div>
-            <p>{roster.name}</p>
-            <p>{roster.role}</p>
-            <p>{roster.start_time}</p>
-            <p>{roster.end_time}</p>
+            <Card elevation={1}>
+                <CardHeader
+                    title={roster.name}
+                    subheader={roster.role}
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="textSecondary">
+                            {roster.start_time} - {roster.end_time}
+                        </Typography>
+                        <IconButton>
+                            <EditOutlinedIcon onClick={() => navigate(`/rosters/update/${id}`)}/>
+                        </IconButton>
+                        <IconButton>
+                            <DeleteOutlineOutlinedIcon onClick={removeRoster}/>
+                        </IconButton>
+                    </CardContent>
+            </Card>
         </div>
     )
 }

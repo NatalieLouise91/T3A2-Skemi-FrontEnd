@@ -64,25 +64,30 @@ const App = () => {
                   loggedInUser={store.loggedInUser}
                   logout={logout}
                />
-               <Routes>
-                  <Route exact path="/" element={<Home />} />
-                  <Route path="/create-event" element={<CreateOccasion />} />
-                  <Route path="/create-roster" element={<CreateRoster />} />
-                  <Route path="/event-schedule" element={<EventSchedule />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/new-user" element={<NewUser />} />
-                  <Route path="/events/:id" element={<ViewOccasion />} />
-                  <Route
-                     exact
-                     path="events/update/:id"
-                     element={<CreateOccasion />}
-                  />
-               </Routes>
-            </BrowserRouter>
-         </StateContext.Provider>
-      </div>
-   );
-};
-
-export default App;
-
+            <Routes>
+              <Route exact path="/" element={<Home/>}/>
+              <Route path="/create-event" element={<CreateOccasion />}/>
+              <Route path="/create-roster" element={<CreateRoster />}/>
+              <Route path="/event-schedule" element={<EventSchedule/>}/>
+              <Route path="/rosters" element={<Rosters/>}/>
+              <Route path="/rosters/:id" element={<ViewRoster/>}/>
+              <Route 
+               exact 
+               path="rosters/update/:id"
+               element={<CreateRoster />}
+               />
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/new-user" element={<NewUser/>}/>
+              <Route path="/events/:id" element={<ViewOccasion />} />
+              <Route 
+              exact 
+              path="events/update/:id"
+              element={<CreateOccasion/>} 
+              />
+            </Routes>
+          </BrowserRouter>
+      </StateContext.Provider>
+      </ThemeProvider>
+    </div>
+  )
+}
