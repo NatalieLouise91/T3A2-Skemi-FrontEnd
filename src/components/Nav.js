@@ -12,12 +12,14 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import { signOut } from '../services/authServices'
 import LoginIcon from '@mui/icons-material/Login'
 import LogoutIcon from '@mui/icons-material/Logout'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Nav = ({ loggedInUser, logout }) => {
+  const navigate = useNavigate();
   const handleLogout = async event => {
     event.preventDefault()
     await signOut()
+    navigate(`/login`)
     logout()
   }
 
