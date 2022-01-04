@@ -27,13 +27,16 @@ const theme = createTheme({
   },
 });
 
-const initialState = {
-   occasions: [],
-   loggedInUser: sessionStorage.getItem("user") || null,
-   auth: { token: sessionStorage.getItem("token") || null }
-};
-
 const App = () => {
+
+   const initialState = {
+      occasions: [],
+      rosters: [],
+      users: [],
+      loggedInUser: sessionStorage.getItem("user") || null,
+      auth: { token: sessionStorage.getItem("token") || null }
+   };
+
    const [store, dispatch] = useReducer(stateReducer, initialState);
 
    useEffect(() => {
@@ -55,8 +58,16 @@ const App = () => {
       dispatch({ type: "logout" })
    }
 
+   useEffect(() => {
+      getRosters()
+       .then((rosters) => dispatch({type: 'setRosters', data: rosters})
+       )
+       .catch((error) => console.log(error));
+    }, []);
+
    return (
       <div>
+         <ThemeProvider theme={theme}>
          <CssBaseline />
          <StateContext.Provider value={{ store, dispatch }}>
             <BrowserRouter>
@@ -89,5 +100,7 @@ const App = () => {
       </StateContext.Provider>
       </ThemeProvider>
     </div>
-  )
-}
+  );
+};
+
+export default App;
