@@ -4,7 +4,6 @@ import {
     AppBar,
     Toolbar,
     Typography,
-    makeStyles,
     Button,
     IconButton,
     ButtonGroup
@@ -79,7 +78,7 @@ const LoggedInTab = ({ loggedInUser, handleLogout }) => {
       <div style={{ flexGrow: 1 }} />
       
       <Typography style={{ marginRight: 20 }}>
-        {loggedInUser}
+        Welcome <strong>{loggedInUser}</strong> !
       </Typography>
       <Button 
         style={{ color: "inherit" }}
