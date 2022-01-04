@@ -96,7 +96,7 @@ const ViewOccasion = () => {
                               type="submit"
                               variant="contained"
                               color="primary"
-                              onClick={() => navigate(`/event/update/${id}`)}
+                              onClick={() => navigate(`/events/update/${id}`)}
                            >
                               Edit Event
                            </Button>

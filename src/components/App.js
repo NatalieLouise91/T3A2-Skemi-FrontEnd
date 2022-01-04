@@ -27,15 +27,13 @@ const theme = createTheme({
   },
 });
 
-const App = () => {
-   const initialState = {
-      occasions: [],
-      rosters: [],
-      users: [],
-      loggedInUser: sessionStorage.getItem("user") || null,
-      auth: { token: sessionStorage.getItem("token") || null },
-   };
+const initialState = {
+   occasions: [],
+   loggedInUser: sessionStorage.getItem("user") || null,
+   auth: { token: sessionStorage.getItem("token") || null }
+};
 
+const App = () => {
    const [store, dispatch] = useReducer(stateReducer, initialState);
 
    useEffect(() => {
@@ -53,21 +51,19 @@ const App = () => {
        )
        .catch((error) => console.log(error));
    }, []);
+   const logout = () => {
+      dispatch({ type: "logout" })
+   }
 
-   useEffect(() => {
-     getRosters()
-      .then((rosters) => dispatch({type: 'setRosters', data: rosters})
-      )
-      .catch((error) => console.log(error));
-   }, []);
-
-  return (
-    <div>
-      <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <StateContext.Provider value={{store, dispatch}}>
-          <BrowserRouter>
-            <Nav/>
+   return (
+      <div>
+         <CssBaseline />
+         <StateContext.Provider value={{ store, dispatch }}>
+            <BrowserRouter>
+               <Nav
+                  loggedInUser={store.loggedInUser}
+                  logout={logout}
+               />
             <Routes>
               <Route exact path="/" element={<Home/>}/>
               <Route path="/create-event" element={<CreateOccasion />}/>
@@ -85,7 +81,7 @@ const App = () => {
               <Route path="/events/:id" element={<ViewOccasion />} />
               <Route 
               exact 
-              path="event/update/:id"
+              path="events/update/:id"
               element={<CreateOccasion/>} 
               />
             </Routes>
@@ -95,5 +91,3 @@ const App = () => {
     </div>
   )
 }
-
-export default App;

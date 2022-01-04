@@ -1,14 +1,10 @@
-import React, { useState } from "react";
-import { signIn } from "../services/authServices";
-import { useGlobalState } from "../utils/stateContext";
-import { useNavigate, Link } from "react-router-dom";
-import {
-   Button,
-   TextField,
-   Container,
-   Paper,
-   Divider,
-} from "@material-ui/core";
+import React, { useState } from 'react';
+import { signIn } from '../services/authServices';
+import { useGlobalState } from '../utils/stateContext';
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import {TextField, Typography, Link, Grid, Container, Button, Paper } from '@mui/material'
+import SendIcon from '@mui/icons-material/Send'
+
 
 export default function Login() {
    const initialFormData = {
@@ -26,78 +22,85 @@ export default function Login() {
       });
    }
 
-   function handleSubmit(event) {
-      event.preventDefault();
-      signIn(formData)
-         .then(({ email, jwt }) => {
-            sessionStorage.setItem("token", jwt);
-            sessionStorage.setItem("user", email);
-            dispatch({ type: "setLoggedInUser", data: email });
-            dispatch({ type: "setToken", data: jwt });
-            navigate("/");
-         })
-         .catch((error) => console.log(error));
-   }
+    function handleSubmit(event) {
+        event.preventDefault()
+        signIn(formData)
+        .then(({email, jwt}) => {
+            sessionStorage.setItem('token', jwt);
+            sessionStorage.setItem('user', email);
+            dispatch({ type: 'login', data: { email, jwt } })
+            navigate('/')
+        })
+        .catch((error) => console.log(error))   
+    }
 
-   return (
-      <Container maxWidth="xs">
-         <Paper elevation={5} style={{ padding: 25, marginTop: 50 }}>
-            {/* <Typography variant="h4" style={{ padding: 10 }}>
-               Login
-            </Typography> */}
-            <form onSubmit={handleSubmit}>
-               <TextField
-                  style={{ marginTop: 20 }}
-                  InputLabelProps={{ shrink: true }}
-                  type="email"
-                  name="email"
-                  id="outlined-basic"
-                  value={formData.email}
-                  onChange={handleFormData}
-                  label="Email"
-                  variant="outlined"
-                  size="small"
-                  fullWidth
-                  required
-               />
-               <TextField
-                  style={{ marginTop: 20 }}
-                  InputLabelProps={{ shrink: true }}
-                  type="password"
-                  name="password"
-                  id="outlined-basic"
-                  value={formData.password}
-                  onChange={handleFormData}
-                  label="Password"
-                  variant="outlined"
-                  size="small"
-                  fullWidth
-                  required
-               />
-               <Button
-                  style={{ marginTop: 20 }}
-                  onClick={handleSubmit}
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  required
-               >
-                  Login
-               </Button>
-            </form>
-            <Divider style={{ marginTop: 20 }} />
-            <Link to="/new-user" style={{ textDecoration: "none" }}>
-               <Button
-                  style={{ marginTop: 20 }}
-                  variant="outlined"
-                  color="primary"
-                  fullWidth
-                  required
-               >
-                  Sign Up
-               </Button>
-            </Link>
-         </Paper>
-      </Container>
-   );
+    return(
+   
+    <Grid 
+        container
+        height = '100vh'
+        alignItems = 'center'
+        justifyContent = 'center'
+    >
+        <form onSubmit={handleSubmit}>
+            <Container maxWidth='xs'>
+                <Paper style={{ padding: "16px 32px "}}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <SendIcon fontSize='large' />
+                    </div>
+                    <Typography textAlign='center' variant='h5' style={{marginBottom: 24}}>
+                        Sign in your account
+                    </Typography>
+                        {/* <label htmlFor="email">Email:</label> */}
+                    <TextField 
+                        label='email'
+                        name='email'
+                        type='email'
+                        id='email'
+                        value={formData.email}
+                        onChange={handleFormData} 
+                        fullWidth
+                        margin='normal'
+                        required 
+                    />
+                        {/* <input type="email" name="email" id="email" value={formData.email} onChange={handleFormData}/> */}
+                        {/* <label htmlFor="password">Password:</label> */}
+                    <TextField 
+                        label='password'
+                        name='password'
+                        type='password'
+                        id='password'
+                        value={formData.password}
+                        onChange={handleFormData}
+                        fullWidth
+                        margin='normal'
+                        required 
+                    />
+                        {/* <input type="password" name="password" id="password" value={formData.password} onChange={handleFormData} /> */}
+                    <Button
+                        variant='contained'
+                        type='submit'
+                        value='Login'
+                        fullWidth
+                        style={{ 
+                            marginTop: '16px',
+                            marginBottom: '8px'
+                        }}>
+                        Login
+                    </Button>
+                    <Typography textAlign='center' variant='caption' component='p' style={{ marginTop: 32, marginBottom: 4}}>
+                        Or sign up new account
+                    </Typography>
+                    <div style={{ display: 'flex', justifyContent: 'center'}}>
+                        <Link underline='none' component={RouterLink} to='/new-user'>
+                            Create account
+                        </Link>
+                    </div>
+                        {/* <input type="submit" value="Login"/> */}
+                </Paper>
+            </Container>
+        </form>
+    </Grid>
+    )
 }
+
