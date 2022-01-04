@@ -48,6 +48,13 @@ export default function reducer(state, action) {
           };
       }
 
+      case "setUsers": {
+         return{
+            ...state,
+            users: action.data,
+         };
+      }
+
       case 'login': {
          return {
             ...state,

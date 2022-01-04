@@ -32,7 +32,7 @@ const App = () => {
    const initialState = {
       occasions: [],
       rosters: [],
-      users: [],
+      // users: [],
       loggedInUser: sessionStorage.getItem("user") || null,
       auth: { token: sessionStorage.getItem("token") || null }
    };
@@ -102,5 +102,7 @@ const App = () => {
     </div>
   );
 };
+
+
 
 export default App;

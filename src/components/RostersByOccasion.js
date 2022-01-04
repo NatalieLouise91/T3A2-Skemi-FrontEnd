@@ -11,7 +11,8 @@ export default function RostersByOccasion() {
 
     const { id } = useParams();
     const { store } = useGlobalState();
-    const { rosters } = store; 
+    const { rosters } = store;
+    const { users } = store; 
 
     return (
         <Container>
@@ -25,6 +26,7 @@ export default function RostersByOccasion() {
                 )
                 }
             </Grid>
+            {console.log(users)}
         </Container>
     )
 }

@@ -302,6 +302,7 @@ function handleSubmit(event) {
                 </Button>
             </form>
             {console.log(inputField.length)}
+            {console.log(users)}
         </Container>
     )
 }
