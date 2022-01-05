@@ -18,6 +18,7 @@ import Rosters from './Rosters';
 import ViewRoster from './ViewRoster';
 import { getRosters } from '../services/rosterServices';
 import { getUsers } from '../services/userServices';
+import EditRoster from './EditRoster';
 
 const theme = createTheme({
   palette: {
@@ -85,7 +86,7 @@ const App = () => {
               <Route 
                exact 
                path="rosters/update/:id"
-               element={<CreateRoster />}
+               element={<EditRoster/>}
                />
               <Route path="/login" element={<Login/>}/>
               <Route path="/new-user" element={<NewUser/>}/>
