@@ -48,6 +48,26 @@ export default function reducer(state, action) {
           };
       }
 
+      case "deleteRoster": {
+         const updatedRosters = state.rosters.filter((roster) => {
+            return roster.id !== parseInt(action.data)
+         });
+         return {
+            ...state,
+            rosters: updatedRosters
+         }
+      }
+
+      case "updateRoster": {
+         const roster = state.rosters.find((roster) => roster.id == action.data.id)
+         const theRest = state.rosters.filter((roster) => roster.id != action.data.id)
+         const updatedRoster = Object.assign(roster, action.data)
+         return  {
+            ...state,
+            rosters: [updatedRoster, ...theRest]
+         }
+      }
+
       case "setUsers": {
          return{
             ...state,

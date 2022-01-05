@@ -48,22 +48,6 @@ export default function CreateRoster() {
     const { occasions } = store;
     const { users } = store;
 
-// useEffect hook to return prefilled form data if there is an existing roster with that id.
-
-    useEffect(() => {
-        if (id) {
-           getRosterById(id).then((roster) => {
-              setInputField({
-                event_id: roster.event_id,
-                start_time: roster.start_time,
-                end_time: roster.end_time,
-                role: roster.role,
-                name: roster.name,  
-              });
-           });
-        }
-     }, [id]);
-
 // function to return the last id in the roster database
 
     function getLastId() {
@@ -89,14 +73,13 @@ export default function CreateRoster() {
 function handleSubmit(event) {
     event.preventDefault();
 
-    
-
             if (inputField.length === 1) {
                 const nextId = getLastId() + 1;
 
                 createRoster({...inputField[0], id: nextId})
                 .then((roster) => {
-                    dispatch({ type: "addRoster", data: roster });  
+                    dispatch({ type: "addRoster", data: roster }); 
+                    navigate('/') 
                 })
                 .catch((error) => console.log(error));
                 
@@ -112,6 +95,7 @@ function handleSubmit(event) {
                 createRoster({...inputField[1], id: nextId + 1})
                 .then((roster) => {
                     dispatch({ type: "addRoster", data: roster }); 
+                    navigate('/')
                 })
                 .catch((error) => console.log(error));
             } 
@@ -130,6 +114,7 @@ function handleSubmit(event) {
                 createRoster({...inputField[2], id: nextId + 2})
                 .then((roster) => {
                     dispatch({ type: "addRoster", data: roster }); 
+                    navigate('/')
                 })
                 .catch((error) => console.log(error));
             }
@@ -298,7 +283,7 @@ function handleSubmit(event) {
                     className={classes.button}
                     onClick={handleSubmit}
                 >
-                Add Shift
+                Add to Roster
                 </Button>
             </form>
             {console.log(inputField.length)}
