@@ -1,96 +1,218 @@
 // IMPORTING APIS
 import React from "react";
 import {
-    AppBar,
-    Toolbar,
-    Typography,
-    Button,
-    IconButton,
-    ButtonGroup
-} from '@material-ui/core';
-import EventNoteIcon from '@mui/icons-material/EventNote';
-import { signOut } from '../services/authServices'
-import LoginIcon from '@mui/icons-material/Login'
-import LogoutIcon from '@mui/icons-material/Logout'
+   AppBar,
+   Toolbar,
+   IconButton,
+   Typography,
+   useMediaQuery,
+   Button,
+   useScrollTrigger,
+   Slide,
+   Menu,
+   MenuItem,
+   ListItemIcon,
+} from "@material-ui/core";
+import EventNoteIcon from "@mui/icons-material/EventNote";
+import { signOut } from "../services/authServices";
+import LoginIcon from "@mui/icons-material/Login";
+import MenuIcon from "@material-ui/icons/Menu";
+import BallotOutlinedIcon from "@mui/icons-material/BallotOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
+import AppRegistrationOutlinedIcon from "@mui/icons-material/AppRegistrationOutlined";
 import { Link, useNavigate } from "react-router-dom";
+import LoggedInTab from "./LoggedInTab";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 
-const Nav = ({ loggedInUser, logout }) => {
-  const navigate = useNavigate();
-  const handleLogout = async event => {
-    event.preventDefault()
-    await signOut()
-    navigate(`/login`)
-    logout()
-  }
+const useStyles = makeStyles((theme) => ({
+   root: {
+      flexGrow: 1,
+      marginBottom: 75,
+   },
+   menuButton: {
+      marginRight: theme.spacing(2),
+      color: "white",
+   },
+   title: {
+      flexGrow: 1,
+   },
+}));
 
-  return (
-    <AppBar position="static">
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          style={{marginRight: 8}}
-          component={Link}
-          to='/'
-        >
-        <EventNoteIcon fontsize='large' />
-        </IconButton>
-        <Typography variant="h5">Skemi</Typography>
-        <div style={{ flexGrow: 1 }} />
-        {loggedInUser && <LoggedInTab loggedInUser={loggedInUser} handleLogout={handleLogout} />}
-        {!loggedInUser && (
-          <Button 
-            component={Link}
-            to='/login'
-            style={{ color: "inherit" }}
-            size='large'
-            endIcon={<LoginIcon />}
-          >
-            Login
-          </Button>
-        )}
-      </Toolbar>
-    </AppBar>
-  )
-}
+// function HideOnScroll(props) {
+//    const { children } = props;
+//    const trigger = useScrollTrigger();
+
+//    return (
+//       <Slide appear={false} direction={"down"} in={!trigger}>
+//          {children}
+//       </Slide>
+//    );
+// }
+
+const Nav = ({ loggedInUser, logout, props }) => {
+   const navigate = useNavigate();
+
+   const classes = useStyles();
+   const [anchor, setAnchor] = React.useState(null);
+   const open = Boolean(anchor);
+   const theme = useTheme();
+   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+   const handleMenu = (event) => {
+      setAnchor(event.currentTarget);
+   };
+
+   const handleLogout = async (event) => {
+      event.preventDefault();
+      await signOut();
+      navigate(`/login`);
+      logout();
+      setAnchor(null);
+   };
+
+   return (
+      <div className={classes.root}>
+         {/* <HideOnScroll {...props}> */}
+         <AppBar>
+            <Toolbar>
+               <IconButton
+                  color="inherit"
+                  style={{ marginRight: 8 }}
+                  component={Link}
+                  to="/"
+               >
+                  <EventNoteIcon fontsize="large" />
+               </IconButton>
+               <Typography variant="h5">Skemi</Typography>
+               <div style={{ flexGrow: 1 }} />
+
+               {!isMobile && loggedInUser ? (
+                  <LoggedInTab
+                     loggedInUser={loggedInUser}
+                     handleLogout={handleLogout}
+                  />
+               ) : !isMobile && !loggedInUser ? (
+                  <Button
+                     component={Link}
+                     to="/login"
+                     style={{ color: "inherit" }}
+                     size="large"
+                     endIcon={<LoginIcon />}
+                  >
+                     Login
+                  </Button>
+               ) : isMobile && loggedInUser ? (
+                  <>
+                     <IconButton
+                        color="textPrimary"
+                        className={classes.menuButton}
+                        edge="start"
+                        aria-label="menu"
+                        onClick={handleMenu}
+                     >
+                        <MenuIcon />
+                     </IconButton>
+                     <Menu
+                        id="menu-appbar"
+                        anchorEl={anchor}
+                        anchorOrigin={{
+                           vertical: "top",
+                           horizontal: "right",
+                        }}
+                        KeepMounted
+                        transformOrigin={{
+                           vertical: "top",
+                           horizontal: "right",
+                        }}
+                        open={open}
+                     >
+                        <MenuItem
+                           onClick={() => setAnchor(null)}
+                           component={Link}
+                           to="/"
+                        >
+                           <ListItemIcon>
+                              <BallotOutlinedIcon />
+                           </ListItemIcon>
+                           <Typography variant="h6"> All Events</Typography>
+                        </MenuItem>
+
+                        <MenuItem
+                           onClick={() => setAnchor(null)}
+                           component={Link}
+                           to="/"
+                        >
+                           <ListItemIcon>
+                              <PersonOutlineOutlinedIcon />
+                           </ListItemIcon>
+                           <Typography variant="h6"> My Profile</Typography>
+                        </MenuItem>
+                        <MenuItem
+                           onClick={handleLogout}
+                           component={Link}
+                           to="/"
+                        >
+                           <ListItemIcon>
+                              <LogoutOutlinedIcon />
+                           </ListItemIcon>
+                           <Typography variant="h6"> Logout</Typography>
+                        </MenuItem>
+                     </Menu>
+                  </>
+               ) : isMobile && !loggedInUser ? (
+                  <>
+                     <IconButton
+                        color="red"
+                        className={classes.menuButton}
+                        edge="start"
+                        aria-label="menu"
+                        onClick={handleMenu}
+                     >
+                        <MenuIcon />
+                     </IconButton>
+                     <Menu
+                        id="menu-appbar"
+                        anchorEl={anchor}
+                        anchorOrigin={{
+                           vertical: "top",
+                           horizontal: "right",
+                        }}
+                        KeepMounted
+                        transformOrigin={{
+                           vertical: "top",
+                           horizontal: "right",
+                        }}
+                        open={open}
+                     >
+                        <MenuItem
+                           onClick={() => setAnchor(null)}
+                           component={Link}
+                           to="/login"
+                        >
+                           <ListItemIcon>
+                              <LoginOutlinedIcon />
+                           </ListItemIcon>
+                           <Typography variant="h6"> Login</Typography>
+                        </MenuItem>
+                        <MenuItem
+                           onClick={() => setAnchor(null)}
+                           component={Link}
+                           to="/new-user"
+                        >
+                           <ListItemIcon>
+                              <AppRegistrationOutlinedIcon />
+                           </ListItemIcon>
+                           <Typography variant="h6"> Register</Typography>
+                        </MenuItem>
+                     </Menu>
+                  </>
+               ) : null}
+            </Toolbar>
+         </AppBar>
+         {/* </HideOnScroll> */}
+      </div>
+   );
+};
 
 export default Nav;
-
-const LoggedInTab = ({ loggedInUser, handleLogout }) => {
-  return (
-    <>
-      <ButtonGroup variant='text' color='inherit'>
-        <Button 
-          size='large'
-          component={Link}
-          to='/create-event'
-          style={{ marginRight: 10 }}
-        >
-          Create an Event
-        </Button>
-        <Button 
-          size='large'
-          component={Link}
-          to='/event-schedule'
-          style={{ marginRight: 10 }}
-        >
-          Schedule Event
-        </Button>
-      </ButtonGroup>
-
-      <div style={{ flexGrow: 1 }} />
-      
-      <Typography style={{ marginRight: 20 }}>
-        Welcome <strong>{loggedInUser}</strong> !
-      </Typography>
-      <Button 
-        style={{ color: "inherit" }}
-        size='large'
-        endIcon={<LogoutIcon />}
-        onClick={handleLogout}
-      >
-        Logout
-      </Button>
-    </>
-  )
-}
-
