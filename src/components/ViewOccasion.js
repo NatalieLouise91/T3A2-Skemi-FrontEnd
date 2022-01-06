@@ -41,6 +41,8 @@ const ViewOccasion = () => {
    // const cancelEdit = () => {
    //    setEdit(false);
    // };
+
+
    return (
       <div>
          {/* <div>{edit ? <EditOccasion cancelEdit={cancelEdit} /> : null}</div> */}
