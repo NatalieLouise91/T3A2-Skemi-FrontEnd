@@ -11,7 +11,7 @@ export default function Spinner() {
     useEffect(() => {
         init(textRef.current, {
             showCursor: false,
-            strings: ["Loading Rosters..."]
+            strings: ["Loading..."]
         })
     },[])
 

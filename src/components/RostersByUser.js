@@ -4,12 +4,11 @@ import { useGlobalState } from "../utils/stateContext";
 import {
    Grid,
    Container,
-   Typography,
 } from "@material-ui/core";
-import RosterCard from "./RosterCard";
+import RosterCardForUsers from "./RosterCard";
 import Spinner from "./Spinner";
 
-export default function RostersByOccasion() {
+export default function RostersByUser() {
 
     const { id } = useParams();
     const { store } = useGlobalState();
@@ -63,15 +62,15 @@ export default function RostersByOccasion() {
 
             <Grid container spacing={3}>
                     {rosters.map((roster) =>
-                    roster.event_id == id?
+                    roster.user_id == id?
                             <Grid key={roster.id} item xs={12} sm={6} md={3}>
-                                <RosterCard roster={roster} />
+                                <RosterCardForUsers roster={roster} />
                             </Grid>
                     : null
                 )
-            }
-                
+                }
             </Grid>
+            
             }
             {console.log(users)}
         </Container>

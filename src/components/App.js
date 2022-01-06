@@ -19,6 +19,7 @@ import ViewRoster from './ViewRoster';
 import { getRosters } from '../services/rosterServices';
 import { getUsers } from '../services/userServices';
 import EditRoster from './EditRoster';
+import ViewUser from './ViewUser';
 
 const theme = createTheme({
   palette: {
@@ -90,6 +91,7 @@ const App = () => {
                />
               <Route path="/login" element={<Login/>}/>
               <Route path="/new-user" element={<NewUser/>}/>
+              <Route path="/users/:id" element={<ViewUser />} />
               <Route path="/events/:id" element={<ViewOccasion />} />
               <Route 
               exact 
