@@ -30,20 +30,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EditRosterForm() {
 
-    // const [roster, setRoster] = useState(null);
-    
-    // useEffect(() => {
-    //     getRosterById(id)
-    //        .then((roster) => setRoster(roster))
-    //        .catch((error) => console.log(error));
-    //  }, [id]);
-
 
     const initialFormData = {
         event_id: "", 
         start_time: "", 
         end_time: "", 
-        name: "", 
+        name: "",
+        user_id: "", 
         role: "",
     }
 
@@ -62,6 +55,7 @@ export default function EditRosterForm() {
                 start_time: roster.start_time, 
                 end_time: roster.end_time, 
                 name: roster.name, 
+                user_id: roster.user_id,
                 role: roster.role
               });
            });
@@ -197,9 +191,9 @@ function handleSubmit(event) {
                             onChange={handleFormData}
                         >
 
-                            <MenuItem value="waiter">Waiter</MenuItem>
-                            <MenuItem value="bartender">Bartender</MenuItem>
-                            <MenuItem value="chef">Chef</MenuItem>
+                            <MenuItem value="Waiter">Waiter</MenuItem>
+                            <MenuItem value="Bartender">Bartender</MenuItem>
+                            <MenuItem value="Chef">Chef</MenuItem>
                         </Select>
                         
                         <InputLabel 
@@ -222,6 +216,28 @@ function handleSubmit(event) {
 
                             {users.map((user, index) => 
                             <MenuItem key={index} value={user.first_name + " " + user.last_name}>{user.first_name}, {user.last_name}</MenuItem>)}
+
+                        </Select>
+                        <InputLabel 
+                        id= "user_id"
+                        className={classes.field}
+                        >
+                            Confirm Team Member
+                        </InputLabel>
+                        <Select
+                            labelId= "user_id"
+                            id="user_id"
+                            label="Confirm Team Member"
+                            name="user_id"
+                            value={formData.user_id}
+                            className={classes.field}
+                            required
+                            fullWidth
+                            onChange={handleFormData}
+                        >
+
+                            {users.map((user, index) => 
+                            <MenuItem key={index} value={user.id}>{user.first_name}, {user.last_name}</MenuItem>)}
 
                         </Select>
                 <Button 

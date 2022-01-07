@@ -4,19 +4,16 @@ import { useGlobalState } from "../utils/stateContext";
 import {
    Grid,
    Container,
-   Paper,
-   Typography,
 } from "@material-ui/core";
-import Roster from "./Roster";
+import UserRosterCard from "./UserRosterCard";
 import Spinner from "./Spinner";
-import User from "./User";
 
-export default function EventSchedule() {
+export default function RostersByUser() {
 
     const { id } = useParams();
     const { store } = useGlobalState();
     const { rosters } = store;
-    const { users } = store;
+    const { users } = store; 
     const { occasions } = store;
 
 // setting the display component state
@@ -30,12 +27,12 @@ export default function EventSchedule() {
    useEffect(() => {
       setInterval(() => {
          setDisplayComponent(true);
-      }, 5000);
+      }, 10000);
    }, []);
 
 // useEffect to set the interval for rendering the spinner
     useEffect(() => {
-        let time = 5;
+        let time = 10;
         const timeValue = setInterval((interval) => {
             setDisplaySpinner(true);
             time = time - 1;
@@ -44,12 +41,9 @@ export default function EventSchedule() {
                 setDisplaySpinner(false);
             }
     }, 1000); },[]);
-
-    // const teamMembers = users.map(user => user.first_name + ' ' + user.last_name)
-
+   
 
     return (
-        
         <Container> 
 
             {displaySpinner && 
@@ -66,39 +60,25 @@ export default function EventSchedule() {
             }
             
             {displayComponent &&
-            
-            <Container>
-            <Grid 
-                container
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-            >
-                <Grid item xs={12} md={6} lg={4}>
-                    <Paper elevation={5} style={{ padding: 24, marginTop: 24 }}>
-                        <Typography variant="h3">Event Schedule</Typography>
-                    </Paper>
-                </Grid>
-            </Grid>
-            
-            <Grid
-                container
-                direction="column"
-                justifyContent="center"
-                alignItems="flex-start"
-            >
-                {users.map((user, index) => (
-                <Grid item key={index} xs={12} md={6} lg={4}>
-                    < User user={user} />
-                </Grid>
-                ))}
-            </Grid>
-            {console.log(users)}
 
-            </Container>
+            <>
+
+            <Grid container spacing={4}>
+                    { rosters.map((roster) =>
+                    roster.user_id == id?
+                            <Grid key={roster.id} item xs={12} sm={6} md={3}>
+                                <UserRosterCard roster={roster} />
+                            </Grid>
+
+                    : null
+                )
+                }
+            </Grid>
+
+            </>
+            
             }
+
         </Container>
     )
 }
-
-

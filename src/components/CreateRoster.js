@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useGlobalState } from "../utils/stateContext";
-import { createRoster, getRosterById, updateRoster } from "../services/rosterServices"
+import { createRoster } from "../services/rosterServices"
 import "@fontsource/roboto/400.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { 
@@ -10,12 +10,14 @@ import {
     InputLabel,
     MenuItem,
     Container,
-    Typography
+    Typography,
+    Grid,
 } from "@material-ui/core";
 
 import IconButton from '@material-ui/core/IconButton'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import Spinner from "./Spinner";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,12 +40,11 @@ export default function CreateRoster() {
     const classes = useStyles();
 
     const [inputField, setInputField] = useState([
-        { event_id: "", start_time: "", end_time: "", role: "", name: ""},
+        { event_id: "", start_time: "", end_time: "", role: "", name: "", user_id: ""},
     ]);
 
     const { dispatch, store } = useGlobalState();
 
-    let { id } = useParams();
     const { rosters } = store; 
     const { occasions } = store;
     const { users } = store;
@@ -123,7 +124,7 @@ function handleSubmit(event) {
 // function to add additional input fields to form
 
     const handleAddFields = () => {
-        setInputField([...inputField, { event_id: "", start_time: "", end_time: "", role: "", name: ""}])
+        setInputField([...inputField, { event_id: "", start_time: "", end_time: "", role: "", name: "", user_id: ""}])
     }
 
 // function to remove input fields from form
@@ -134,8 +135,52 @@ function handleSubmit(event) {
         setInputField(values);
     }
 
+    // setting the display component state
+   const [displayComponent, setDisplayComponent] = useState(false);
+
+   // setting the display spinner state
+      const [displaySpinner, setDisplaySpinner] = useState(false);
+   
+   // useEffect to set the interval for rendering the component
+   
+      useEffect(() => {
+         setInterval(() => {
+            setDisplayComponent(true);
+         }, 7000);
+      }, []);
+   
+   // useEffect to set the interval for rendering the spinner
+       useEffect(() => {
+           let time = 5;
+           const timeValue = setInterval((interval) => {
+               setDisplaySpinner(true);
+               time = time - 1;
+               if (time <= 0) {
+                   clearInterval(timeValue);
+                   setDisplaySpinner(false);
+               }
+       }, 1000); },[]);
+
     return (
         <Container maxWidth="md">
+
+            {displaySpinner && 
+            
+                <Grid 
+                    container 
+                    direction="column" 
+                    justifyContent="center" 
+                    alignItems="center"
+                >
+                <Spinner />
+            </Grid>
+            
+            }
+
+            {displayComponent &&
+
+            <div>
+
             <Typography variant="h4">Add Team Members to Roster</Typography>
 
             <form onSubmit={handleSubmit}>
@@ -231,9 +276,9 @@ function handleSubmit(event) {
                             onChange={event => handleChangeInput(index, event)}
                         >
 
-                            <MenuItem value="waiter">Waiter</MenuItem>
-                            <MenuItem value="bartender">Bartender</MenuItem>
-                            <MenuItem value="chef">Chef</MenuItem>
+                            <MenuItem value="Waiter">Waiter</MenuItem>
+                            <MenuItem value="Bartender">Bartender</MenuItem>
+                            <MenuItem value="Chef">Chef</MenuItem>
                         </Select>
                         
                         <InputLabel 
@@ -258,6 +303,30 @@ function handleSubmit(event) {
                             <MenuItem key={index} value={user.first_name + " " + user.last_name}>{user.first_name}, {user.last_name}</MenuItem>)}
 
                         </Select>
+
+                        <InputLabel 
+                        id= "user_id"
+                        className={classes.field}
+                        >
+                            Confirm Team Member
+                        </InputLabel>
+                        <Select
+                            labelId= "user_id"
+                            id="user_id"
+                            label="Team Member Id"
+                            name="user_id"
+                            value={inputField.user_id}
+                            className={classes.field}
+                            required
+                            fullWidth
+                            onChange={event => handleChangeInput(index, event)}
+                        >
+
+                            {users.map((user, index) => 
+                            <MenuItem key={index} value={user.id}>{user.first_name}, {user.last_name}</MenuItem>)}
+
+                        </Select>
+
                         {index > 0 ?
                         <IconButton
                             onClick={() => handleRemoveFields(index)}
@@ -286,8 +355,9 @@ function handleSubmit(event) {
                 Add to Roster
                 </Button>
             </form>
-            {console.log(inputField.length)}
-            {console.log(users)}
+            </div>
+            }
         </Container>
+                        
     )
 }
