@@ -5,7 +5,7 @@ import {
    Grid,
    Container,
 } from "@material-ui/core";
-import RosterCardForUsers from "./RosterCard";
+import UserRosterCard from "./UserRosterCard";
 import Spinner from "./Spinner";
 
 export default function RostersByUser() {
@@ -14,6 +14,7 @@ export default function RostersByUser() {
     const { store } = useGlobalState();
     const { rosters } = store;
     const { users } = store; 
+    const { occasions } = store;
 
 // setting the display component state
    const [displayComponent, setDisplayComponent] = useState(false);
@@ -26,12 +27,12 @@ export default function RostersByUser() {
    useEffect(() => {
       setInterval(() => {
          setDisplayComponent(true);
-      }, 5000);
+      }, 10000);
    }, []);
 
 // useEffect to set the interval for rendering the spinner
     useEffect(() => {
-        let time = 5;
+        let time = 10;
         const timeValue = setInterval((interval) => {
             setDisplaySpinner(true);
             time = time - 1;
@@ -60,19 +61,24 @@ export default function RostersByUser() {
             
             {displayComponent &&
 
-            <Grid container spacing={3}>
-                    {rosters.map((roster) =>
+            <>
+
+            <Grid container spacing={4}>
+                    { rosters.map((roster) =>
                     roster.user_id == id?
                             <Grid key={roster.id} item xs={12} sm={6} md={3}>
-                                <RosterCardForUsers roster={roster} />
+                                <UserRosterCard roster={roster} />
                             </Grid>
+
                     : null
                 )
                 }
             </Grid>
+
+            </>
             
             }
-            {console.log(users)}
+
         </Container>
     )
 }

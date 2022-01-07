@@ -5,6 +5,7 @@ import {
    Grid,
    Container,
    Paper,
+   Typography,
 } from "@material-ui/core";
 import Roster from "./Roster";
 import Spinner from "./Spinner";
@@ -66,39 +67,35 @@ export default function EventSchedule() {
             
             {displayComponent &&
             
-            <>
-            {/* <Grid container spacing={1}>
-            {occasions.map((occasion, index) => (
-            <Grid item key={index} xs={12} md={6} lg={4}>
-                <Paper style={{ padding: 24, marginTop: 24 }} elevation={5}>
-                    <p>{occasion.id}, {occasion.name}, {occasion.date}</p>
-                </Paper>
+            <Container>
+            <Grid 
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+            >
+                <Grid item xs={12} md={6} lg={4}>
+                    <Paper elevation={5} style={{ padding: 24, marginTop: 24 }}>
+                        <Typography variant="h3">Event Schedule</Typography>
+                    </Paper>
+                </Grid>
             </Grid>
-            ))}
-            </Grid>
-
-            <Grid container spacing={1}>
-            {rosters.map((roster, index) => (
-            <Grid item key={index} xs={12} md={6} lg={4}>
-                <Paper style={{ padding: 24, marginTop: 24 }} elevation={5}>
-                    <p>id: {roster.id}, event id: {roster.event_id}, user_id: {roster.user_id}, team member: {roster.name}, role: {roster.role}, shift: {roster.start_time} - {roster.end_time}</p>
-                </Paper>
-            </Grid>
-            ))}
-            </Grid>  */}
-
-            <Grid container spacing={1}>
+            
+            <Grid
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="flex-start"
+            >
                 {users.map((user, index) => (
                 <Grid item key={index} xs={12} md={6} lg={4}>
-                    <Paper style={{ padding: 24, marginTop: 24 }} elevation={5}>
-                        < User user={user} />
-                    </Paper>
+                    < User user={user} />
                 </Grid>
                 ))}
             </Grid>
             {console.log(users)}
 
-            </>
+            </Container>
             }
         </Container>
     )

@@ -44,7 +44,6 @@ export default function ViewUser() {
                     </Container>
                 </Paper>
             </Container> 
-
             <Container>
                     <Paper 
                         elevation={5}
@@ -53,8 +52,29 @@ export default function ViewUser() {
                             align="center"
                         >
                         <Typography
-                           variant="h4"
+                           variant="h5"
                            style={{ padding: 5, marginTop: 25 }}
+                        >
+                           Team Member Details
+                        </Typography>
+                        <Container>
+                            <p><strong>Team Member ID: </strong>{user.id}</p>
+                            <p><strong>Email: </strong>{user.email}</p>
+                            <p><strong>Phone: </strong>{user.phone}</p>
+                        </Container>
+                     </Container>
+                     </Paper>
+            </Container>
+            <Container>
+                    <Paper 
+                        elevation={5}
+                        style={{ padding: 24, marginTop: 25 }}>
+                        <Container
+                            align="center"
+                        >
+                        <Typography
+                           variant="h5"
+                           style={{ padding: 5, margin: 25 }}
                         >
                            Roster
                         </Typography>
@@ -63,7 +83,7 @@ export default function ViewUser() {
                         </Container>
                      </Container>
                      </Paper>
-                </Container>   
+            </Container>   
         </div>
     )
 }
