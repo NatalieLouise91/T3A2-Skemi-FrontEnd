@@ -1,5 +1,5 @@
 // IMPORTING APIS
-import React from "react";
+import React, {useState, useEffect } from "react";
 import {
    AppBar,
    Toolbar,
@@ -25,6 +25,9 @@ import AppRegistrationOutlinedIcon from "@mui/icons-material/AppRegistrationOutl
 import { Link, useNavigate } from "react-router-dom";
 import LoggedInTab from "./LoggedInTab";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { getUsers } from "../services/userServices";
+import { getUserByEmail } from "../services/userServices";
+import {useGlobalState} from '../utils/stateContext';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -70,6 +73,38 @@ const Nav = ({ loggedInUser, logout, props }) => {
       logout();
       setAnchor(null);
    };
+
+   const { store } = useGlobalState();
+   const { users } = store; 
+   const [user, setUser] = useState(null)
+   const [id, setId] = useState(null);
+
+
+
+  //  useEffect(() => {
+
+  //   setInterval(() => {
+  //     setCurrentUser(true)
+  //  }, 10000);
+    
+  //  },[])
+   
+
+//    const [user, setUser] = useState(null);
+
+//    useEffect(() => {
+//     getUserById(id)
+//         .then((user) => setUser(user))
+//         .catch((error) => console.log(error));
+// }, [id]);
+
+useEffect(() => {
+  getUserByEmail(loggedInUser)
+      .then((user) => setUser(user))
+      .catch((error) => console.log(error));
+}, [loggedInUser]);
+
+console.log(loggedInUser)
 
    return (
       <div className={classes.root}>
@@ -138,16 +173,21 @@ const Nav = ({ loggedInUser, logout, props }) => {
                            <Typography variant="h6"> All Events</Typography>
                         </MenuItem>
 
-                        <MenuItem
-                           onClick={() => setAnchor(null)}
-                           component={Link}
-                           to="/"
-                        >
-                           <ListItemIcon>
-                              <PersonOutlineOutlinedIcon />
-                           </ListItemIcon>
-                           <Typography variant="h6"> My Profile</Typography>
-                        </MenuItem>
+                            {/* {users.map((user) => 
+                              user.email === loggedInUser?  */}
+                              <MenuItem 
+                                onClick={() => setAnchor(null)}
+                                component={Link}
+                                to= {`/`}
+                              >
+                              <ListItemIcon>
+                                  <PersonOutlineOutlinedIcon />
+                              </ListItemIcon>
+                              <Typography variant="h6"> My Profile</Typography>
+                            </MenuItem>
+                        {/* : null */}
+                        {/* )
+                        } */}
                         <MenuItem
                            onClick={handleLogout}
                            component={Link}
@@ -214,5 +254,7 @@ const Nav = ({ loggedInUser, logout, props }) => {
       </div>
    );
 };
+
+
 
 export default Nav;

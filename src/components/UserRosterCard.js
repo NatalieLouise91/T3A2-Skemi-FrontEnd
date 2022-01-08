@@ -48,7 +48,7 @@ export default function UserRosterCard({ roster }) {
             <Card elevation={1}>
                 <Divider component="CardHeader">
                     <CardHeader
-                        title={occasion.date}
+                        subheader={occasion.date}
                         />
                 </Divider>
                     <CardContent>
