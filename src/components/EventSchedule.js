@@ -5,22 +5,14 @@ import {
     Grid,
     Container,
     Typography,
+    Card,
+    CardHeader,
     Box,
  } from "@material-ui/core";
  import Spinner from "./Spinner";
  import TeamEventSchedule from "./TeamEventSchedule";
+ import { green, blueGrey } from '@mui/material/colors';
 
-
-// const rosterRow = roster.map((roster) => {
-//     <p>{roster.start_time - roster.end_time}</p>
-// })
-
-// const occasionRow = occasions.map((occasion) => {
-//     <div>
-//         <p>{occasion.date}</p>
-//         <p>{occasion.event_name}</p>
-//     </div>
-// })
 
 export default function EventSchedule() {
 
@@ -54,7 +46,27 @@ export default function EventSchedule() {
     const { store } = useGlobalState();
     const { users } = store;
 
+    const date = new Date(); 
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+
+    const currentDay = new Date(year, month, day)
+    let dates = [];
+
+    function getDates(startDate, daysToAdd) {
+        
+        for (let i = 0; i <= daysToAdd; i++) {
+            let currentDate = new Date();
+            currentDate.setDate(startDate.getDate() + i);
+            dates.push((currentDate.getDate()) + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear());
+        }
     
+        // return dates;
+    }
+
+    console.log(getDates(currentDay, 3));
+
 
   return (
       <>
@@ -76,21 +88,49 @@ export default function EventSchedule() {
 
     <Container>
         <Grid 
-                container
-                direction="row" 
-                justifyContent="center" 
-                alignItems="center"
-                spacing ={2}
-            >
-                <Grid item>
-                    <Box>
-                        <Paper style={{ padding: 24, marginTop: 24 }} elevation={5}>
-                                <Typography variant="h3">
-                                    Event Schedule
-                                </Typography>
-                        </Paper>
-                    </Box>
-                </Grid>
+            container
+            direction="row" 
+            justifyContent="center" 
+            alignItems="center"
+            spacing ={2}
+        >
+            <Grid item>
+                <Box>
+                    <Paper style={{ padding: 24, marginTop: 24 }} elevation={5}>
+                        <Typography variant="h3">
+                            Event Schedule
+                        </Typography>
+                    </Paper>
+                </Box>
+            </Grid>
+        </Grid>
+
+        <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing = {1}
+        >
+                
+            <Grid item md={2}>
+                <Card>
+                </Card>
+            </Grid>
+                    {dates.map((date, index) =>
+                        <Grid item key={index} item xs={12} sm={5} md={2}>
+                            <Card
+                                style={{
+                                    bgcolor: green,
+                             }}>
+                                <CardHeader
+                                    subheader={date}
+                                />
+                            </Card>
+                        </Grid>
+                        )
+                    } 
+            </Grid>
         <Grid 
             container 
             direction="row" 
@@ -98,7 +138,6 @@ export default function EventSchedule() {
             alignItems="center"
             spacing ={2}
         >
-            </Grid>
             {users.map((user) =>
                 <Grid key={user.id} item xs={12} sm={12} md={12} lg={12}>
                     <TeamEventSchedule user={user} />

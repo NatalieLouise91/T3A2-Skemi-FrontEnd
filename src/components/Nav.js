@@ -28,6 +28,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getUsers } from "../services/userServices";
 import { getUserByEmail } from "../services/userServices";
 import {useGlobalState} from '../utils/stateContext';
+import Spinner from "./Spinner";
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -76,35 +77,32 @@ const Nav = ({ loggedInUser, logout, props }) => {
 
    const { store } = useGlobalState();
    const { users } = store; 
-   const [user, setUser] = useState(null)
-   const [id, setId] = useState(null);
 
+   // setting the display component state
+   const [displayComponent, setDisplayComponent] = useState(false);
 
+// setting the display spinner state
+   const [displaySpinner, setDisplaySpinner] = useState(false);
 
-  //  useEffect(() => {
+// useEffect to set the interval for rendering the component
 
-  //   setInterval(() => {
-  //     setCurrentUser(true)
-  //  }, 10000);
-    
-  //  },[])
-   
+   useEffect(() => {
+      setInterval(() => {
+         setDisplayComponent(true);
+      }, 5000);
+   }, []);
 
-//    const [user, setUser] = useState(null);
-
-//    useEffect(() => {
-//     getUserById(id)
-//         .then((user) => setUser(user))
-//         .catch((error) => console.log(error));
-// }, [id]);
-
-useEffect(() => {
-  getUserByEmail(loggedInUser)
-      .then((user) => setUser(user))
-      .catch((error) => console.log(error));
-}, [loggedInUser]);
-
-console.log(loggedInUser)
+// useEffect to set the interval for rendering the spinner
+    useEffect(() => {
+        let time = 5;
+        const timeValue = setInterval((interval) => {
+            setDisplaySpinner(true);
+            time = time - 1;
+            if (time <= 0) {
+                clearInterval(timeValue);
+                setDisplaySpinner(false);
+            }
+    }, 1000); },[]);
 
    return (
       <div className={classes.root}>
@@ -173,21 +171,28 @@ console.log(loggedInUser)
                            <Typography variant="h6"> All Events</Typography>
                         </MenuItem>
 
-                            {/* {users.map((user) => 
-                              user.email === loggedInUser?  */}
+                        {displaySpinner && 
+                          <MenuItem>
+                            <Spinner />
+                          </MenuItem>
+                        }
+            
+                      {displayComponent &&
+
+                          users.map((user) => 
+                              user.email === loggedInUser? 
                               <MenuItem 
                                 onClick={() => setAnchor(null)}
                                 component={Link}
-                                to= {`/`}
+                                to= {`/users/${user.id}`}
                               >
                               <ListItemIcon>
                                   <PersonOutlineOutlinedIcon />
                               </ListItemIcon>
                               <Typography variant="h6"> My Profile</Typography>
                             </MenuItem>
-                        {/* : null */}
-                        {/* )
-                        } */}
+                         : null )
+                        }
                         <MenuItem
                            onClick={handleLogout}
                            component={Link}

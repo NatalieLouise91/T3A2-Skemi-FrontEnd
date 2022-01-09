@@ -49,7 +49,7 @@ export default function UserRosterCard({ roster }) {
                 <Divider component="CardHeader">
                     <CardHeader
                         subheader={occasion.date}
-                        />
+                    />
                 </Divider>
                     <CardContent>
                         <Typography variant="body1" color="textSecondary">
