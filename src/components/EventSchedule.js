@@ -1,104 +1,105 @@
-import React, {useState, useEffect} from "react";
-import { useParams } from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import Paper from '@mui/material/Paper';
 import { useGlobalState } from "../utils/stateContext";
 import {
-   Grid,
-   Container,
-   Paper,
-   Typography,
-} from "@material-ui/core";
-import Roster from "./Roster";
-import Spinner from "./Spinner";
-import User from "./User";
+    Grid,
+    Container,
+    Typography,
+    Card,
+    CardHeader,
+    Box,
+ } from "@material-ui/core";
+ import Spinner from "./Spinner";
+ import TeamEventSchedule from "./TeamEventSchedule";
+ import { green, blueGrey } from '@mui/material/colors';
+
 
 export default function EventSchedule() {
 
-    const { id } = useParams();
-    const { store } = useGlobalState();
-    const { rosters } = store;
-    const { users } = store;
-    const { occasions } = store;
-
-// setting the display component state
+    // setting the display component state
    const [displayComponent, setDisplayComponent] = useState(false);
 
-// setting the display spinner state
-   const [displaySpinner, setDisplaySpinner] = useState(false);
-
-// useEffect to set the interval for rendering the component
-
-   useEffect(() => {
-      setInterval(() => {
-         setDisplayComponent(true);
-      }, 5000);
-   }, []);
-
-// useEffect to set the interval for rendering the spinner
-    useEffect(() => {
-        let time = 5;
-        const timeValue = setInterval((interval) => {
-            setDisplaySpinner(true);
-            time = time - 1;
-            if (time <= 0) {
-                clearInterval(timeValue);
-                setDisplaySpinner(false);
-            }
-    }, 1000); },[]);
-
-    // const teamMembers = users.map(user => user.first_name + ' ' + user.last_name)
+   // setting the display spinner state
+      const [displaySpinner, setDisplaySpinner] = useState(false);
+   
+   // useEffect to set the interval for rendering the component
+   
+      useEffect(() => {
+         setInterval(() => {
+            setDisplayComponent(true);
+         }, 10000);
+      }, []);
+   
+   // useEffect to set the interval for rendering the spinner
+       useEffect(() => {
+           let time = 10;
+           const timeValue = setInterval((interval) => {
+               setDisplaySpinner(true);
+               time = time - 1;
+               if (time <= 0) {
+                   clearInterval(timeValue);
+                   setDisplaySpinner(false);
+               }
+       }, 1000); },[]);
 
 
-    return (
+    const { store } = useGlobalState();
+    const { users } = store;
+
+  return (
+      <>
+
+    {displaySpinner && 
+            
+        <Grid 
+            container 
+            direction="column" 
+            justifyContent="center" 
+            alignItems="center"
+        >
+            <Spinner />
+        </Grid>
         
-        <Container> 
+        }
+        
+    {displayComponent &&
 
-            {displaySpinner && 
-            
-            <Grid 
-                container 
-                direction="column" 
-                justifyContent="center" 
-                alignItems="center"
-            >
-                <Spinner />
-            </Grid>
-            
-            }
-            
-            {displayComponent &&
-            
-            <Container>
-            <Grid 
-                container
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-            >
-                <Grid item xs={12} md={6} lg={4}>
-                    <Paper elevation={5} style={{ padding: 24, marginTop: 24 }}>
-                        <Typography variant="h3">Event Schedule</Typography>
+    <Container>
+        <Grid 
+            container
+            direction="row" 
+            justifyContent="center" 
+            alignItems="center"
+            spacing ={2}
+        >
+            <Grid item>
+                <Box>
+                    <Paper style={{ padding: 24, marginTop: 24 }} elevation={5}>
+                        <Typography variant="h3">
+                            Event Schedule
+                        </Typography>
                     </Paper>
-                </Grid>
+                </Box>
             </Grid>
-            
-            <Grid
-                container
-                direction="column"
-                justifyContent="center"
-                alignItems="flex-start"
-            >
-                {users.map((user, index) => (
-                <Grid item key={index} xs={12} md={6} lg={4}>
-                    < User user={user} />
+        </Grid>
+        <Grid 
+            container 
+            direction="row" 
+            justifyContent="center" 
+            alignItems="center"
+            spacing ={2}
+        >
+            {users.map((user) =>
+                <Grid key={user.id} item xs={12} sm={12} md={12} lg={12}>
+                    <TeamEventSchedule user={user} />
                 </Grid>
-                ))}
-            </Grid>
-            {console.log(users)}
-
-            </Container>
+                )
             }
-        </Container>
-    )
+                
+        </Grid>
+
+    </Container>
+    }
+    </>
+  );
 }
-
-

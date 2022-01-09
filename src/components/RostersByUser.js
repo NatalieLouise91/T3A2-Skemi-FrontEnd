@@ -13,7 +13,6 @@ export default function RostersByUser() {
     const { id } = useParams();
     const { store } = useGlobalState();
     const { rosters } = store;
-    const { users } = store; 
     const { occasions } = store;
 
 // setting the display component state

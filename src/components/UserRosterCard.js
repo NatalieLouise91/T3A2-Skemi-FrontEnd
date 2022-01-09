@@ -10,6 +10,22 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import Divider from '@mui/material/Divider';
+import { makeStyles } from "@material-ui/styles";
+import {
+    Grid,
+ } from "@material-ui/core";
+import Spinner from './Spinner';
+
+
+const useStyles = makeStyles({
+    root: {
+      background: '#45B39D',
+      border: '1px solid #45B39D',
+      borderRadius: '5px',
+      color: '#02123B',
+      textAlign: 'center',
+    },
+  });
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -25,6 +41,60 @@ const ExpandMore = styled((props) => {
 
 export default function UserRosterCard({ roster }) {
 
+        // setting the display component state
+   const [displayComponent, setDisplayComponent] = useState(false);
+
+   // setting the display spinner state
+      const [displaySpinner, setDisplaySpinner] = useState(false);
+   
+   // useEffect to set the interval for rendering the component
+   
+      useEffect(() => {
+         setInterval(() => {
+            setDisplayComponent(true);
+         }, 10000);
+      }, []);
+   
+   // useEffect to set the interval for rendering the spinner
+       useEffect(() => {
+           let time = 10;
+           const timeValue = setInterval((interval) => {
+               setDisplaySpinner(true);
+               time = time - 1;
+               if (time <= 0) {
+                   clearInterval(timeValue);
+                   setDisplaySpinner(false);
+               }
+       }, 1000); },[]);
+
+    
+    const classes = useStyles();
+    const date = new Date(); 
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+
+    const currentDay = new Date(year, month, day)
+    let dates = [];
+
+    function getDates(startDate, daysToAdd) {
+        
+        for (let i = 0; i <= daysToAdd; i++) {
+            let currentDate = new Date();
+            currentDate.setDate(startDate.getDate() + i);
+            let oldFormat = (currentDate.getFullYear() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getDate());
+            let date = new Date(oldFormat)
+            let dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 ))
+            .toISOString()
+            .split("T")[0];
+            dates.push(dateString)
+        }
+    
+        return dates;
+    }
+
+    console.log(getDates(currentDay, 3));
+
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -32,7 +102,10 @@ export default function UserRosterCard({ roster }) {
     };
 
     const [occasion, setOccasion] = useState();
+    // const [message, setMessage] = useState();
 
+    const messages = ["It's Today!", "It's Tomorrow!"]
+    
     const id = roster.event_id
     
     useEffect(() => {
@@ -41,17 +114,67 @@ export default function UserRosterCard({ roster }) {
             .catch((error) => console.log(error));
     }, [id]);
 
+
+    // useEffect(() => {
+    //     let time = 5;
+    //     const timeValue = setInterval((interval) => {
+    //         time = time - 1;
+    //         if (dates[0]) {
+    //             setMessage(messages[0]) 
+    //         } else if (dates[1]) {
+    //             setMessage(messages[1])
+    //         }
+    //         if (time <= 0) {
+    //             clearInterval(timeValue);
+    //         }
+    // }, 1000); },[]);
+
+
+    // useEffect(() => {
+    //      if (dates[0] === occasion.date) {
+    //         setMessage(messages[0]) 
+    //     } else if (dates[1] === occasion.date) {
+    //         setMessage(messages[1])
+    //      }
+    //  }, []);
+
     if (!occasion) return null;
 
     return (
         <div>
+            {displaySpinner && 
+            
+            <Grid 
+                container 
+                direction="column" 
+                justifyContent="center" 
+                alignItems="center"
+            >
+                <Spinner />
+            </Grid>
+            
+            }
+            
+            {displayComponent &&
+
             <Card elevation={1}>
-                <Divider component="CardHeader">
-                    <CardHeader
-                        title={occasion.date}
+                {occasion.date === dates[0] ?
+                    <CardHeader className={classes.root}
+                        subheader={messages[0]}
+                    />   
+                    : occasion.date === dates[1] ?
+                    <CardHeader className={classes.root}
+                        subheader={messages[1]}
+                    />
+                    :
+                    <Divider component="CardHeader">   
+                        <CardHeader
+                            subheader={occasion.date}
                         />
-                </Divider>
+                    </Divider>
+                }
                     <CardContent>
+                        
                         <Typography variant="body1" color="textSecondary">
                             <strong>{occasion.event_name}</strong>
                         </Typography>
@@ -92,6 +215,7 @@ export default function UserRosterCard({ roster }) {
                         </CardContent>
                     </Collapse>
             </Card>
+        }
         </div>
     )
 }
