@@ -14,10 +14,3 @@ export async function getUserById(id) {
     const response = await skemiAPI.get(`/api/users/${id}`);
     return response.data;
 }
-
-// async function to fetch user by email
-
-export async function getUserByEmail(email) {
-    const response = await skemiAPI.get(`/api/users/${email}`);
-    return response.data;
-}

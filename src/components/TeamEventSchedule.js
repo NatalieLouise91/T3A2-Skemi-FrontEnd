@@ -12,13 +12,15 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@mui/material/Avatar';
 import { blueGrey } from '@mui/material/colors';
+import { getOccasionById } from "../services/occasionServices";
 
 export default function TeamEventSchedule({ user }) {
 
     const { store } = useGlobalState();
     const { rosters } = store;
-   
+
     let initials = user.first_name.charAt(0) + user.last_name.charAt(0)
+
 
     return (
         <Container> 
@@ -40,17 +42,20 @@ export default function TeamEventSchedule({ user }) {
                         </CardContent>
                     </Card>
                 </Grid>
-                    { rosters.map((roster) =>
-                    roster.user_id == user.id?
+                    { 
+                    rosters.map((roster) =>
+                    roster.user_id === user.id?
                             <Grid key={roster.id} item xs={12} sm={5} md={2}>
                                 <UserRosterCard roster={roster} />
                             </Grid>
 
+
                     : null
                 )
                 }
-            </Grid>
 
+            </Grid>
         </Container>
     )
 }
+

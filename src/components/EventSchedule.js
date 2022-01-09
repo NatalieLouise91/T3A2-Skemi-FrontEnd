@@ -46,28 +46,6 @@ export default function EventSchedule() {
     const { store } = useGlobalState();
     const { users } = store;
 
-    const date = new Date(); 
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const year = date.getFullYear();
-
-    const currentDay = new Date(year, month, day)
-    let dates = [];
-
-    function getDates(startDate, daysToAdd) {
-        
-        for (let i = 0; i <= daysToAdd; i++) {
-            let currentDate = new Date();
-            currentDate.setDate(startDate.getDate() + i);
-            dates.push((currentDate.getDate()) + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear());
-        }
-    
-        // return dates;
-    }
-
-    console.log(getDates(currentDay, 3));
-
-
   return (
       <>
 
@@ -104,33 +82,6 @@ export default function EventSchedule() {
                 </Box>
             </Grid>
         </Grid>
-
-        <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            spacing = {1}
-        >
-                
-            <Grid item md={2}>
-                <Card>
-                </Card>
-            </Grid>
-                    {dates.map((date, index) =>
-                        <Grid item key={index} item xs={12} sm={5} md={2}>
-                            <Card
-                                style={{
-                                    bgcolor: green,
-                             }}>
-                                <CardHeader
-                                    subheader={date}
-                                />
-                            </Card>
-                        </Grid>
-                        )
-                    } 
-            </Grid>
         <Grid 
             container 
             direction="row" 
