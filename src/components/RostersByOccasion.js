@@ -4,7 +4,6 @@ import { useGlobalState } from "../utils/stateContext";
 import {
    Grid,
    Container,
-   Typography,
 } from "@material-ui/core";
 import RosterCard from "./RosterCard";
 import Spinner from "./Spinner";

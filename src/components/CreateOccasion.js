@@ -7,6 +7,9 @@ import {
    Container,
    Typography,
    Paper,
+   Select,
+   MenuItem,
+   InputLabel
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import {
@@ -34,18 +37,20 @@ const CreateOccasion = () => {
       time: "",
       contact_name: "",
       contact_phone: "",
+      author: "",
    };
    const [formData, setFormData] = useState(initialFormData);
    const { dispatch, store } = useGlobalState();
    let navigate = useNavigate();
    let { id } = useParams();
    const { occasions } = store;
+   const { loggedInUser } = store;
 
    useEffect(() => {
       if (id) {
          getOccasionById(id).then((occasion) => {
             setFormData({
-               name: occasion.name,
+               name: occasion.event_name,
                description: occasion.description,
                date: occasion.date,
                attendees: occasion.attendees,
@@ -53,6 +58,7 @@ const CreateOccasion = () => {
                time: occasion.time,
                contact_name: occasion.contact_name,
                contact_phone: occasion.contact_phone,
+               author: occasion.author,
             });
          });
       }
@@ -219,6 +225,25 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
+               <InputLabel 
+                  id= "author"
+                  className={classes.field}
+               >
+                  Author
+               </InputLabel>
+               <Select
+                  labelId= "author"
+                  id="author"
+                  label="Author"
+                  name="author"
+                  className={classes.field}
+                  required
+                  fullWidth
+                  value={formData.author}
+                  onChange={handleFormData}
+               >
+                  <MenuItem value={loggedInUser}>{loggedInUser}</MenuItem>
+               </Select>
                <Button
                   onClick={handleSubmit}
                   variant="contained"
