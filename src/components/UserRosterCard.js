@@ -102,7 +102,6 @@ export default function UserRosterCard({ roster }) {
     };
 
     const [occasion, setOccasion] = useState();
-    // const [message, setMessage] = useState();
 
     const messages = ["It's Today!", "It's Tomorrow!"]
     
@@ -113,30 +112,6 @@ export default function UserRosterCard({ roster }) {
             .then((occasion) => setOccasion(occasion))
             .catch((error) => console.log(error));
     }, [id]);
-
-
-    // useEffect(() => {
-    //     let time = 5;
-    //     const timeValue = setInterval((interval) => {
-    //         time = time - 1;
-    //         if (dates[0]) {
-    //             setMessage(messages[0]) 
-    //         } else if (dates[1]) {
-    //             setMessage(messages[1])
-    //         }
-    //         if (time <= 0) {
-    //             clearInterval(timeValue);
-    //         }
-    // }, 1000); },[]);
-
-
-    // useEffect(() => {
-    //      if (dates[0] === occasion.date) {
-    //         setMessage(messages[0]) 
-    //     } else if (dates[1] === occasion.date) {
-    //         setMessage(messages[1])
-    //      }
-    //  }, []);
 
     if (!occasion) return null;
 

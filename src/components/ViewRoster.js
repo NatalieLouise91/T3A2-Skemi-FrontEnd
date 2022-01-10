@@ -15,6 +15,7 @@ export default function ViewRoster() {
     const { id } = useParams();
     let navigate = useNavigate();
     const {store, dispatch} = useGlobalState();
+    const {loggedInUser} = store
 
     useEffect(() => {
         getRosterById(id)
@@ -43,12 +44,17 @@ export default function ViewRoster() {
                         <Typography variant="body2" color="textSecondary">
                             {roster.start_time} - {roster.end_time}
                         </Typography>
-                        <IconButton>
-                            <EditOutlinedIcon onClick={() => navigate(`/rosters/update/${id}`)}/>
-                        </IconButton>
-                        <IconButton>
-                            <DeleteOutlineOutlinedIcon onClick={removeRoster}/>
-                        </IconButton>
+                        {loggedInUser === roster.author &&
+                            <div>
+                                <IconButton>
+                                    <EditOutlinedIcon onClick={() => navigate(`/rosters/update/${id}`)}/>
+                                </IconButton>
+                                <IconButton>
+                                    <DeleteOutlineOutlinedIcon onClick={removeRoster}/>
+                                </IconButton>
+                            </div>  
+                        }
+                        {console.log(roster)}
                     </CardContent>
             </Card>
         </div>

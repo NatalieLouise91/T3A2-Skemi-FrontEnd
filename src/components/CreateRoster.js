@@ -39,15 +39,20 @@ export default function CreateRoster() {
 
     const classes = useStyles();
 
+    
+
     const [inputField, setInputField] = useState([
-        { event_id: "", start_time: "", end_time: "", role: "", name: "", user_id: ""},
+        { event_id: "", start_time: "", end_time: "", role: "", name: "", user_id: "", author: ""},
     ]);
 
     const { dispatch, store } = useGlobalState();
-
+    const { loggedInUser } = store;
     const { rosters } = store; 
     const { occasions } = store;
     const { users } = store;
+    
+
+
 
 // function to return the last id in the roster database
 
@@ -124,7 +129,7 @@ function handleSubmit(event) {
 // function to add additional input fields to form
 
     const handleAddFields = () => {
-        setInputField([...inputField, { event_id: "", start_time: "", end_time: "", role: "", name: "", user_id: ""}])
+        setInputField([...inputField, { event_id: "", start_time: "", end_time: "", role: "", name: "", user_id: "", author: ""}])
     }
 
 // function to remove input fields from form
@@ -324,6 +329,27 @@ function handleSubmit(event) {
 
                             {users.map((user, index) => 
                             <MenuItem key={index} value={user.id}>{user.first_name}, {user.last_name}</MenuItem>)}
+
+                        </Select>
+
+                        <InputLabel 
+                        id= "author"
+                        className={classes.field}
+                        >
+                            Author
+                        </InputLabel>
+                        <Select
+                            labelId= "author"
+                            id="author"
+                            label="Author"
+                            name="author"
+                            value={inputField.author}
+                            className={classes.field}
+                            required
+                            fullWidth
+                            onChange={event => handleChangeInput(index, event)}
+                        >
+                            <MenuItem value={loggedInUser}>{loggedInUser}</MenuItem>
 
                         </Select>
 

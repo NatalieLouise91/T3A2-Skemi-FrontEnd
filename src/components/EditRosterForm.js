@@ -44,6 +44,7 @@ export default function EditRosterForm() {
     const {dispatch, store } = useGlobalState();
     const { occasions } = store;
     const { users } = store;
+    const { loggedInUser } = store;
     let navigate = useNavigate();
     let { id } = useParams();
     
@@ -238,6 +239,26 @@ function handleSubmit(event) {
 
                             {users.map((user, index) => 
                             <MenuItem key={index} value={user.id}>{user.first_name}, {user.last_name}</MenuItem>)}
+
+                        </Select>
+                        <InputLabel 
+                        id= "author"
+                        className={classes.field}
+                        >
+                            Author
+                        </InputLabel>
+                        <Select
+                            labelId= "author"
+                            id="author"
+                            label="Author"
+                            name="author"
+                            value={formData.author}
+                            className={classes.field}
+                            required
+                            fullWidth
+                            onChange={handleFormData}
+                        >
+                            <MenuItem value={loggedInUser}>{loggedInUser}</MenuItem>
 
                         </Select>
                 <Button 

@@ -18,7 +18,6 @@ const Home = () => {
    };
 
    const [store, dispatch] = useReducer(stateReducer, initialState);
-   // const { occasions } = store;
 
    useEffect(() => {
       // this function is declared in ../services/occasionServices

@@ -25,8 +25,6 @@ import AppRegistrationOutlinedIcon from "@mui/icons-material/AppRegistrationOutl
 import { Link, useNavigate } from "react-router-dom";
 import LoggedInTab from "./LoggedInTab";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { getUsers } from "../services/userServices";
-import { getUserByEmail } from "../services/userServices";
 import {useGlobalState} from '../utils/stateContext';
 import Spinner from "./Spinner";
 

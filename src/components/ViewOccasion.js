@@ -10,16 +10,20 @@ import {
 } from "@material-ui/core";
 import { getOccasionById, deleteOccasion } from "../services/occasionServices";
 import RostersByOccasion from "./RostersByOccasion";
-// import { useGlobalState } from "../utils/stateContext";
+import { useGlobalState } from "../utils/stateContext";
 
 
 
 const ViewOccasion = () => {
-   // const { dispatch } = useGlobalState();
+   
    const [occasion, setOccasion] = useState();
-   // const [edit, setEdit] = useState(false);
    const { id } = useParams();
    const navigate = useNavigate();
+
+   const { store } = useGlobalState();
+   const { loggedInUser } = store;
+   // const [edit, setEdit] = useState(false);
+   
 
    useEffect(() => {
       getOccasionById(id)
@@ -91,29 +95,30 @@ const ViewOccasion = () => {
                      </p>
                   </div>
                   <Container style={{ padding: 24, marginTop: 25 }}>
+                  {loggedInUser === occasion.author ?
                      <Grid container spacing={2} justifyContent="center">
-                        <Grid item>
-                           <Button
-                              size="small"
-                              type="submit"
-                              variant="contained"
-                              color="primary"
-                              onClick={() => navigate(`/events/update/${id}`)}
-                           >
-                              Edit Event
-                           </Button>
-                        </Grid>
-                        <Grid item>
-                           <Button
-                              size="small"
-                              type="submit"
-                              variant="contained"
-                              color="primary"
-                              onClick={removeOccasion}
-                           >
-                              Delete Event
-                           </Button>
-                        </Grid>
+                           <Grid item>
+                              <Button
+                                 size="small"
+                                 type="submit"
+                                 variant="contained"
+                                 color="primary"
+                                 onClick={() => navigate(`/events/update/${id}`)}
+                              >
+                                 Edit Event
+                              </Button>
+                           </Grid>
+                           <Grid item>
+                              <Button
+                                 size="small"
+                                 type="submit"
+                                 variant="contained"
+                                 color="primary"
+                                 onClick={removeOccasion}
+                              >
+                                 Delete Event
+                              </Button>
+                           </Grid>
                         <Grid item>
                            <Link to="/" style={{ textDecoration: "none" }}>
                               <Button
@@ -127,6 +132,22 @@ const ViewOccasion = () => {
                            </Link>
                         </Grid>
                      </Grid>
+                     :
+                     <Grid container spacing={2} justifyContent="center">
+                        <Grid item>
+                           <Link to="/" style={{ textDecoration: "none" }}>
+                              <Button
+                                 size="small"
+                                 type="submit"
+                                 variant="outlined"
+                                 color="primary"
+                              >
+                                 All Events
+                              </Button>
+                           </Link>
+                        </Grid>
+                     </Grid>
+                     }
                   </Container>
                </Paper>
             </Container>
@@ -151,17 +172,20 @@ const ViewOccasion = () => {
                          <Grid
                             align="center"
                          >
-                         <Link to="/create-roster" style={{ textDecoration: "none" }}>
-                            <Button
-                                size="small"
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                style={{padding: 5, marginTop: 25 }}
-                                >
-                                Add Shifts   
-                            </Button>
-                        </Link>
+                           {loggedInUser === occasion.author &&
+
+                              <Link to="/create-roster" style={{ textDecoration: "none" }}>
+                                 <Button
+                                    size="small"
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                    style={{padding: 5, marginTop: 25 }}
+                                    >
+                                    Add Shifts   
+                                 </Button>
+                              </Link>
+                           }
                          </Grid>
                      </Paper>
                   </Container>
