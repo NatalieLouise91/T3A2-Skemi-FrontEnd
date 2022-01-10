@@ -11,12 +11,17 @@ import {
 import { getOccasionById, deleteOccasion } from "../services/occasionServices";
 import RostersByOccasion from "./RostersByOccasion";
 import { useGlobalState } from "../utils/stateContext";
-
-
+import ConfirmDialog from "./ConfirmDialog";
 
 const ViewOccasion = () => {
    
    const [occasion, setOccasion] = useState();
+   const [confirmDialog, setConfirmDialog] = useState({
+      isOpen: false,
+      title: "",
+      subTitle: "",
+   });
+  
    const { id } = useParams();
    const navigate = useNavigate();
 
@@ -32,10 +37,15 @@ const ViewOccasion = () => {
    }, [id]);
 
    if (!occasion) return null;
-   const removeOccasion = () => {
+   const onDelete = () => {
       deleteOccasion(id)
          .then(navigate("/"))
          .catch((error) => console.log(error));
+      setConfirmDialog({
+         ...confirmDialog,
+         isOpen: false,
+      });
+      window.location.reload();
    };
 
    // const editOccasion = () => {
@@ -45,7 +55,6 @@ const ViewOccasion = () => {
    // const cancelEdit = () => {
    //    setEdit(false);
    // };
-
 
    return (
       <div>
@@ -97,28 +106,39 @@ const ViewOccasion = () => {
                   <Container style={{ padding: 24, marginTop: 25 }}>
                   {loggedInUser === occasion.author ?
                      <Grid container spacing={2} justifyContent="center">
-                           <Grid item>
-                              <Button
-                                 size="small"
-                                 type="submit"
-                                 variant="contained"
-                                 color="primary"
-                                 onClick={() => navigate(`/events/update/${id}`)}
-                              >
-                                 Edit Event
-                              </Button>
-                           </Grid>
-                           <Grid item>
-                              <Button
-                                 size="small"
-                                 type="submit"
-                                 variant="contained"
-                                 color="primary"
-                                 onClick={removeOccasion}
-                              >
-                                 Delete Event
-                              </Button>
-                           </Grid>
+                        <Grid item>
+                           <Button
+                              size="small"
+                              type="submit"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => navigate(`/events/update/${id}`)}
+                           >
+                              Edit Event
+                           </Button>
+                        </Grid>
+
+                        <Grid item>
+                           <Button
+                              size="small"
+                              type="submit"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                 setConfirmDialog({
+                                    isOpen: true,
+                                    title: "Are you sure to delete this record?",
+                                    subTitle: "You can't undo this operation",
+                                    onConfirm: () => {
+                                       onDelete(id);
+                                    },
+                                 });
+                              }}
+                           >
+                              Delete Event
+                           </Button>
+                        </Grid>
+
                         <Grid item>
                            <Link to="/" style={{ textDecoration: "none" }}>
                               <Button
@@ -131,6 +151,7 @@ const ViewOccasion = () => {
                               </Button>
                            </Link>
                         </Grid>
+
                      </Grid>
                      :
                      <Grid container spacing={2} justifyContent="center">
@@ -151,22 +172,18 @@ const ViewOccasion = () => {
                   </Container>
                </Paper>
             </Container>
+
             <Container>
-                    <Paper 
-                        elevation={5}
-                        style={{ padding: 24, marginTop: 25 }}>
-                        <Container
-                            align="center"
-                         >
-                        <Typography
-                           variant="h4"
-                           style={{ padding: 5, marginTop: 25 }}
-                        >
-                           Roster
-                        </Typography>
-                        <Container>
-                           <RostersByOccasion />
-                        </Container>
+               <Paper elevation={5} style={{ padding: 24, marginTop: 25 }}>
+                  <Container align="center">
+                     <Typography
+                        variant="h4"
+                        style={{ padding: 5, marginTop: 25 }}
+                     >
+                        Roster
+                     </Typography>
+                     <Container>
+                        <RostersByOccasion />
                      </Container>
                          
                          <Grid
@@ -189,6 +206,11 @@ const ViewOccasion = () => {
                          </Grid>
                      </Paper>
                   </Container>
+                  <ConfirmDialog
+                  confirmDialog={confirmDialog}
+                  setConfirmDialog={setConfirmDialog}
+               />
+            </Container>
          </CssBaseline>
       </div>
    );
