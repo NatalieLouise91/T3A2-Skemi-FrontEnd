@@ -9,7 +9,7 @@ import {
    IconButton,
    Button,
 } from "@material-ui/core";
-import NotListedLocationIcon from "@material-ui/icons/NotListedLocation";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const useStyles = makeStyles((theme) => ({
    dialog: {
@@ -27,10 +27,10 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "center",
    },
    titleIcon: {
-      backgroundColor: theme.palette.secondary.light,
+      backgroundColor: theme.palette.secondary,
       color: theme.palette.secondary.main,
       "&:hover": {
-         backgroundColor: theme.palette.secondary.light,
+         backgroundColor: theme.palette.secondary,
          cursor: "default",
       },
       "& .MuiSvgIcon-root": {
@@ -47,7 +47,7 @@ export default function ConfirmDialog(props) {
       <Dialog open={confirmDialog.isOpen} classes={{ paper: classes.dialog }}>
          <DialogTitle className={classes.dialogTitle}>
             <IconButton disableRipple className={classes.titleIcon}>
-               <NotListedLocationIcon />
+               <DeleteForeverIcon />
             </IconButton>
          </DialogTitle>
          <DialogContent className={classes.dialogContent}>
@@ -57,11 +57,16 @@ export default function ConfirmDialog(props) {
             </Typography>
          </DialogContent>
          <DialogActions className={classes.dialogAction}>
-            <Button color="default" onClick={confirmDialog.onConfirm}>
+            <Button
+               color="secondary"
+               onClick={confirmDialog.onConfirm}
+               variant="outlined"
+            >
                Yes
             </Button>
             <Button
-               color="secondary"
+               variant="outlined"
+               color="default"
                onClick={() =>
                   setConfirmDialog({ ...confirmDialog, isOpen: false })
                }
