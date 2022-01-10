@@ -103,6 +103,7 @@ const ViewOccasion = () => {
                         {occasion.description}
                      </p>
                   </div>
+
                   <Container style={{ padding: 24, marginTop: 25 }}>
                   {loggedInUser === occasion.author ?
                      <Grid container spacing={2} justifyContent="center">
@@ -175,16 +176,20 @@ const ViewOccasion = () => {
 
             <Container>
                <Paper elevation={5} style={{ padding: 24, marginTop: 25 }}>
+
                   <Container align="center">
+
                      <Typography
                         variant="h4"
                         style={{ padding: 5, marginTop: 25 }}
                      >
                         Roster
                      </Typography>
+
                      <Container>
                         <RostersByOccasion />
                      </Container>
+                  </Container>
                          
                          <Grid
                             align="center"
@@ -205,7 +210,6 @@ const ViewOccasion = () => {
                            }
                          </Grid>
                      </Paper>
-                  </Container>
                   <ConfirmDialog
                   confirmDialog={confirmDialog}
                   setConfirmDialog={setConfirmDialog}
