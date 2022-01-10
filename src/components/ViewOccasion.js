@@ -10,13 +10,17 @@ import {
 } from "@material-ui/core";
 import { getOccasionById, deleteOccasion } from "../services/occasionServices";
 import RostersByOccasion from "./RostersByOccasion";
+import ConfirmDialog from "./ConfirmDialog";
 // import { useGlobalState } from "../utils/stateContext";
-
-
 
 const ViewOccasion = () => {
    // const { dispatch } = useGlobalState();
    const [occasion, setOccasion] = useState();
+   const [confirmDialog, setConfirmDialog] = useState({
+      isOpen: false,
+      title: "",
+      subTitle: "",
+   });
    // const [edit, setEdit] = useState(false);
    const { id } = useParams();
    const navigate = useNavigate();
@@ -28,10 +32,15 @@ const ViewOccasion = () => {
    }, [id]);
 
    if (!occasion) return null;
-   const removeOccasion = () => {
+   const onDelete = () => {
       deleteOccasion(id)
          .then(navigate("/"))
          .catch((error) => console.log(error));
+      setConfirmDialog({
+         ...confirmDialog,
+         isOpen: false,
+      });
+      window.location.reload();
    };
 
    // const editOccasion = () => {
@@ -41,7 +50,6 @@ const ViewOccasion = () => {
    // const cancelEdit = () => {
    //    setEdit(false);
    // };
-
 
    return (
       <div>
@@ -109,7 +117,16 @@ const ViewOccasion = () => {
                               type="submit"
                               variant="contained"
                               color="primary"
-                              onClick={removeOccasion}
+                              onClick={() => {
+                                 setConfirmDialog({
+                                    isOpen: true,
+                                    title: "Are you sure to delete this record?",
+                                    subTitle: "You can't undo this operation",
+                                    onConfirm: () => {
+                                       onDelete(id);
+                                    },
+                                 });
+                              }}
                            >
                               Delete Event
                            </Button>
@@ -131,40 +148,41 @@ const ViewOccasion = () => {
                </Paper>
             </Container>
             <Container>
-                    <Paper 
-                        elevation={5}
-                        style={{ padding: 24, marginTop: 25 }}>
-                        <Container
-                            align="center"
-                         >
-                        <Typography
-                           variant="h4"
+               <Paper elevation={5} style={{ padding: 24, marginTop: 25 }}>
+                  <Container align="center">
+                     <Typography
+                        variant="h4"
+                        style={{ padding: 5, marginTop: 25 }}
+                     >
+                        Roster
+                     </Typography>
+                     <Container>
+                        <RostersByOccasion />
+                     </Container>
+                  </Container>
+
+                  <Grid align="center">
+                     <Link
+                        to="/create-roster"
+                        style={{ textDecoration: "none" }}
+                     >
+                        <Button
+                           size="small"
+                           type="submit"
+                           variant="contained"
+                           color="primary"
                            style={{ padding: 5, marginTop: 25 }}
                         >
-                           Roster
-                        </Typography>
-                        <Container>
-                           <RostersByOccasion />
-                        </Container>
-                     </Container>
-                         
-                         <Grid
-                            align="center"
-                         >
-                         <Link to="/create-roster" style={{ textDecoration: "none" }}>
-                            <Button
-                                size="small"
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                style={{padding: 5, marginTop: 25 }}
-                                >
-                                Add Shifts   
-                            </Button>
-                        </Link>
-                         </Grid>
-                     </Paper>
-                  </Container>
+                           Add Shifts
+                        </Button>
+                     </Link>
+                  </Grid>
+               </Paper>
+               <ConfirmDialog
+                  confirmDialog={confirmDialog}
+                  setConfirmDialog={setConfirmDialog}
+               />
+            </Container>
          </CssBaseline>
       </div>
    );
