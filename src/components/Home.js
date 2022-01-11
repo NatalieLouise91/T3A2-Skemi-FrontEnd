@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import Occasions from "./Occasions";
 import stateReducer from "../utils/stateReducer";
 import { StateContext } from "../utils/stateContext";
@@ -11,14 +11,15 @@ import {
    Grid,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { getAdminById } from "../services/userServices";
 
-const Home = () => {
+
+const Home = ({loggedInUser}) => {
    const initialState = {
       occasions: [],
    };
 
    const [store, dispatch] = useReducer(stateReducer, initialState);
-   // const { occasions } = store;
 
    useEffect(() => {
       // this function is declared in ../services/occasionServices
@@ -35,6 +36,18 @@ const Home = () => {
          });
    }, []);
 
+   const [admin, setAdmin] = useState(null);
+   
+   const adminUser = 1
+
+   useEffect(() => {
+      getAdminById(adminUser)
+         .then((user) => setAdmin(user))
+         .catch((error) => console.log(error));
+   }, [adminUser]);
+
+   if (!admin) return null;
+
    return (
       <>
          <CssBaseline />
@@ -47,11 +60,13 @@ const Home = () => {
                >
                   Upcoming Events
                </Typography>
+               {loggedInUser === admin.email &&
                <Link to="/create-event" style={{ textDecoration: "none" }}>
                   <Button type="submit" variant="contained" color="primary">
                      Create Event
                   </Button>
                </Link>
+               }
                <Grid spacing={10}>
                   <Grid item>
                      <Occasions />

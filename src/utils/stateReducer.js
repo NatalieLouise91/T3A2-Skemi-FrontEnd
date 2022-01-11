@@ -23,7 +23,17 @@ export default function reducer(state, action) {
             occasions: [updatedOccasion, ...theRest],
          };
       }
-  
+
+      case "deleteOccasion": {
+         const updatedOccasions = state.occasions.filter((occasion) => {
+            return occasion.id !== parseInt(action.data)
+         });
+         return {
+            ...state,
+            occasions: updatedOccasions
+         }
+      }
+
       case "setRosters": {
           return{
               ...state,
@@ -62,6 +72,13 @@ export default function reducer(state, action) {
          return{
             ...state,
             users: action.data,
+         };
+      }
+
+      case "setAdmin": {
+         return {
+            ...state,
+            users: action.data
          };
       }
 

@@ -5,13 +5,10 @@ import {
     Grid,
     Container,
     Typography,
-    Card,
-    CardHeader,
     Box,
  } from "@material-ui/core";
  import Spinner from "./Spinner";
  import TeamEventSchedule from "./TeamEventSchedule";
- import { green, blueGrey } from '@mui/material/colors';
 
 
 export default function EventSchedule() {
