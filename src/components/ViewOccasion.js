@@ -14,21 +14,19 @@ import { useGlobalState } from "../utils/stateContext";
 import ConfirmDialog from "./ConfirmDialog";
 
 const ViewOccasion = () => {
-   
    const [occasion, setOccasion] = useState();
    const [confirmDialog, setConfirmDialog] = useState({
       isOpen: false,
       title: "",
       subTitle: "",
    });
-  
+
    const { id } = useParams();
    const navigate = useNavigate();
 
    const { store } = useGlobalState();
    const { loggedInUser } = store;
    // const [edit, setEdit] = useState(false);
-   
 
    useEffect(() => {
       getOccasionById(id)
@@ -58,13 +56,9 @@ const ViewOccasion = () => {
 
    return (
       <div>
-   
          <CssBaseline>
             <Container>
-               <Container
-                  align="center"
-             
-               >
+               <Container align="center">
                   <Typography
                      variant="h5"
                      style={{
@@ -77,10 +71,7 @@ const ViewOccasion = () => {
                   </Typography>
                </Container>
                <Paper elevation={5} style={{ padding: 24, marginTop: 25 }}>
-                  <Container
-                     align="center"
-             
-                  >
+                  <Container align="center">
                      <Typography
                         variant="h5"
                         style={{
@@ -120,143 +111,114 @@ const ViewOccasion = () => {
                   </div>
 
                   <Container style={{ padding: 24, marginTop: 25 }}>
-                  {loggedInUser === occasion.author ?
-                     <Grid container spacing={2} justifyContent="center">
-                        <Grid item>
-                           <Button
-                              size="small"
-                              type="submit"
-                              variant="contained"
-                              color="primary"
-                              onClick={() => navigate(`/events/update/${id}`)}
-                           >
-                              Edit Event
-                           </Button>
-                        </Grid>
-
-                        <Grid item>
-                           <Button
-                              size="small"
-                              type="submit"
-                              variant="contained"
-                              color="primary"
-                              onClick={() => {
-                                 setConfirmDialog({
-                                    isOpen: true,
-                                    title: "Are you sure to delete this record?",
-                                    subTitle: "You can't undo this operation",
-                                    onConfirm: () => {
-                                       onDelete(id);
-                                    },
-                                 });
-                              }}
-                           >
-                              Delete Event
-                           </Button>
-                        </Grid>
-
-                        <Grid item>
-                           <Link to="/" style={{ textDecoration: "none" }}>
+                     {loggedInUser === occasion.author ? (
+                        <Grid container spacing={2} justifyContent="center">
+                           <Grid item>
                               <Button
                                  size="small"
                                  type="submit"
-                                 variant="outlined"
+                                 variant="contained"
                                  color="primary"
+                                 onClick={() =>
+                                    navigate(`/events/update/${id}`)
+                                 }
                               >
-                                 All Events
+                                 Edit Event
                               </Button>
-                           </Link>
-                        </Grid>
+                           </Grid>
 
-                     </Grid>
-                     :
-                     <Grid container spacing={2} justifyContent="center">
-                        <Grid item>
-                           <Link to="/" style={{ textDecoration: "none" }}>
+                           <Grid item>
                               <Button
                                  size="small"
                                  type="submit"
-                                 variant="outlined"
+                                 variant="contained"
                                  color="primary"
+                                 onClick={() => {
+                                    setConfirmDialog({
+                                       isOpen: true,
+                                       title: "Are you sure to delete this record?",
+                                       subTitle:
+                                          "You can't undo this operation",
+                                       onConfirm: () => {
+                                          onDelete(id);
+                                       },
+                                    });
+                                 }}
                               >
-                                 All Events
+                                 Delete Event
                               </Button>
-                           </Link>
+                           </Grid>
+
+                           <Grid item>
+                              <Link to="/" style={{ textDecoration: "none" }}>
+                                 <Button
+                                    size="small"
+                                    type="submit"
+                                    variant="outlined"
+                                    color="primary"
+                                 >
+                                    All Events
+                                 </Button>
+                              </Link>
+                           </Grid>
                         </Grid>
-                     </Grid>
-                     }
+                     ) : (
+                        <Grid container spacing={2} justifyContent="center">
+                           <Grid item>
+                              <Link to="/" style={{ textDecoration: "none" }}>
+                                 <Button
+                                    size="small"
+                                    type="submit"
+                                    variant="outlined"
+                                    color="primary"
+                                 >
+                                    All Events
+                                 </Button>
+                              </Link>
+                           </Grid>
+                        </Grid>
+                     )}
                   </Container>
                </Paper>
             </Container>
 
             <Container>
                <Paper elevation={5} style={{ padding: 24, marginTop: 25 }}>
-<<<<<<< HEAD
                   <Container align="center">
-=======
-
-                  <Container align="center">
-
->>>>>>> 42d786b3a05b1bd9ba5bb47fe6d9247845d012ea
                      <Typography
                         variant="h4"
                         style={{ padding: 5, marginTop: 25 }}
                      >
                         Roster
                      </Typography>
-<<<<<<< HEAD
-=======
-
->>>>>>> 42d786b3a05b1bd9ba5bb47fe6d9247845d012ea
                      <Container>
                         <RostersByOccasion />
                      </Container>
                   </Container>
-<<<<<<< HEAD
 
                   <Grid align="center">
-                     <Link
-                        to="/create-roster"
-                        style={{ textDecoration: "none" }}
-                     >
-                        <Button
-                           size="small"
-                           type="submit"
-                           variant="contained"
-                           color="primary"
-                           style={{ padding: 5, marginTop: 25 }}
+                     {loggedInUser === occasion.author && (
+                        <Link
+                           to="/create-roster"
+                           style={{ textDecoration: "none" }}
                         >
-                           Add Shifts
-                        </Button>
-                     </Link>
+                           <Button
+                              size="small"
+                              type="submit"
+                              variant="contained"
+                              color="primary"
+                              style={{ padding: 5, marginTop: 25 }}
+                           >
+                              Add Shifts
+                           </Button>
+                        </Link>
+                     )}
                   </Grid>
                </Paper>
-=======
-                         
-                         <Grid
-                            align="center"
-                         >
-                           {loggedInUser === occasion.author &&
-
-                              <Link to="/create-roster" style={{ textDecoration: "none" }}>
-                                 <Button
-                                    size="small"
-                                    type="submit"
-                                    variant="contained"
-                                    color="primary"
-                                    style={{padding: 5, marginTop: 25 }}
-                                    >
-                                    Add Shifts   
-                                 </Button>
-                              </Link>
-                           }
-                         </Grid>
-                     </Paper>
-                  <ConfirmDialog
+               <ConfirmDialog
                   confirmDialog={confirmDialog}
                   setConfirmDialog={setConfirmDialog}
                />
->>>>>>> 42d786b3a05b1bd9ba5bb47fe6d9247845d012ea
             </Container>
          </CssBaseline>
       </div>
