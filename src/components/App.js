@@ -21,6 +21,7 @@ import { getUsers } from '../services/userServices';
 import EditRoster from './EditRoster';
 import ViewUser from './ViewUser';
 
+
 const theme = createTheme({
   palette: {
      background: {
@@ -40,7 +41,6 @@ const App = () => {
    };
 
    const [store, dispatch] = useReducer(stateReducer, initialState);
-
 
    useEffect(() => {
     getOccasions()
@@ -79,7 +79,7 @@ const App = () => {
                   logout={logout}
                />
             <Routes>
-              <Route exact path="/" element={<Home/>}/>
+              <Route exact path="/" element={<Home loggedInUser={store.loggedInUser}/>}/>
               <Route path="/create-event" element={<CreateOccasion />}/>
               <Route path="/create-roster" element={<CreateRoster />}/>
               <Route path="/event-schedule" element={<EventSchedule/>}/>
