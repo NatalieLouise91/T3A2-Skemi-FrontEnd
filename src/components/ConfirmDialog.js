@@ -9,7 +9,7 @@ import {
    IconButton,
    Button,
 } from "@material-ui/core";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import EditOffIcon from "@mui/icons-material/EditOff";
 
 const useStyles = makeStyles((theme) => ({
    dialog: {
@@ -47,7 +47,7 @@ export default function ConfirmDialog(props) {
       <Dialog open={confirmDialog.isOpen} classes={{ paper: classes.dialog }}>
          <DialogTitle className={classes.dialogTitle}>
             <IconButton disableRipple className={classes.titleIcon}>
-               <DeleteForeverIcon />
+               <EditOffIcon />
             </IconButton>
          </DialogTitle>
          <DialogContent className={classes.dialogContent}>

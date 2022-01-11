@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGlobalState } from "../utils/stateContext";
+import ConfirmDialog from "./ConfirmDialog";
 import {
    Button,
    TextField,
@@ -9,7 +10,7 @@ import {
    Paper,
    Select,
    MenuItem,
-   InputLabel
+   InputLabel,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import {
@@ -40,6 +41,12 @@ const CreateOccasion = () => {
       author: "",
    };
    const [formData, setFormData] = useState(initialFormData);
+   const [confirmDialog, setConfirmDialog] = useState({
+      isOpen: false,
+      title: "",
+      subTitle: "",
+   });
+
    const { dispatch, store } = useGlobalState();
    let navigate = useNavigate();
    let { id } = useParams();
@@ -78,13 +85,18 @@ const CreateOccasion = () => {
       });
    }
 
-   function handleSubmit(event) {
-      event.preventDefault();
-      console.log(id)
+   function handleSubmit() {
+     
+
       if (id) {
          updateOccasion({ id: id, ...formData }).then((occasion) => {
             dispatch({ type: "updateOccasion", data: { id: id, ...formData } });
+            setConfirmDialog({
+               ...confirmDialog,
+               isOpen: false,
+            });
             navigate(`/events/${id}`);
+            window.location.reload();
          });
       } else {
          const nextId = getLastId() + 1;
@@ -96,17 +108,6 @@ const CreateOccasion = () => {
             .catch((error) => console.log(error));
       }
    }
-
-   // function handleSubmit(event) {
-   //    event.preventDefault();
-   //    createOccasion(formData).then((occasion) => {
-   //       dispatch({
-   //          type: "addOccasion",
-   //          data: occasion,
-   //       });
-   //       navigate("/");
-   //    });
-   // }
 
    return (
       <Container maxWidth="sm">
@@ -225,14 +226,11 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
-               <InputLabel 
-                  id= "author"
-                  className={classes.field}
-               >
+               <InputLabel id="author" className={classes.field}>
                   Author
                </InputLabel>
                <Select
-                  labelId= "author"
+                  labelId="author"
                   id="author"
                   label="Author"
                   name="author"
@@ -245,7 +243,16 @@ const CreateOccasion = () => {
                   <MenuItem value={loggedInUser}>{loggedInUser}</MenuItem>
                </Select>
                <Button
-                  onClick={handleSubmit}
+                  onClick={() => {
+                     setConfirmDialog({
+                        isOpen: true,
+                        title: "Are you sure to update this record?",
+                        subTitle: "You can't undo this operation",
+                        onConfirm: () => {
+                           handleSubmit();
+                        },
+                     });
+                  }}
                   variant="contained"
                   color="primary"
                >
@@ -256,6 +263,10 @@ const CreateOccasion = () => {
                </Button> */}
             </form>
          </Paper>
+         <ConfirmDialog
+            confirmDialog={confirmDialog}
+            setConfirmDialog={setConfirmDialog}
+         />
       </Container>
    );
 };

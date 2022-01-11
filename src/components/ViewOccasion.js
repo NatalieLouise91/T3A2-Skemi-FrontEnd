@@ -77,10 +77,9 @@ const ViewOccasion = () => {
                         style={{
                            padding: 5,
                            marginTop: 25,
-                           fontWeight: 600,
                         }}
                      >
-                        {occasion.name}
+                        {occasion.event_name}
                      </Typography>
                   </Container>
                   <div>
