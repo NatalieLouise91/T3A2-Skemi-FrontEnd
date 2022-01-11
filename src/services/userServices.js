@@ -14,3 +14,10 @@ export async function getUserById(id) {
     const response = await skemiAPI.get(`/api/users/${id}`);
     return response.data;
 }
+
+// async function to fetch admin by id
+
+export async function getAdminById(id) {
+    const response = await skemiAPI.get(`/api/users/${id}`);
+    return response.data;
+}

@@ -75,6 +75,13 @@ export default function reducer(state, action) {
          };
       }
 
+      case "setAdmin": {
+         return {
+            ...state,
+            users: action.data
+         };
+      }
+
       case 'login': {
          return {
             ...state,

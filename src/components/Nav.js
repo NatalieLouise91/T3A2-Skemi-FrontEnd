@@ -27,6 +27,7 @@ import LoggedInTab from "./LoggedInTab";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {useGlobalState} from '../utils/stateContext';
 import Spinner from "./Spinner";
+import { getAdminById } from "../services/userServices";
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -102,6 +103,18 @@ const Nav = ({ loggedInUser, logout, props }) => {
             }
     }, 1000); },[]);
 
+    const [admin, setAdmin] = useState(null);
+   
+    const adminUser = 1
+ 
+    useEffect(() => {
+       getAdminById(adminUser)
+          .then((user) => setAdmin(user))
+          .catch((error) => console.log(error));
+    }, [adminUser]);
+ 
+    if (!admin) return null;
+
    return (
       <div className={classes.root}>
          {/* <HideOnScroll {...props}> */}
@@ -167,6 +180,40 @@ const Nav = ({ loggedInUser, logout, props }) => {
                               <BallotOutlinedIcon />
                            </ListItemIcon>
                            <Typography variant="h6"> All Events</Typography>
+                        </MenuItem>
+                        {loggedInUser === admin.email &&
+                        <MenuItem
+                           onClick={() => setAnchor(null)}
+                           component={Link}
+                           to="/create-event"
+                        >
+                           <ListItemIcon>
+                              <BallotOutlinedIcon />
+                           </ListItemIcon>
+                           <Typography variant="h6">Create an Event</Typography>
+                        </MenuItem>
+                        }
+                        {loggedInUser === admin.email &&
+                        <MenuItem
+                           onClick={() => setAnchor(null)}
+                           component={Link}
+                           to="/create-roster"
+                        >
+                           <ListItemIcon>
+                              <BallotOutlinedIcon />
+                           </ListItemIcon>
+                           <Typography variant="h6"> Create a Roster</Typography>
+                        </MenuItem>
+                        }
+                        <MenuItem
+                           onClick={() => setAnchor(null)}
+                           component={Link}
+                           to="/event-schedule"
+                        >
+                           <ListItemIcon>
+                              <BallotOutlinedIcon />
+                           </ListItemIcon>
+                           <Typography variant="h6">Event's Schedule</Typography>
                         </MenuItem>
 
                         {displaySpinner && 
