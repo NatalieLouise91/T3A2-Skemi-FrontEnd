@@ -23,17 +23,7 @@ export default function reducer(state, action) {
             occasions: [updatedOccasion, ...theRest],
          };
       }
-      // This callback/case is supposed to update the occasion list on state without occasion.id
-      // case "deleteOccasion": {
-      //    // const updatedoccasions = state.occasions.filter(
-      //    //    (occasion) => occasion.id !== parseInt(action.data)
-      //    // );
-      //    return {
-      //       ...state,
-      //       occasions: action.data,
-      //       // updatedoccasions,
-      //    };
-      // }
+  
       case "setRosters": {
           return{
               ...state,

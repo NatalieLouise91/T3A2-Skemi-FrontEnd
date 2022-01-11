@@ -10,14 +10,11 @@ import {
 } from "@material-ui/core";
 import { getOccasionById, deleteOccasion } from "../services/occasionServices";
 import RostersByOccasion from "./RostersByOccasion";
-// import { useGlobalState } from "../utils/stateContext";
-
-
+import { useGlobalState } from "../utils/stateContext";
 
 const ViewOccasion = () => {
-   // const { dispatch } = useGlobalState();
+   const { dispatch } = useGlobalState();
    const [occasion, setOccasion] = useState();
-   // const [edit, setEdit] = useState(false);
    const { id } = useParams();
    const navigate = useNavigate();
 
@@ -33,24 +30,14 @@ const ViewOccasion = () => {
          .then(navigate("/"))
          .catch((error) => console.log(error));
    };
-
-   // const editOccasion = () => {
-   //    setEdit((prevEdit) => !prevEdit);
-   // };
-
-   // const cancelEdit = () => {
-   //    setEdit(false);
-   // };
-
-
    return (
       <div>
-         {/* <div>{edit ? <EditOccasion cancelEdit={cancelEdit} /> : null}</div> */}
+   
          <CssBaseline>
             <Container>
                <Container
                   align="center"
-                  // style={{ padding: 24, marginTop: 25 }}
+             
                >
                   <Typography
                      variant="h5"
@@ -64,6 +51,21 @@ const ViewOccasion = () => {
                   </Typography>
                </Container>
                <Paper elevation={5} style={{ padding: 24, marginTop: 25 }}>
+                  <Container
+                     align="center"
+             
+                  >
+                     <Typography
+                        variant="h5"
+                        style={{
+                           padding: 5,
+                           marginTop: 25,
+                           fontWeight: 600,
+                        }}
+                     >
+                        {occasion.name}
+                     </Typography>
+                  </Container>
                   <div>
                      <p>
                         <strong>Date: </strong> {occasion.date}
@@ -131,40 +133,37 @@ const ViewOccasion = () => {
                </Paper>
             </Container>
             <Container>
-                    <Paper 
-                        elevation={5}
-                        style={{ padding: 24, marginTop: 25 }}>
-                        <Container
-                            align="center"
-                         >
-                        <Typography
-                           variant="h4"
+               <Paper elevation={5} style={{ padding: 24, marginTop: 25 }}>
+                  <Container align="center">
+                     <Typography
+                        variant="h4"
+                        style={{ padding: 5, marginTop: 25 }}
+                     >
+                        Roster
+                     </Typography>
+                     <Container>
+                        <RostersByOccasion />
+                     </Container>
+                  </Container>
+
+                  <Grid align="center">
+                     <Link
+                        to="/create-roster"
+                        style={{ textDecoration: "none" }}
+                     >
+                        <Button
+                           size="small"
+                           type="submit"
+                           variant="contained"
+                           color="primary"
                            style={{ padding: 5, marginTop: 25 }}
                         >
-                           Roster
-                        </Typography>
-                        <Container>
-                           <RostersByOccasion />
-                        </Container>
-                     </Container>
-                         
-                         <Grid
-                            align="center"
-                         >
-                         <Link to="/create-roster" style={{ textDecoration: "none" }}>
-                            <Button
-                                size="small"
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                style={{padding: 5, marginTop: 25 }}
-                                >
-                                Add Shifts   
-                            </Button>
-                        </Link>
-                         </Grid>
-                     </Paper>
-                  </Container>
+                           Add Shifts
+                        </Button>
+                     </Link>
+                  </Grid>
+               </Paper>
+            </Container>
          </CssBaseline>
       </div>
    );
