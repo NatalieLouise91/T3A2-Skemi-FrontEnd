@@ -104,6 +104,7 @@ const CreateOccasion = () => {
             .then((occasion) => {
                dispatch({ type: "addOccasion", data: occasion });
                navigate("/");
+               window.location.reload();
             })
             .catch((error) => console.log(error));
       }
@@ -246,7 +247,7 @@ const CreateOccasion = () => {
                   onClick={() => {
                      setConfirmDialog({
                         isOpen: true,
-                        title: "Are you sure to update this record?",
+                        title: "Are you sure to create/update this record?",
                         subTitle: "You can't undo this operation",
                         onConfirm: () => {
                            handleSubmit();

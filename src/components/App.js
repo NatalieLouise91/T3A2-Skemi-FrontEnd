@@ -1,4 +1,3 @@
-
 import React, { useReducer, useEffect } from "react";
 import { StateContext } from "../utils/stateContext";
 import stateReducer from "../utils/stateReducer";
@@ -14,7 +13,6 @@ import { getOccasions } from "../services/occasionServices";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import Rosters from './Rosters';
 import ViewRoster from './ViewRoster';
 import { getRosters } from '../services/rosterServices';
 import { getUsers } from '../services/userServices';
@@ -83,7 +81,6 @@ const App = () => {
               <Route path="/create-event" element={<CreateOccasion />}/>
               <Route path="/create-roster" element={<CreateRoster />}/>
               <Route path="/event-schedule" element={<EventSchedule/>}/>
-              <Route path="/rosters" element={<Rosters/>}/>
               <Route path="/rosters/:id" element={<ViewRoster/>}/>
               <Route 
                exact 

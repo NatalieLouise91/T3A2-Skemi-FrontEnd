@@ -43,6 +43,8 @@ export default function EventSchedule() {
     const { store } = useGlobalState();
     const { users } = store;
 
+    console.log(users)
+
   return (
       <>
 
@@ -72,7 +74,7 @@ export default function EventSchedule() {
             <Grid item>
                 <Box>
                     <Paper style={{ padding: 24, marginTop: 24 }} elevation={5}>
-                        <Typography variant="h3">
+                        <Typography data-testid="header" variant="h3">
                             Event Schedule
                         </Typography>
                     </Paper>

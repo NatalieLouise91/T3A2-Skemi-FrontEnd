@@ -29,7 +29,7 @@ export default function ViewRoster() {
    }, [id]);
 
    if (!roster) return null;
-   const removeRoster = () => {
+   const onDelete = () => {
       deleteRoster(id)
          .then(() => {
             dispatch({ type: "deleteRoster", data: id });
@@ -70,7 +70,7 @@ export default function ViewRoster() {
                                  title: "Are you sure to delete this record?",
                                  subTitle: "You can't undo this operation",
                                  onConfirm: () => {
-                                    navigate(`/rosters/update/${id}`);
+                                    onDelete(id);
                                  },
                               });
                            }}
