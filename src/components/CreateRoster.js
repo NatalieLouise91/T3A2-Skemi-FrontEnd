@@ -85,7 +85,8 @@ function handleSubmit(event) {
                 createRoster({...inputField[0], id: nextId})
                 .then((roster) => {
                     dispatch({ type: "addRoster", data: roster }); 
-                    navigate('/') 
+                    navigate('/')
+                    window.location.reload(); 
                 })
                 .catch((error) => console.log(error));
                 
@@ -102,6 +103,7 @@ function handleSubmit(event) {
                 .then((roster) => {
                     dispatch({ type: "addRoster", data: roster }); 
                     navigate('/')
+                    window.location.reload();
                 })
                 .catch((error) => console.log(error));
             } 
@@ -121,6 +123,7 @@ function handleSubmit(event) {
                 .then((roster) => {
                     dispatch({ type: "addRoster", data: roster }); 
                     navigate('/')
+                    window.location.reload();
                 })
                 .catch((error) => console.log(error));
             }

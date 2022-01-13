@@ -26,7 +26,7 @@ export default function RosterCard({ roster }) {
                     subheader={roster.role}
                     />
                     <CardContent>
-                        <Typography variant="body2" color="textSecondary">
+                        <Typography data-testid = "roster-card-typography" variant="body2" color="textSecondary">
                             {roster.start_time} - {roster.end_time}
                         </Typography>
                     </CardContent>

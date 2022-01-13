@@ -3,8 +3,6 @@ import { useGlobalState } from "../utils/stateContext";
 import {
    Grid,
    Container,
-   Paper,
-   Typography,
 } from "@material-ui/core";
 import UserRosterCard from "./UserRosterCard";
 import Card from '@material-ui/core/Card';
@@ -12,7 +10,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@mui/material/Avatar';
 import { blueGrey } from '@mui/material/colors';
-import { getOccasionById } from "../services/occasionServices";
 
 export default function TeamEventSchedule({ user }) {
 
