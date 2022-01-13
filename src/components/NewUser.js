@@ -48,6 +48,7 @@ export default function NewUser() {
             sessionStorage.setItem('user', data.email)
             dispatch({type: 'setLoggedInUser', data: data.first_name})
             navigate('/')
+            window.location.reload();
         })
 
     }
