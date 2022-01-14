@@ -1,5 +1,25 @@
 # Skemi
 
+| # |Table of Contents|
+|---|-----------------|
+| [1](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#part-a-documentation) | Part A Documentation|
+| [2](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#purpose) | Purpose |
+| [3](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#functionality-and-features) | Functionality & Features |
+| [4](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#target-audience) | Target Audience |
+| [5](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#tech-stack) | Proposed Tech Stack |
+| [6](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#architecture-diagram) | Architecture Diagram |
+| [7](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#dataflow-diagram) | Dataflow Diagram |
+| [8](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#user-stories) | User Stories |
+| [9](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#wireframes) | Wireframes |
+| [10](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#part-b-documentation) | Part B Documentation |
+| [11](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#repositories-and-deployed-website) | App Links |
+| [12](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#final-tech-stack) | Final Tech Stack |
+| [13](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#project-management) | Project Management |
+| [14](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#testing) | Testing |
+ 
+
+# Part A Documentation
+
 ## Purpose
 
 Skemi (pronounced ske-mi) is an event planning and scheduling app built for a sydney based company that plans and services approximately 200 events a year. These events require meticulous organisation and as the business scales, current planning and scheduling processes have become outdated, slow, and unreliable.
@@ -30,7 +50,9 @@ Users can interact with all created events including relevant details and inform
 
 - Users can schedule themselves to work an event
 
-**Design amendment** - It was decided that users should only be able to view the shifts that they were allocated. This functionality change aimed to create a fairer environment, in which employees would be granted equal hours across events. 
+**Design amendment** 
+
+It was decided that users should only be able to view the shifts that they were allocated. This functionality change aimed to create a fairer environment, in which employees would be granted equal hours across events. 
 
 ### Event record interaction (Admin users)
 
@@ -212,11 +234,76 @@ MUI started back in 2014, to unify React and Material Design and offers a comple
 
 # Part B Documentation
 
+## Repositories and Deployed Website
+
+Front-end GitHub Repository:
+
+[Skemi-Client](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd)
+
+Back-end GitHub Repository:
+
+[Skemi-API](https://github.com/NatalieLouise91/T3A2-Rails-BackEnd)
+
+Deployed Application:
+
+[Skemi](https://skemi.netlify.app/)
+
+## Final Tech Stack
+
+### Frontend
+
+**HTML/JSX:**
+JSX was utilised to write HTML in each React component. This provided the basic structure of the content within each React component. 
+
+**JavaScript:**
+JavaScript was used to write the logic required in each component. 
+
+**ReactJS:**
+The ReactJS library was utilised to create Skemi as a single-page application. The implementation of ReactJS in the application also allowed for reusable UI components.
+
+**Material UI:** 
+The application was predominately styled using material ui components. This allowed us to build a minimalist and responsive user interface. 
+
+**iType:** 
+The npm package iType was utilised to add animated text to loading screens. 
+
+**Axios:**
+Axios was used as an alternative to Fetch. It is a library that has the ability to create HTTP requests externally. This allowed the Skemi React Client to communicate with the Skemi Rails API. 
+
+### Backend
+
+**Knock:**
+Knock provided JSON Web Token authentication for the Skemi Rails API. This was critical for user authentication and provided a JWT in the payload when a user logs in to the application.
+
+**Rails API:**
+Rails API was utilised to build the database for Skemi. Essentially, Rails API is a subset of a typical Ruby on Rails application whereby it provides only the models and controllers of a MVC architectural design. 
+
+**Ruby:**
+
+Ruby is the programing language that provides backend development and logic for the Skemi application.
+
+**Postgresql:**
+
+PostgreSQL is a relational database system. The data within Skemi is structured within the relational database Postgresql framework. Therefore, the data stored within this type of database forms relations with each other.
+
+### Deployment
+
+**Heroku:**
+
+Heroku is a cloud application platform that was utilised for the deployment of the Skemi API.
+
+**Netlify:**
+
+Netlify is a web developer platform that was utilised for the deployment of the Skemi Client. 
+
+
 ## Project Management
 
 Throughout the duration of the project, MVP was achieved through breaking the application down to the four main features of User authentication, Event Planning, Roster Integration, and an accessible event schedule interface. 
 
 In the preliminary stage of the project, our team focused on the core crud functionality of an administrative user. At the beginning of the week, the team would discuss what needed to be achieved by the end of the week. Tasks were delegated based upon each team member's interests and experience and each task was listed within our team's Trello board. Within the Trello board, each task card was assigned labels dependent on whether they were on docuemntation, backend api development and frontend client development. Additionally, labels were assigned on priority, task size, and whether they were currently assigned to a team member and checklists were assigned to task cards that required several days to complete. Furthermore, a Discord server was created, giving each team member the opportunity to bring attention to any areas that required additional help. 
+
+In addition to the above, a proper source control methodology was utilised to achieve MVP. Each team member worked off their own feature branches and merges and pull requests were frequently created to avoid merge conflicts with the main branch. Once main features were completed, the Trello board was updated to reflect those changes. 
 
 ### Link to Trello Board
 
@@ -225,54 +312,63 @@ In the preliminary stage of the project, our team focused on the core crud funct
 
 ## Testing 
 
+### Automated Testing 
+
+**Skemi Client:**
+
+React testing library and Jest were utilised for testing each component. 
+
+**Skemi API:**
+
+Rspec testing was utilised to test all functions within each Rails controller. 
+
 ### Manual User Testing Development
 
 ### User Feature
 
 ![Development-Testing-Authentication](./docs/Development-Testing-Authentication.png)
 
-Link to demo of user authentication testing [here](https://streamable.com/rkteex)
+**Demonstration of Testing:**
+Link to the demonstration of user authentication testing can be found [here](https://streamable.com/rkteex)
 
 
 ### Event Feature
 
-Create Event:
+**Create Event:**
 ![Development-Testing-Create-Event](./docs/Development-Testing-Create-Event.png)
 
-Read Event: 
+**Read Event:** 
 ![Development-Testing-Read-Event](./docs/Development-Testing-Read-Event.png)
 
-Edit Event: 
+**Edit Event:** 
 ![Development-Testing-Edit-Event](./docs/Development-Testing-Edit-Event.png)
 
-Delete Event:
+**Delete Event:**
 ![Development-Testing-Delete-Event](./docs/Development-Testing-Delete-Event.png)
 
-Link to demo of Event testing [here](https://streamable.com/3936yk) 
+**Demonstration of Testing:**
+Link to the demonstration of Event testing can be found [here](https://streamable.com/3936yk) 
 
 ### Roster Feature
 
-Create Roster:
+**Create Roster:**
 ![Development-Testing-Create-Roster](./docs/Development-Testing-Create-Roster.png)
 
-Read Roster:
+**Read Roster:**
 ![Development-Testing-Read-Roster](./docs/Development-Testing-Read-Roster.png)
 
-Edit Roster:
+**Edit Roster:**
 ![Development-Testing-Edit-Roster](./docs/Development-Testing-Edit-Roster.png)
 
-Delete Roster:
+**Delete Roster:**
 ![Development-Testing-Delete-Roster](./docs/Development-Testing-Delete-Roster.png)
 
-Link to demo of Roster testing [here](https://streamable.com/i924k5)
+**Demonstration of Testing:**
+Link to the demonstration of Roster testing can be found [here](https://streamable.com/i924k5)
 
 
 ### Event Schedule Feature
-
 ![Development-Testing-Event-Schedule](./docs/Development-Testing-Event-Schedule.png)
 
-Link to demo of Event Schedule testing [here](https://streamable.com/x3xid8)
-
-
-### Link to Deployed Application
-
+**Demonstration of Testing:**
+Link to the demonstration of Event Schedule testing can be found [here](https://streamable.com/x3xid8)
