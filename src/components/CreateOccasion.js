@@ -41,12 +41,6 @@ const CreateOccasion = () => {
       author: "",
    };
    const [formData, setFormData] = useState(initialFormData);
-   const [confirmDialog, setConfirmDialog] = useState({
-      isOpen: false,
-      title: "",
-      subTitle: "",
-   });
-
    const { dispatch, store } = useGlobalState();
    let navigate = useNavigate();
    let { id } = useParams();
@@ -91,10 +85,6 @@ const CreateOccasion = () => {
       if (id) {
          updateOccasion({ id: id, ...formData }).then((occasion) => {
             dispatch({ type: "updateOccasion", data: { id: id, ...formData } });
-            setConfirmDialog({
-               ...confirmDialog,
-               isOpen: false,
-            });
             navigate(`/events/${id}`);
             window.location.reload();
          });
@@ -244,16 +234,7 @@ const CreateOccasion = () => {
                   <MenuItem value={loggedInUser}>{loggedInUser}</MenuItem>
                </Select>
                <Button
-                  onClick={() => {
-                     setConfirmDialog({
-                        isOpen: true,
-                        title: "Are you sure to create/update this record?",
-                        subTitle: "You can't undo this operation",
-                        onConfirm: () => {
-                           handleSubmit();
-                        },
-                     });
-                  }}
+                  onClick={handleSubmit}
                   variant="contained"
                   color="primary"
                >
