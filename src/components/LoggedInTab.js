@@ -1,14 +1,29 @@
 import React, {useState, useEffect} from "react";
-import { Typography, Button, ButtonGroup } from "@material-ui/core";
+import { 
+   Typography, 
+   Button, 
+   ButtonGroup,
+   Menu,
+   MenuItem,
+   ListItemIcon,
+    } from "@material-ui/core";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 import { getAdminById } from "../services/userServices";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import {useGlobalState} from '../utils/stateContext';
 
 const LoggedInTab = ({ loggedInUser, handleLogout }) => {
    
    const [admin, setAdmin] = useState(null);
+   const [anchor, setAnchor] = React.useState(null);
+   const { store } = useGlobalState();
    const { users } = store; 
    const adminUser = 1
+
+   const handleMenu = (event) => {
+      setAnchor(event.currentTarget);
+   };
 
    useEffect(() => {
       getAdminById(adminUser)
@@ -62,23 +77,27 @@ const LoggedInTab = ({ loggedInUser, handleLogout }) => {
 
          <div style={{ flexGrow: 1 }} />
 
+         <Typography style={{ marginRight: 20 }}>
+            Welcome <strong>{loggedInUser}</strong> !
+         </Typography>
+
          {
-users.map((user) => 
-    user.email === loggedInUser? 
-    <Menu>
-    <MenuItem 
-      onClick={() => setAnchor(null)}
-      component={Link}
-      to= {`/users/${user.id}`}
-    >
-    <ListItemIcon>
-        <PersonOutlineOutlinedIcon />
-    </ListItemIcon>
-    <Typography variant="h6"> My Profile</Typography>
-  </MenuItem>
-  </Menu>
-: null )
-}
+         users.map((user) => 
+            user.email === loggedInUser? 
+            <Menu>
+            <MenuItem 
+               onClick={() => setAnchor(null)}
+               component={Link}
+               to= {`/users/${user.id}`}
+            >
+            <ListItemIcon>
+               <PersonOutlineOutlinedIcon />
+            </ListItemIcon>
+            <Typography variant="h6"> My Profile</Typography>
+         </MenuItem>
+         </Menu>
+         : null )
+         }
          <Button
             style={{ color: "inherit" }}
             size="large"
