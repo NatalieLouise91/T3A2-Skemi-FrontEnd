@@ -7,7 +7,7 @@ import { getAdminById } from "../services/userServices";
 const LoggedInTab = ({ loggedInUser, handleLogout }) => {
    
    const [admin, setAdmin] = useState(null);
-   
+   const { users } = store; 
    const adminUser = 1
 
    useEffect(() => {
@@ -62,9 +62,23 @@ const LoggedInTab = ({ loggedInUser, handleLogout }) => {
 
          <div style={{ flexGrow: 1 }} />
 
-         <Typography style={{ marginRight: 20 }}>
-            Welcome <strong>{loggedInUser}</strong> !
-         </Typography>
+         {
+users.map((user) => 
+    user.email === loggedInUser? 
+    <Menu>
+    <MenuItem 
+      onClick={() => setAnchor(null)}
+      component={Link}
+      to= {`/users/${user.id}`}
+    >
+    <ListItemIcon>
+        <PersonOutlineOutlinedIcon />
+    </ListItemIcon>
+    <Typography variant="h6"> My Profile</Typography>
+  </MenuItem>
+  </Menu>
+: null )
+}
          <Button
             style={{ color: "inherit" }}
             size="large"
