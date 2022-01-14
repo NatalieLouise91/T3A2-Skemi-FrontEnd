@@ -118,9 +118,17 @@ const ViewOccasion = () => {
                                  type="submit"
                                  variant="contained"
                                  color="primary"
-                                 onClick={() =>
-                                    navigate(`/events/update/${id}`)
-                                 }
+                                 onClick={() => {
+                                    setConfirmDialog({
+                                       isOpen: true,
+                                       title: "Are you sure to delete this record?",
+                                       subTitle:
+                                          "You can't undo this operation",
+                                       onConfirm: () => {
+                                          navigate(`/events/update/${id}`)
+                                       },
+                                    });
+                                 }}
                               >
                                  Edit Event
                               </Button>
