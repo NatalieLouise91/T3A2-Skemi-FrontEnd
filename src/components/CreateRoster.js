@@ -30,7 +30,10 @@ const useStyles = makeStyles((theme) => ({
     },
     field: {
         margin: theme.spacing(1),
-    }
+    },
+    alert: {
+        color: '#DC143C'
+    },
 }))
 
 export default function CreateRoster() {
@@ -45,14 +48,15 @@ export default function CreateRoster() {
         { event_id: "", start_time: "", end_time: "", role: "", name: "", user_id: "", author: ""},
     ]);
 
+    const [formErrors, setFormErrors] = useState({});
+    const [isSubmit, setIsSubmit] = useState(false);
+
     const { dispatch, store } = useGlobalState();
     const { loggedInUser } = store;
     const { rosters } = store; 
     const { occasions } = store;
     const { users } = store;
     
-
-
 
 // function to return the last id in the roster database
 
@@ -74,60 +78,106 @@ export default function CreateRoster() {
 
 // function to handle submit when user clicks on submit button
 
-
-
-function handleSubmit(event) {
-    event.preventDefault();
-
-            if (inputField.length === 1) {
-                const nextId = getLastId() + 1;
-
-                createRoster({...inputField[0], id: nextId})
-                .then((roster) => {
-                    dispatch({ type: "addRoster", data: roster }); 
-                    navigate('/')
-                    window.location.reload(); 
-                })
-                .catch((error) => console.log(error));
-                
-            } 
-            
-            if (inputField.length === 2) {
-                const nextId = getLastId() + 1;
-
-                createRoster({...inputField[0], id: nextId})
-                .then((roster) => {
-                    dispatch({ type: "addRoster", data: roster }); 
-                })
-                createRoster({...inputField[1], id: nextId + 1})
-                .then((roster) => {
-                    dispatch({ type: "addRoster", data: roster }); 
-                    navigate('/')
-                    window.location.reload();
-                })
-                .catch((error) => console.log(error));
-            } 
-            
-            if (inputField.length === 3) {
-                const nextId = getLastId() + 1;
-
-                createRoster({...inputField[0], id: nextId})
-                .then((roster) => {
-                    dispatch({ type: "addRoster", data: roster }); 
-                })
-                createRoster({...inputField[1], id: nextId + 1})
-                .then((roster) => {
-                    dispatch({ type: "addRoster", data: roster }); 
-                })
-                createRoster({...inputField[2], id: nextId + 2})
-                .then((roster) => {
-                    dispatch({ type: "addRoster", data: roster }); 
-                    navigate('/')
-                    window.location.reload();
-                })
-                .catch((error) => console.log(error));
-            }
+function handleSubmit(e) {
+    e.preventDefault();
+    if (inputField.length === 1) {
+        setFormErrors(validate(inputField[0]));
+        setIsSubmit(true)
     }
+    if (inputField.length === 2) {
+        setFormErrors(validate(inputField[0]));
+        setFormErrors(validate(inputField[1]));
+        setIsSubmit(true)
+    }
+    if (inputField.length === 3) {
+        setFormErrors(validate(inputField[0]));
+        setFormErrors(validate(inputField[1]));
+        setFormErrors(validate(inputField[2]));
+        setIsSubmit(true)
+    }
+  }
+
+useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+        if (inputField.length === 1) {
+            const nextId = getLastId() + 1;
+
+            createRoster({...inputField[0], id: nextId})
+            .then((roster) => {
+                dispatch({ type: "addRoster", data: roster }); 
+                navigate('/')
+                window.location.reload(); 
+            })
+            .catch((error) => console.log(error));
+            
+        } 
+        
+        if (inputField.length === 2) {
+            const nextId = getLastId() + 1;
+
+            createRoster({...inputField[0], id: nextId})
+            .then((roster) => {
+                dispatch({ type: "addRoster", data: roster }); 
+            })
+            createRoster({...inputField[1], id: nextId + 1})
+            .then((roster) => {
+                dispatch({ type: "addRoster", data: roster }); 
+                navigate('/')
+                window.location.reload();
+            })
+            .catch((error) => console.log(error));
+        } 
+        
+        if (inputField.length === 3) {
+            const nextId = getLastId() + 1;
+
+            createRoster({...inputField[0], id: nextId})
+            .then((roster) => {
+                dispatch({ type: "addRoster", data: roster }); 
+            })
+            createRoster({...inputField[1], id: nextId + 1})
+            .then((roster) => {
+                dispatch({ type: "addRoster", data: roster }); 
+            })
+            createRoster({...inputField[2], id: nextId + 2})
+            .then((roster) => {
+                dispatch({ type: "addRoster", data: roster }); 
+                navigate('/')
+                window.location.reload();
+            })
+            .catch((error) => console.log(error));
+        }
+ }
+},[formErrors])
+
+// validate function to set error messages if user incorrectly enters in a field
+
+const validate = (values) => {
+    const errors = {}
+    if(!values.event_id) {
+        errors.event_id = "An event name is required!";
+    } 
+    if(!values.start_time) {
+        errors.start_time = "A start time is required!";
+    } 
+    if(!values.end_time) {
+        errors.end_time = "An end time is required!";
+    } 
+    if(!values.role) {
+        errors.role = "A job role is required!";
+    } 
+    if(!values.name) {
+        errors.name = "A team member is required!";
+    }
+    if(!values.user_id) {
+        errors.user_id = "Please confirm the team member!";
+    }
+    if(!values.author) {
+        errors.author = "Please select your email for authorship";
+    }
+    return errors;
+}
+
 
 // function to add additional input fields to form
 
@@ -214,11 +264,13 @@ function handleSubmit(event) {
                             onChange={event => handleChangeInput(index, event)}
                         >
                             {occasions.map((occasion) =>
-                                <MenuItem key={occasion.id} value={occasion.id}>{occasion.name}, {occasion.date}</MenuItem>
+                                <MenuItem key={occasion.id} value={occasion.id}>{occasion.name}, at {occasion.time} on {occasion.date}</MenuItem>
                                 )
                             }
                         </Select>
-
+                        {formErrors.event_id &&
+                            <p className={classes.alert}>{formErrors.event_id}</p>
+                        }
 
                         <InputLabel 
                             id="start_time"
@@ -241,6 +293,10 @@ function handleSubmit(event) {
                             {times.map((element, index) => 
                             <MenuItem key={index} value={element}>{element}</MenuItem>)}
                         </Select>
+
+                        {formErrors.start_time &&
+                            <p className={classes.alert}>{formErrors.start_time}</p>
+                        }
 
 
                         <InputLabel 
@@ -265,6 +321,10 @@ function handleSubmit(event) {
                             <MenuItem key={index} value={element}>{element}</MenuItem>)}
                         </Select>
 
+                        {formErrors.end_time &&
+                            <p className={classes.alert}>{formErrors.end_time}</p>
+                        }
+
                         <InputLabel 
                             id="role"
                             className={classes.field}
@@ -288,6 +348,10 @@ function handleSubmit(event) {
                             <MenuItem value="Bartender">Bartender</MenuItem>
                             <MenuItem value="Chef">Chef</MenuItem>
                         </Select>
+
+                        {formErrors.role &&
+                            <p className={classes.alert}>{formErrors.role}</p>
+                        }
                         
                         <InputLabel 
                         id= "name"
@@ -312,6 +376,10 @@ function handleSubmit(event) {
 
                         </Select>
 
+                        {formErrors.name &&
+                            <p className={classes.alert}>{formErrors.name}</p>
+                        }
+
                         <InputLabel 
                         id= "user_id"
                         className={classes.field}
@@ -335,6 +403,10 @@ function handleSubmit(event) {
 
                         </Select>
 
+                        {formErrors.user_id &&
+                            <p className={classes.alert}>{formErrors.user_id}</p>
+                        }
+
                         <InputLabel 
                         id= "author"
                         className={classes.field}
@@ -355,6 +427,10 @@ function handleSubmit(event) {
                             <MenuItem value={loggedInUser}>{loggedInUser}</MenuItem>
 
                         </Select>
+
+                        {formErrors.author &&
+                            <p className={classes.alert}>{formErrors.author}</p>
+                        }
 
                         {index > 0 ?
                         <IconButton

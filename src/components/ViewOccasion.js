@@ -121,7 +121,7 @@ const ViewOccasion = () => {
                                  onClick={() => {
                                     setConfirmDialog({
                                        isOpen: true,
-                                       title: "Are you sure to delete this record?",
+                                       title: "Are you sure you want to update this record?",
                                        subTitle:
                                           "You can't undo this operation",
                                        onConfirm: () => {
@@ -143,7 +143,7 @@ const ViewOccasion = () => {
                                  onClick={() => {
                                     setConfirmDialog({
                                        isOpen: true,
-                                       title: "Are you sure to delete this record?",
+                                       title: "Are you sure you want to delete this record?",
                                        subTitle:
                                           "You can't undo this operation",
                                        onConfirm: () => {
