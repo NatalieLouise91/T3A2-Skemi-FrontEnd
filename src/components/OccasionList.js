@@ -59,7 +59,7 @@ const OccasionList = ({ loggedInUser }) => {
       <>
          <CssBaseline />
          <StateContext.Provider value={{ store, dispatch }}>
-            <Container maxWidth="sm">
+            <Container maxWidth="lg">
                <Typography
                   variant="h4"
                   align="center"
