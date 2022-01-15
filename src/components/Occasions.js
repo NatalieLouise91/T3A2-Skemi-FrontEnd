@@ -1,8 +1,11 @@
+//import required dependencies and components
 import React from "react";
 import Occasion from "./Occasion";
 import { useGlobalState } from "../utils/stateContext";
 import { Grid, Paper } from "@material-ui/core";
 
+// functional component to map through occasions on the database and return
+//  and render the information on mui components
 const Occasions = () => {
    const { store } = useGlobalState();
    const { occasions } = store;

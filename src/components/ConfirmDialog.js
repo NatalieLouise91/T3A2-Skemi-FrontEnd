@@ -1,3 +1,4 @@
+// importing required dependencies
 import React from "react";
 import {
    Dialog,
@@ -39,10 +40,13 @@ const useStyles = makeStyles((theme) => ({
    },
 }));
 
+//beginning component function
 export default function ConfirmDialog(props) {
+   //sets state and classes for mui theme
    const { confirmDialog, setConfirmDialog } = props;
    const classes = useStyles();
 
+   //returns basic modal component for confirm action on update and delete operations over multiple components
    return (
       <Dialog open={confirmDialog.isOpen} classes={{ paper: classes.dialog }}>
          <DialogTitle className={classes.dialogTitle}>

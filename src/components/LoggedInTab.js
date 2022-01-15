@@ -1,47 +1,39 @@
-import React, {useState, useEffect} from "react";
-import { 
-   Typography, 
-   Button, 
-   ButtonGroup,
-   Menu,
-   MenuItem,
-   ListItemIcon,
-    } from "@material-ui/core";
+//import required dependencies and components
+import React, { useState, useEffect } from "react";
+import { Button, ButtonGroup } from "@material-ui/core";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 import { getAdminById } from "../services/userServices";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import {useGlobalState} from '../utils/stateContext';
+import { useGlobalState } from "../utils/stateContext";
 
+// function renders links in nav bar when user is logged in
 const LoggedInTab = ({ loggedInUser, handleLogout }) => {
-   
+   //initializes state for admin and nav item components
    const [admin, setAdmin] = useState(null);
-   const [anchor, setAnchor] = React.useState(null);
    const [displayComponent, setDisplayComponent] = useState(false);
+
+   // destructures store and user objects from global state
    const { store } = useGlobalState();
-   const { users } = store; 
-   const adminUser = 1
+   const { users } = store;
+   const adminUser = 1;
 
-   const handleMenu = (event) => {
-      setAnchor(event.currentTarget);
-   };
-
+   // side effect to set display components in navbar links
+   //  and return the admin record by id from the database
    useEffect(() => {
-setDisplayComponent(true);
-
-   }, []);
-
-   useEffect(() => {
+      setDisplayComponent(true);
       getAdminById(adminUser)
          .then((user) => setAdmin(user))
          .catch((error) => console.log(error));
    }, [adminUser]);
 
+   // if the user is not an admin the component will not return of render
    if (!admin) return null;
 
+   // renders links based on users admin rights
    return (
       <>
-         {loggedInUser === admin.email?
+         {loggedInUser === admin.email ? (
             <ButtonGroup variant="text" color="inherit">
                <Button
                   size="large"
@@ -67,38 +59,32 @@ setDisplayComponent(true);
                >
                   Event's Schedule
                </Button>
+               {/* maps over users and returns the user id to navigate to the users
+               profile */}
                {displayComponent &&
-
-users.map((user) => 
-    user.email === loggedInUser? 
-    <Button
-      onClick={() => setAnchor(null)}
-      component={Link}
-      to= {`/users/${user.id}`}
-    >
-  
-        <PersonOutlineOutlinedIcon />
-   
-     My Profile
-  </Button>
-: null )
-}
+                  users.map((user) =>
+                     user.email === loggedInUser ? (
+                        <Button component={Link} to={`/users/${user.id}`}>
+                           <PersonOutlineOutlinedIcon />
+                           My Profile
+                        </Button>
+                     ) : null
+                  )}
             </ButtonGroup>
-            :
-               <ButtonGroup variant="text" color="inherit">
-                  <Button
-                     size="large"
-                     component={Link}
-                     to="/event-schedule"
-                     style={{ marginRight: 10 }}
-                  >
-                     Event's Schedule
-                  </Button>
-               </ButtonGroup>
-            }
+         ) : (
+            <ButtonGroup variant="text" color="inherit">
+               <Button
+                  size="large"
+                  component={Link}
+                  to="/event-schedule"
+                  style={{ marginRight: 10 }}
+               >
+                  Event's Schedule
+               </Button>
+            </ButtonGroup>
+         )}
 
          <div style={{ flexGrow: 1 }} />
-
 
          <Button
             style={{ color: "inherit" }}

@@ -1,3 +1,4 @@
+//import required dependencies and components
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import {
@@ -13,7 +14,9 @@ import RostersByOccasion from "./RostersByOccasion";
 import { useGlobalState } from "../utils/stateContext";
 import ConfirmDialog from "./ConfirmDialog";
 
+// function renders a specific occasion records information based on an id
 const ViewOccasion = () => {
+   //set state
    const [occasion, setOccasion] = useState();
    const [confirmDialog, setConfirmDialog] = useState({
       isOpen: false,
@@ -21,20 +24,27 @@ const ViewOccasion = () => {
       subTitle: "",
    });
 
+   //params for occasion record id from url
    const { id } = useParams();
+
+   // set varibale to usenavigate
    const navigate = useNavigate();
 
+   //destructuring dispatch and store called from global state
    const { store } = useGlobalState();
    const { loggedInUser } = store;
-   // const [edit, setEdit] = useState(false);
 
+   //side effect to get occasions from database and return them by the id
    useEffect(() => {
       getOccasionById(id)
          .then((occasion) => setOccasion(occasion))
          .catch((error) => console.log(error));
    }, [id]);
 
+   // if there are no occasion then end
    if (!occasion) return null;
+
+   // function to handle deleting the occasion using the specific occasion id
    const onDelete = () => {
       deleteOccasion(id)
          .then(navigate("/"))
@@ -46,14 +56,8 @@ const ViewOccasion = () => {
       window.location.reload();
    };
 
-   // const editOccasion = () => {
-   //    setEdit((prevEdit) => !prevEdit);
-   // };
-
-   // const cancelEdit = () => {
-   //    setEdit(false);
-   // };
-
+   //renders a card for an occasion with relevant information from the database
+   //  and buttons to delete the occasion and edit the occasion or go back to all events
    return (
       <div>
          <CssBaseline>
@@ -119,13 +123,15 @@ const ViewOccasion = () => {
                                  variant="contained"
                                  color="primary"
                                  onClick={() => {
+                                    // nested callback functions to display a confirm action modal 
+                                    //  then navigate to update form
                                     setConfirmDialog({
                                        isOpen: true,
                                        title: "Are you sure you want to update this record?",
                                        subTitle:
                                           "You can't undo this operation",
                                        onConfirm: () => {
-                                          navigate(`/events/update/${id}`)
+                                          navigate(`/events/update/${id}`);
                                        },
                                     });
                                  }}
@@ -141,6 +147,8 @@ const ViewOccasion = () => {
                                  variant="contained"
                                  color="primary"
                                  onClick={() => {
+                                    // nested callback functions to display a confirm action modal
+                                    //  then navigate to update form
                                     setConfirmDialog({
                                        isOpen: true,
                                        title: "Are you sure you want to delete this record?",

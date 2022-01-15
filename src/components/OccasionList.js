@@ -1,3 +1,4 @@
+//import required dependencies and components
 import React, { useEffect, useReducer, useState } from "react";
 import Occasions from "./Occasions";
 import stateReducer from "../utils/stateReducer";
@@ -13,14 +14,18 @@ import {
 import { Link } from "react-router-dom";
 import { getAdminById } from "../services/userServices";
 
+//occasion list function renders a page with a list of the occasions 
+// returned from the database
+const OccasionList = ({ loggedInUser }) => {
 
-const Home = ({loggedInUser}) => {
+   // sets initial state variable
    const initialState = {
       occasions: [],
    };
-
+// destructures variables for reducer hook
    const [store, dispatch] = useReducer(stateReducer, initialState);
 
+   //side effect to get occasions from database
    useEffect(() => {
       // this function is declared in ../services/occasionServices
       getOccasions()
@@ -36,10 +41,11 @@ const Home = ({loggedInUser}) => {
          });
    }, []);
 
+   //destructures variables for state initialized with null for adminuser
    const [admin, setAdmin] = useState(null);
-   
-   const adminUser = 1
+   const adminUser = 1;
 
+   // gets user admins from database
    useEffect(() => {
       getAdminById(adminUser)
          .then((user) => setAdmin(user))
@@ -48,6 +54,7 @@ const Home = ({loggedInUser}) => {
 
    if (!admin) return null;
 
+   // returns mui components rendering a list of occasions 
    return (
       <>
          <CssBaseline />
@@ -60,13 +67,14 @@ const Home = ({loggedInUser}) => {
                >
                   Upcoming Events
                </Typography>
-               {loggedInUser === admin.email &&
-               <Link to="/create-event" style={{ textDecoration: "none" }}>
-                  <Button type="submit" variant="contained" color="primary">
-                     Create Event
-                  </Button>
-               </Link>
-               }
+               {/* hides crud operations if user is not an admin */}
+               {loggedInUser === admin.email && (
+                  <Link to="/create-event" style={{ textDecoration: "none" }}>
+                     <Button type="submit" variant="contained" color="primary">
+                        Create Event
+                     </Button>
+                  </Link>
+               )}
                <Grid spacing={10}>
                   <Grid item>
                      <Occasions />
@@ -78,4 +86,4 @@ const Home = ({loggedInUser}) => {
    );
 };
 
-export default Home;
+export default OccasionList;
