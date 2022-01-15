@@ -6,7 +6,7 @@ import { useGlobalState } from "../../utils/stateContext";
 import {
    updateRoster,
    getRosterById,
-} from "/Users/jordanhardy/Documents/coder/skemi/T3A2-Skemi-FrontEnd/src/services/rosterServices.js";
+} from "../../services/rosterServices.js";
 import "@fontsource/roboto/400.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Select, InputLabel, MenuItem, Paper } from "@material-ui/core";

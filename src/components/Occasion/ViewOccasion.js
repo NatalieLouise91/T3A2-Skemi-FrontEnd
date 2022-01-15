@@ -12,7 +12,7 @@ import {
 import {
    getOccasionById,
    deleteOccasion,
-} from "/Users/jordanhardy/Documents/coder/skemi/T3A2-Skemi-FrontEnd/src/services/occasionServices.js";
+} from "../../services/occasionServices.js";
 import RostersByOccasion from "../Roster/RostersByOccasion";
 import { useGlobalState } from "../../utils/stateContext";
 import ConfirmDialog from "../UI/ConfirmDialog";
