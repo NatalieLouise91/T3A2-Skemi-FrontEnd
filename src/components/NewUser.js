@@ -6,6 +6,7 @@ import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { Container, Paper, Grid } from '@mui/material';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 
 const useStyles = makeStyles({
@@ -120,7 +121,7 @@ export default function NewUser() {
                         fullWidth
                         required
                         />
-                        <p className={classes.root}>{formErrors.email}</p>
+                        <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {formErrors.email}</p>
 
                     <TextField type="password" name="password" id="password" value={formData.password} onChange={handleFormData}
                         className={classes.field} 
@@ -129,7 +130,7 @@ export default function NewUser() {
                         fullWidth
                         required
                         />
-                        <p className={classes.root}>{formErrors.password}</p>
+                        <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {formErrors.password}</p>
 
                     <TextField type="password" name="password_confirmation" id="password_confirmation" value={formData.password_confirmation} onChange={handleFormData}
                         className={classes.field} 
@@ -138,7 +139,7 @@ export default function NewUser() {
                         fullWidth
                         required
                         />
-                        <p className={classes.root}>{formErrors.password_confirmation}</p>
+                        <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {formErrors.password_confirmation}</p>
 
                     <TextField type="text" name="first_name" id="first_name" value={formData.first_name} onChange={handleFormData}
                         className={classes.field} 
@@ -147,7 +148,7 @@ export default function NewUser() {
                         fullWidth
                         required
                         />
-                        <p className={classes.root}>{formErrors.first_name}</p>
+                        <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {formErrors.first_name}</p>
 
                     <TextField type="text" name="last_name" id="last_name" value={formData.last_name} onChange={handleFormData}
                         className={classes.field} 
@@ -156,7 +157,7 @@ export default function NewUser() {
                         fullWidth
                         required
                         />
-                        <p className={classes.root}>{formErrors.last_name}</p>
+                        <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {formErrors.last_name}</p>
 
 
                     <TextField type="text" name="phone" id="phone" value={formData.phone} onChange={handleFormData}
@@ -166,7 +167,7 @@ export default function NewUser() {
                         fullWidth
                         required
                         />
-                        <p className={classes.root}>{formErrors.phone}</p>
+                        <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {formErrors.phone}</p>
 
                     <Button onClick={handleSubmit} type="submit" color="primary">Register</Button>
 

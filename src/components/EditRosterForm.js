@@ -102,7 +102,6 @@ function handleSubmit(event) {
 
         
         <form onSubmit={handleSubmit}>
-            {/* {(!roster) ? null :  */}
 
             <div>
                         <InputLabel

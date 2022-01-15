@@ -19,6 +19,8 @@ import {
    updateOccasion,
 } from "../services/occasionServices";
 import "@fontsource/roboto/400.css";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+
 const useStyles = makeStyles({
    field: {
       marginTop: 20,
@@ -187,7 +189,7 @@ const CreateOccasion = () => {
                   required
                />
                {formErrors.name &&
-               <p className={classes.root}>{formErrors.name}</p>
+               <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {formErrors.name}</p>
                }
                <TextField
                   InputLabelProps={{ shrink: true }}
@@ -204,7 +206,7 @@ const CreateOccasion = () => {
                   required
                />
                {formErrors.description &&
-               <p className={classes.root}>{formErrors.description}</p>
+               <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {formErrors.description}</p>
                }
                <TextField
                   InputLabelProps={{ shrink: true }}
@@ -238,7 +240,7 @@ const CreateOccasion = () => {
                   required
                />
                {formErrors.attendees &&
-               <p className={classes.root}>{formErrors.attendees}</p>
+               <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {formErrors.attendees}</p>
                }
                <TextField
                   InputLabelProps={{ shrink: true }}
@@ -255,7 +257,7 @@ const CreateOccasion = () => {
                   required
                />
                {formErrors.location &&
-               <p className={classes.root}>{formErrors.location}</p>
+               <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {formErrors.location}</p>
                }
                <TextField
                   InputLabelProps={{ shrink: true }}
@@ -272,7 +274,7 @@ const CreateOccasion = () => {
                   required
                />
                {formErrors.time &&
-               <p className={classes.root}>{formErrors.time}</p>
+               <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {formErrors.time}</p>
                }
                <TextField
                   InputLabelProps={{ shrink: true }}
@@ -289,7 +291,7 @@ const CreateOccasion = () => {
                   required
                />
                {formErrors.contact_name &&
-               <p className={classes.root}>{formErrors.contact_name}</p>
+               <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {formErrors.contact_name}</p>
                }
                <TextField
                   InputLabelProps={{ shrink: true }}
@@ -306,7 +308,7 @@ const CreateOccasion = () => {
                   required
                />
                {formErrors.contact_phone &&
-               <p className={classes.root}>{formErrors.contact_phone}</p>
+               <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {formErrors.contact_phone}</p>
                }
                <InputLabel id="author" className={classes.field}>
                   Author
@@ -326,7 +328,7 @@ const CreateOccasion = () => {
                </Select>
 
                {formErrors.author &&
-               <p className={classes.root}>{formErrors.author}</p>
+               <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {formErrors.author}</p>
                }
 
                {id? 

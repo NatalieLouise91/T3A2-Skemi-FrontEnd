@@ -5,6 +5,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import {TextField, Typography, Link, Grid, Container, Button, Paper } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { makeStyles } from '@material-ui/core';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 const useStyles = makeStyles({
     root: {
@@ -113,7 +114,7 @@ export default function Login() {
                         Login
                     </Button>
                         {errors &&
-                            <p className={classes.root}>{errors}</p>
+                            <p className={classes.root}><ErrorOutlineIcon fontSize='small'/> {errors}</p>
                         }
                     <Typography textAlign='center' variant='caption' component='p' style={{ marginTop: 32, marginBottom: 4}}>
                         Or sign up new account

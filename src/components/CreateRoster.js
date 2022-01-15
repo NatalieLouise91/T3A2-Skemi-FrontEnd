@@ -12,12 +12,14 @@ import {
     Container,
     Typography,
     Grid,
+    Paper,
 } from "@material-ui/core";
 
 import IconButton from '@material-ui/core/IconButton'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import Spinner from "./Spinner";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -220,7 +222,7 @@ const validate = (values) => {
        }, 1000); },[]);
 
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="sm">
 
             {displaySpinner && 
             
@@ -230,14 +232,15 @@ const validate = (values) => {
                     justifyContent="center" 
                     alignItems="center"
                 >
-                <Spinner />
-            </Grid>
+                    <Spinner />
+                </Grid>
             
             }
 
             {displayComponent &&
 
-            <div>
+        
+        <Paper elevation={5} style={{ padding: 24, marginTop: 24 }}>
 
             <Typography variant="h4">Add Team Members to Roster</Typography>
 
@@ -269,7 +272,7 @@ const validate = (values) => {
                             }
                         </Select>
                         {formErrors.event_id &&
-                            <p className={classes.alert}>{formErrors.event_id}</p>
+                            <p className={classes.alert}><ErrorOutlineIcon fontSize='small'/>  {formErrors.event_id}</p>
                         }
 
                         <InputLabel 
@@ -295,7 +298,7 @@ const validate = (values) => {
                         </Select>
 
                         {formErrors.start_time &&
-                            <p className={classes.alert}>{formErrors.start_time}</p>
+                            <p className={classes.alert}><ErrorOutlineIcon fontSize='small'/> {formErrors.start_time}</p>
                         }
 
 
@@ -322,7 +325,7 @@ const validate = (values) => {
                         </Select>
 
                         {formErrors.end_time &&
-                            <p className={classes.alert}>{formErrors.end_time}</p>
+                            <p className={classes.alert}><ErrorOutlineIcon fontSize='small'/> {formErrors.end_time}</p>
                         }
 
                         <InputLabel 
@@ -350,7 +353,7 @@ const validate = (values) => {
                         </Select>
 
                         {formErrors.role &&
-                            <p className={classes.alert}>{formErrors.role}</p>
+                            <p className={classes.alert}><ErrorOutlineIcon fontSize='small'/> {formErrors.role}</p>
                         }
                         
                         <InputLabel 
@@ -377,7 +380,7 @@ const validate = (values) => {
                         </Select>
 
                         {formErrors.name &&
-                            <p className={classes.alert}>{formErrors.name}</p>
+                            <p className={classes.alert}><ErrorOutlineIcon fontSize='small'/> {formErrors.name}</p>
                         }
 
                         <InputLabel 
@@ -404,7 +407,7 @@ const validate = (values) => {
                         </Select>
 
                         {formErrors.user_id &&
-                            <p className={classes.alert}>{formErrors.user_id}</p>
+                            <p className={classes.alert}><ErrorOutlineIcon fontSize='small'/> {formErrors.user_id}</p>
                         }
 
                         <InputLabel 
@@ -429,7 +432,7 @@ const validate = (values) => {
                         </Select>
 
                         {formErrors.author &&
-                            <p className={classes.alert}>{formErrors.author}</p>
+                            <p className={classes.alert}><ErrorOutlineIcon fontSize='small'/> {formErrors.author}</p>
                         }
 
                         {index > 0 ?
@@ -460,8 +463,9 @@ const validate = (values) => {
                 Add to Roster
                 </Button>
             </form>
-            </div>
+            </Paper>
             }
+            
         </Container>
                         
     )
