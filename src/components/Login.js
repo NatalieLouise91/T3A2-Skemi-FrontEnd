@@ -2,19 +2,37 @@ import React, { useState } from 'react';
 import { signIn } from '../services/authServices';
 import { useGlobalState } from '../utils/stateContext';
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
-import {TextField, Typography, Link, Grid, Container, Button, Paper } from '@mui/material'
-import SendIcon from '@mui/icons-material/Send'
+import {TextField, Typography, Link, Grid, Container, Button, Paper } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import { makeStyles } from '@material-ui/core';
 
+const useStyles = makeStyles({
+    root: {
+        color: '#DC143C',
+    },
+})
 
 export default function Login() {
+
+   const classes = useStyles()
+
+//    Handling state management
+
    const initialFormData = {
       email: "",
       password: "",
    };
 
+// setting form data
    const [formData, setFormData] = useState(initialFormData);
+   const [errors, setErrors] = useState(null)
+
+// dispatching information to Global State
    const { dispatch } = useGlobalState();
+   
    let navigate = useNavigate();
+
+//    function to handle user input
    function handleFormData(event) {
       setFormData({
          ...formData,
@@ -22,17 +40,22 @@ export default function Login() {
       });
    }
 
+// function to handle the submit event of the form and catch any errors from user input
+
     function handleSubmit(event) {
         event.preventDefault()
         signIn(formData)
-        .then(({email, jwt}) => {
-            sessionStorage.setItem('token', jwt);
-            sessionStorage.setItem('user', email);
-            dispatch({ type: 'login', data: { email, jwt } })
-            navigate('/')
-        })
-        .catch((error) => console.log(error))   
-    }
+            .then(({email, jwt}) => {
+                sessionStorage.setItem('token', jwt);
+                sessionStorage.setItem('user', email);
+                dispatch({ type: 'login', data: { email, jwt } })
+                navigate('/') 
+    })
+    .catch((error) => setErrors("Invalid email or password"));
+
+}
+
+
 
     return(
    
@@ -51,7 +74,7 @@ export default function Login() {
                     <Typography textAlign='center' variant='h5' style={{marginBottom: 24}}>
                         Sign in your account
                     </Typography>
-                        {/* <label htmlFor="email">Email:</label> */}
+
                     <TextField 
                         label='email'
                         name='email'
@@ -63,8 +86,8 @@ export default function Login() {
                         margin='normal'
                         required 
                     />
-                        {/* <input type="email" name="email" id="email" value={formData.email} onChange={handleFormData}/> */}
-                        {/* <label htmlFor="password">Password:</label> */}
+
+
                     <TextField 
                         label='password'
                         name='password'
@@ -76,7 +99,8 @@ export default function Login() {
                         margin='normal'
                         required 
                     />
-                        {/* <input type="password" name="password" id="password" value={formData.password} onChange={handleFormData} /> */}
+                    
+
                     <Button
                         variant='contained'
                         type='submit'
@@ -88,6 +112,9 @@ export default function Login() {
                         }}>
                         Login
                     </Button>
+                        {errors &&
+                            <p className={classes.root}>{errors}</p>
+                        }
                     <Typography textAlign='center' variant='caption' component='p' style={{ marginTop: 32, marginBottom: 4}}>
                         Or sign up new account
                     </Typography>
@@ -96,7 +123,8 @@ export default function Login() {
                             Create account
                         </Link>
                     </div>
-                        {/* <input type="submit" value="Login"/> */}
+
+                       
                 </Paper>
             </Container>
         </form>
