@@ -1,4 +1,6 @@
 
+//file declares functions for signup and interact with the api and database
+
 import skemiAPI from "../config/api";
 
 export async function signUp(data) {
