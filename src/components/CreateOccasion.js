@@ -25,6 +25,9 @@ const useStyles = makeStyles({
       marginBottom: 20,
       display: "block",
    },
+   root: {
+      color: '#DC143C'
+   }
 });
 
 const CreateOccasion = () => {
@@ -40,7 +43,10 @@ const CreateOccasion = () => {
       contact_phone: "",
       author: "",
    };
+
    const [formData, setFormData] = useState(initialFormData);
+   const [formErrors, setFormErrors] = useState({});
+   const [isSubmit, setIsSubmit] = useState(false);
    const [confirmDialog, setConfirmDialog] = useState({
       isOpen: false,
       title: "",
@@ -86,34 +92,85 @@ const CreateOccasion = () => {
    }
 
    function handleSubmit() {
-     
+     setFormErrors(validate(formData));
+     setIsSubmit(true)
+   }
 
-      if (id) {
-         updateOccasion({ id: id, ...formData }).then((occasion) => {
-            dispatch({ type: "updateOccasion", data: { id: id, ...formData } });
-            setConfirmDialog({
-               ...confirmDialog,
-               isOpen: false,
+   useEffect(() => {
+      if (Object.keys(formErrors).length === 0 && isSubmit) {
+         if (id) {
+            updateOccasion({ id: id, ...formData }).then((occasion) => {
+               dispatch({ type: "updateOccasion", data: { id: id, ...formData } });
+               setConfirmDialog({
+                  ...confirmDialog,
+                  isOpen: false,
+               });
+               navigate(`/events/${id}`);
+               window.location.reload();
             });
-            navigate(`/events/${id}`);
-            window.location.reload();
-         });
-      } else {
-         const nextId = getLastId() + 1;
-         createOccasion({ ...formData, id: nextId })
+         } else {
+            const nextId = getLastId() + 1;
+            createOccasion({ ...formData, id: nextId })
             .then((occasion) => {
                dispatch({ type: "addOccasion", data: occasion });
                navigate("/");
                window.location.reload();
-            })
-            .catch((error) => console.log(error));
+         })
+         .catch((error) => console.log(error))
       }
    }
+  },[formErrors])
+
+  const validate = (values) => {
+      const errors = {}
+      if(!values.name) {
+          errors.name = "A name is required!";
+      } else if (values.name.length < 4){
+          errors.name = "The event name must be more than four characters";
+      }
+      if(!values.description) {
+          errors.description = "A description is required!";
+      } else if (values.description.length < 20) {
+          errors.description = "Please type in a sentence to provide details of the event";
+      } 
+      if(!values.date) {
+          errors.date = "A date is required!";
+      } 
+      if(!values.attendees) {
+          errors.attendees = "A number of attendees is required!";
+      } else if (isNaN(values.attendees)) {
+         errors.attendees = "Please enter in a numerical value"
+      }
+      if(!values.location) {
+          errors.location = "A location is required!";
+      }
+      if(!values.time) {
+          errors.time = "A time is required!";
+      }
+      if(!values.contact_name) {
+         errors.contact_name = "A primary contact name is required!";
+      } else if (values.contact_name.length < 4) {
+         errors.contact_name = "Please type in the full name of the primary contact";
+      }
+      if (!values.contact_phone) {
+         errors.contact_phone = "A primary contact phone number is required!";
+      } else if (values.contact_phone.length !== 10) {
+          errors.contact_phone = "Primary contact phone number must be 10 digits long";
+      }
+      if (!values.author) {
+         errors.author = "Please select your email";
+      }
+      return errors;
+  }
 
    return (
       <Container maxWidth="sm">
          <Paper elevation={5} style={{ padding: 24, marginTop: 24 }}>
+            {id ?
+            <Typography variant="h4"> Edit Event</Typography>
+            :
             <Typography variant="h4"> Create New Event</Typography>
+            }
             <form onSubmit={handleSubmit}>
                <TextField
                   InputLabelProps={{ shrink: true }}
@@ -129,6 +186,9 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
+               {formErrors.name &&
+               <p className={classes.root}>{formErrors.name}</p>
+               }
                <TextField
                   InputLabelProps={{ shrink: true }}
                   type="text"
@@ -143,6 +203,9 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
+               {formErrors.description &&
+               <p className={classes.root}>{formErrors.description}</p>
+               }
                <TextField
                   InputLabelProps={{ shrink: true }}
                   type="date"
@@ -157,6 +220,9 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
+               {formErrors.date &&
+               <p className={classes.root}>{formErrors.date}</p>
+               }
                <TextField
                   InputLabelProps={{ shrink: true }}
                   type="text"
@@ -171,6 +237,9 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
+               {formErrors.attendees &&
+               <p className={classes.root}>{formErrors.attendees}</p>
+               }
                <TextField
                   InputLabelProps={{ shrink: true }}
                   type="text"
@@ -185,6 +254,9 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
+               {formErrors.location &&
+               <p className={classes.root}>{formErrors.location}</p>
+               }
                <TextField
                   InputLabelProps={{ shrink: true }}
                   type="text"
@@ -199,6 +271,9 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
+               {formErrors.time &&
+               <p className={classes.root}>{formErrors.time}</p>
+               }
                <TextField
                   InputLabelProps={{ shrink: true }}
                   type="text"
@@ -213,6 +288,9 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
+               {formErrors.contact_name &&
+               <p className={classes.root}>{formErrors.contact_name}</p>
+               }
                <TextField
                   InputLabelProps={{ shrink: true }}
                   type="text"
@@ -227,6 +305,9 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
+               {formErrors.contact_phone &&
+               <p className={classes.root}>{formErrors.contact_phone}</p>
+               }
                <InputLabel id="author" className={classes.field}>
                   Author
                </InputLabel>
@@ -243,11 +324,18 @@ const CreateOccasion = () => {
                >
                   <MenuItem value={loggedInUser}>{loggedInUser}</MenuItem>
                </Select>
+
+               {formErrors.author &&
+               <p className={classes.root}>{formErrors.author}</p>
+               }
+
+               {id? 
+               
                <Button
                   onClick={() => {
                      setConfirmDialog({
                         isOpen: true,
-                        title: "Are you sure to create/update this record?",
+                        title: "Are you sure you want to update this record?",
                         subTitle: "You can't undo this operation",
                         onConfirm: () => {
                            handleSubmit();
@@ -257,11 +345,19 @@ const CreateOccasion = () => {
                   variant="contained"
                   color="primary"
                >
-                  {id ? "Edit Event" : "Create Event"}
+                  Edit Event
                </Button>
-               {/* <Button type="submit" variant="contained" color="primary">
+
+               :
+               <Button
+                  onClick={handleSubmit}
+                  variant="contained"
+                  color="primary"
+               >
                   Create Event
-               </Button> */}
+               </Button>
+               }
+
             </form>
          </Paper>
          <ConfirmDialog
