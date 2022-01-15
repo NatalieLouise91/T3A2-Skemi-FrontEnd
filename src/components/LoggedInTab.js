@@ -17,6 +17,7 @@ const LoggedInTab = ({ loggedInUser, handleLogout }) => {
    
    const [admin, setAdmin] = useState(null);
    const [anchor, setAnchor] = React.useState(null);
+   const [displayComponent, setDisplayComponent] = useState(false);
    const { store } = useGlobalState();
    const { users } = store; 
    const adminUser = 1
@@ -24,6 +25,11 @@ const LoggedInTab = ({ loggedInUser, handleLogout }) => {
    const handleMenu = (event) => {
       setAnchor(event.currentTarget);
    };
+
+   useEffect(() => {
+setDisplayComponent(true);
+
+   }, []);
 
    useEffect(() => {
       getAdminById(adminUser)
@@ -61,6 +67,22 @@ const LoggedInTab = ({ loggedInUser, handleLogout }) => {
                >
                   Event's Schedule
                </Button>
+               {displayComponent &&
+
+users.map((user) => 
+    user.email === loggedInUser? 
+    <Button
+      onClick={() => setAnchor(null)}
+      component={Link}
+      to= {`/users/${user.id}`}
+    >
+  
+        <PersonOutlineOutlinedIcon />
+   
+     My Profile
+  </Button>
+: null )
+}
             </ButtonGroup>
             :
                <ButtonGroup variant="text" color="inherit">
@@ -77,27 +99,7 @@ const LoggedInTab = ({ loggedInUser, handleLogout }) => {
 
          <div style={{ flexGrow: 1 }} />
 
-         <Typography style={{ marginRight: 20 }}>
-            Welcome <strong>{loggedInUser}</strong> !
-         </Typography>
 
-         {
-         users.map((user) => 
-            user.email === loggedInUser? 
-            <Menu>
-            <MenuItem 
-               onClick={() => setAnchor(null)}
-               component={Link}
-               to= {`/users/${user.id}`}
-            >
-            <ListItemIcon>
-               <PersonOutlineOutlinedIcon />
-            </ListItemIcon>
-            <Typography variant="h6"> My Profile</Typography>
-         </MenuItem>
-         </Menu>
-         : null )
-         }
          <Button
             style={{ color: "inherit" }}
             size="large"
