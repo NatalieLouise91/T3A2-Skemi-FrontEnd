@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup } from "@material-ui/core";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
-import { getAdminById } from "../services/userServices";
+import { getAdminById } from "/Users/jordanhardy/Documents/coder/skemi/T3A2-Skemi-FrontEnd/src/services/userServices.js";
+// "../services/userServices";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import { useGlobalState } from "../utils/stateContext";
+import { useGlobalState } from "/Users/jordanhardy/Documents/coder/skemi/T3A2-Skemi-FrontEnd/src/utils/stateContext.js";
 
 // function renders links in nav bar when user is logged in
 const LoggedInTab = ({ loggedInUser, handleLogout }) => {

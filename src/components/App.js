@@ -1,23 +1,24 @@
 import React, { useReducer, useEffect } from "react";
 import { StateContext } from "../utils/stateContext";
 import stateReducer from "../utils/stateReducer";
-import Nav from "./Nav";
-import CreateOccasion from "./CreateOccasion";
-import CreateRoster from "./CreateRoster";
-import ViewOccasion from "./ViewOccasion";
-import EventSchedule from "./EventSchedule";
-import OccasionList from "./OccasionList";
-import Login from "./Login";
-import NewUser from "./NewUser";
 import { getOccasions } from "../services/occasionServices";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import ViewRoster from "./ViewRoster";
 import { getRosters } from "../services/rosterServices";
 import { getUsers } from "../services/userServices";
-import EditRoster from "./EditRoster";
-import ViewUser from "./ViewUser";
+
+import EditRoster from "../components/Roster/EditRoster";
+import ViewUser from "../components/User/ViewUser";
+import Nav from "../components/UI/Nav";
+import CreateOccasion from "./Occasion/CreateOccasion";
+import CreateRoster from "../components/Roster/CreateRoster";
+import ViewOccasion from "../components/Occasion/ViewOccasion";
+import OccasionSchedule from "../components/Occasion/OccasionSchedule";
+import OccasionList from "../components/Occasion/OccasionList";
+import Login from "../components/User/Login";
+import NewUser from "../components/User/NewUser";
+import ViewRoster from "./Roster/ViewRoster";
 
 const theme = createTheme({
    palette: {
@@ -80,7 +81,7 @@ const App = () => {
                      <Route path="/create-roster" element={<CreateRoster />} />
                      <Route
                         path="/event-schedule"
-                        element={<EventSchedule />}
+                        element={<OccasionSchedule />}
                      />
                      <Route path="/rosters/:id" element={<ViewRoster />} />
                      <Route

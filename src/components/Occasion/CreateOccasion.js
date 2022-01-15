@@ -1,7 +1,7 @@
 //import required dependencies and components
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useGlobalState } from "../utils/stateContext";
+import { useGlobalState } from "../../utils/stateContext";
 import {
    Button,
    TextField,
@@ -17,7 +17,7 @@ import {
    createOccasion,
    getOccasionById,
    updateOccasion,
-} from "../services/occasionServices";
+} from "../../services/occasionServices";
 import "@fontsource/roboto/400.css";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 

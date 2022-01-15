@@ -1,7 +1,7 @@
 //import required dependencies and components
 import React, { useState } from "react";
-import { signIn } from "../services/authServices";
-import { useGlobalState } from "../utils/stateContext";
+import { signIn } from "/Users/jordanhardy/Documents/coder/skemi/T3A2-Skemi-FrontEnd/src/services/authServices.js";
+import { useGlobalState } from "../../utils/stateContext";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import {
    TextField,

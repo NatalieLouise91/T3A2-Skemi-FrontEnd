@@ -2,9 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useGlobalState } from "../utils/stateContext";
-import { updateRoster } from "../services/rosterServices";
-import { getRosterById } from "../services/rosterServices";
+import { useGlobalState } from "../../utils/stateContext";
+import {
+   updateRoster,
+   getRosterById,
+} from "/Users/jordanhardy/Documents/coder/skemi/T3A2-Skemi-FrontEnd/src/services/rosterServices.js";
 import "@fontsource/roboto/400.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Select, InputLabel, MenuItem, Paper } from "@material-ui/core";
@@ -58,8 +60,8 @@ export default function EditRosterForm() {
    let navigate = useNavigate();
    let { id } = useParams();
 
-   //side effect to get rosters by id from the database with an 
-   // api call function and setting form data state 
+   //side effect to get rosters by id from the database with an
+   // api call function and setting form data state
    useEffect(() => {
       if (id) {
          getRosterById(id).then((roster) => {
@@ -104,7 +106,6 @@ export default function EditRosterForm() {
       "23:00",
    ];
 
-
    // function to handle the change of input when user fills out form
 
    function handleFormData(event) {
@@ -139,7 +140,6 @@ export default function EditRosterForm() {
          }
       }
    }, [formErrors, dispatch, formData, id, isSubmit, navigate]);
-
 
    //handles form field validation and error handling
    const validate = (values) => {
@@ -193,7 +193,7 @@ export default function EditRosterForm() {
                   </MenuItem>
                ))}
             </Select>
-{/* form errors handle form field data validataions */}
+            {/* form errors handle form field data validataions */}
             {formErrors.event_id && (
                <p className={classes.alert}>
                   <ErrorOutlineIcon fontSize="small" /> {formErrors.event_id}

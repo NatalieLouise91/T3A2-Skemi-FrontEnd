@@ -9,10 +9,13 @@ import {
    Grid,
    Button,
 } from "@material-ui/core";
-import { getOccasionById, deleteOccasion } from "../services/occasionServices";
-import RostersByOccasion from "./RostersByOccasion";
-import { useGlobalState } from "../utils/stateContext";
-import ConfirmDialog from "./ConfirmDialog";
+import {
+   getOccasionById,
+   deleteOccasion,
+} from "/Users/jordanhardy/Documents/coder/skemi/T3A2-Skemi-FrontEnd/src/services/occasionServices.js";
+import RostersByOccasion from "../Roster/RostersByOccasion";
+import { useGlobalState } from "../../utils/stateContext";
+import ConfirmDialog from "../UI/ConfirmDialog";
 
 // function renders a specific occasion records information based on an id
 const ViewOccasion = () => {
