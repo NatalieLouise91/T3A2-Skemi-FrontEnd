@@ -11,7 +11,9 @@ import {
     Select,
     InputLabel,
     MenuItem,
+    Paper,
 } from "@material-ui/core";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +27,10 @@ const useStyles = makeStyles((theme) => ({
     },
     field: {
         margin: theme.spacing(1),
-    }
+    },
+    alert: {
+        color: '#DC143C'
+    },
 }))
 
 export default function EditRosterForm() {
@@ -41,6 +46,8 @@ export default function EditRosterForm() {
     }
 
     const [formData, setFormData] = useState(initialFormData)
+    const [formErrors, setFormErrors] = useState({});
+    const [isSubmit, setIsSubmit] = useState(false);
     const {dispatch, store } = useGlobalState();
     const { occasions } = store;
     const { users } = store;
@@ -86,9 +93,14 @@ function handleFormData(event) {
 // function to handle submit when user clicks on submit button
 
 
-function handleSubmit(event) {
-    event.preventDefault();
+function handleSubmit(e) {
+    e.preventDefault();
+    setFormErrors(validate(formData));
+    setIsSubmit(true)
+  }
 
+    useEffect(() => {
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
             if(id) {
                 updateRoster({ id: id, ...formData}).then((roster) => {
                     dispatch({ type: "updateRoster", data: { id: id, ...formData} });
@@ -96,15 +108,42 @@ function handleSubmit(event) {
                 })
                 .catch((error) => console.log(error));
             }
+     }
+    },[formErrors])
+
+  
+    const validate = (values) => {
+        const errors = {}
+        if(!values.event_id) {
+            errors.event_id = "An event name is required!";
+        } 
+        if(!values.start_time) {
+            errors.start_time = "A start time is required!";
+        } 
+        if(!values.end_time) {
+            errors.end_time = "An end time is required!";
+        } 
+        if(!values.role) {
+            errors.role = "A job role is required!";
+        } 
+        if(!values.name) {
+            errors.name = "A team member is required!";
+        }
+        if(!values.user_id) {
+            errors.user_id = "Please confirm the team member!";
+        }
+        if(!values.author) {
+            errors.author = "Please select your email for authorship";
+        }
+        return errors;
     }
 
     return (
 
         
         <form onSubmit={handleSubmit}>
-            {/* {(!roster) ? null :  */}
 
-            <div>
+<           Paper elevation={5} style={{ padding: 24, marginTop: 24 }}>
                         <InputLabel
                             id="event_id"
                             className={classes.field}
@@ -126,6 +165,10 @@ function handleSubmit(event) {
                                 )
                             }
                         </Select>
+
+                        {formErrors.event_id &&
+                            <p className={classes.alert}><ErrorOutlineIcon fontSize='small'/>  {formErrors.event_id}</p>
+                        }
 
 
                         <InputLabel 
@@ -150,6 +193,10 @@ function handleSubmit(event) {
                             <MenuItem key={index} value={element}>{element}</MenuItem>)}
                         </Select>
 
+                        {formErrors.start_time &&
+                            <p className={classes.alert}><ErrorOutlineIcon fontSize='small'/> {formErrors.start_time}</p>
+                        }
+
 
                         <InputLabel 
                             id="end_time"
@@ -172,6 +219,10 @@ function handleSubmit(event) {
                             {times.map((element, index) => 
                             <MenuItem key={index} value={element}>{element}</MenuItem>)}
                         </Select>
+
+                        {formErrors.end_time &&
+                            <p className={classes.alert}><ErrorOutlineIcon fontSize='small'/> {formErrors.end_time}</p>
+                        }
 
                         <InputLabel 
                             id="role"
@@ -196,6 +247,10 @@ function handleSubmit(event) {
                             <MenuItem value="Bartender">Bartender</MenuItem>
                             <MenuItem value="Chef">Chef</MenuItem>
                         </Select>
+
+                        {formErrors.role &&
+                            <p className={classes.alert}><ErrorOutlineIcon fontSize='small'/> {formErrors.role}</p>
+                        }
                         
                         <InputLabel 
                         id= "name"
@@ -219,6 +274,11 @@ function handleSubmit(event) {
                             <MenuItem key={index} value={user.first_name + " " + user.last_name}>{user.first_name}, {user.last_name}</MenuItem>)}
 
                         </Select>
+
+                        {formErrors.name &&
+                            <p className={classes.alert}><ErrorOutlineIcon fontSize='small'/> {formErrors.name}</p>
+                        }
+
                         <InputLabel 
                         id= "user_id"
                         className={classes.field}
@@ -241,6 +301,11 @@ function handleSubmit(event) {
                             <MenuItem key={index} value={user.id}>{user.first_name}, {user.last_name}</MenuItem>)}
 
                         </Select>
+
+                        {formErrors.user_id &&
+                            <p className={classes.alert}><ErrorOutlineIcon fontSize='small'/> {formErrors.user_id}</p>
+                        }
+
                         <InputLabel 
                         id= "author"
                         className={classes.field}
@@ -261,6 +326,11 @@ function handleSubmit(event) {
                             <MenuItem value={loggedInUser}>{loggedInUser}</MenuItem>
 
                         </Select>
+
+                        {formErrors.author &&
+                            <p className={classes.alert}><ErrorOutlineIcon fontSize='small'/> {formErrors.author}</p>
+                        }
+
                 <Button 
                     variant= "contained" 
                     type="submit" 
@@ -270,8 +340,7 @@ function handleSubmit(event) {
                 >
                 Edit Shift
                 </Button>
-            </div>
-        {/* } */}
+            </Paper>
         </form>
 
     )
