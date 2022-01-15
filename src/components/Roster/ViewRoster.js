@@ -7,9 +7,9 @@ import CardContent from "@material-ui/core/CardContent";
 import { IconButton, Typography } from "@material-ui/core";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { getRosterById, deleteRoster } from "../services/rosterServices";
-import { useGlobalState } from "../utils/stateContext";
-import ConfirmDialog from "./ConfirmDialog";
+import { getRosterById, deleteRoster } from "../../services/rosterServices";
+import { useGlobalState } from "../../utils/stateContext";
+import ConfirmDialog from "../UI/ConfirmDialog";
 
 // function renders a specific roster records information based on an id
 export default function ViewRoster() {

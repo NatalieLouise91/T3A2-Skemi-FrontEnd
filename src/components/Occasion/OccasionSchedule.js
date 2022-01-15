@@ -1,12 +1,12 @@
 //import required dependencies and components
 import React, { useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
-import { useGlobalState } from "../utils/stateContext";
+import { useGlobalState } from "../../utils/stateContext";
 import { Grid, Container, Typography, Box } from "@material-ui/core";
-import Spinner from "./Spinner";
+import Spinner from "../UI/Spinner";
 import TeamOccasionSchedule from "./TeamOccasionSchedule";
 
-export default function EventSchedule() {
+export default function OccasionSchedule() {
    // setting the display component state
    const [displayComponent, setDisplayComponent] = useState(false);
 

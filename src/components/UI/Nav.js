@@ -12,7 +12,12 @@ import {
    ListItemIcon,
 } from "@material-ui/core";
 import EventNoteIcon from "@mui/icons-material/EventNote";
-import { signOut } from "../services/authServices";
+import { signOut } from "../../services/authServices";
+import { Link, useNavigate } from "react-router-dom";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { useGlobalState } from "../../utils/stateContext";
+import { getAdminById } from "../../services/userServices";
+
 import LoginIcon from "@mui/icons-material/Login";
 import MenuIcon from "@material-ui/icons/Menu";
 import BallotOutlinedIcon from "@mui/icons-material/BallotOutlined";
@@ -20,12 +25,9 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import AppRegistrationOutlinedIcon from "@mui/icons-material/AppRegistrationOutlined";
-import { Link, useNavigate } from "react-router-dom";
 import LoggedInTab from "./LoggedInTab";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { useGlobalState } from "../utils/stateContext";
 import Spinner from "./Spinner";
-import { getAdminById } from "../services/userServices";
+
 
 // sets mui theme for component
 const useStyles = makeStyles((theme) => ({

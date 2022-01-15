@@ -1,8 +1,8 @@
 //import required dependencies and components
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGlobalState } from "../utils/stateContext";
-import { createRoster } from "../services/rosterServices"
+import { useGlobalState } from "../../utils/stateContext";
+import { createRoster } from "/Users/jordanhardy/Documents/coder/skemi/T3A2-Skemi-FrontEnd/src/services/rosterServices.js";
 import "@fontsource/roboto/400.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { 
@@ -19,7 +19,7 @@ import {
 import IconButton from '@material-ui/core/IconButton'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import Spinner from "./Spinner";
+import Spinner from "../UI/Spinner";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 const useStyles = makeStyles((theme) => ({

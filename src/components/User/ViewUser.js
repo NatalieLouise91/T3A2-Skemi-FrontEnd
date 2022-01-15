@@ -1,8 +1,8 @@
 //import required dependencies and components
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getUserById } from "../services/userServices";
-import RostersByUser from "./RostersByUser";
+import { getUserById } from "../../services/userServices";
+import RostersByUser from "../Roster/RostersByUser";
 import { Container, Paper, Typography } from "@material-ui/core";
 
 //function renders user information on user profile

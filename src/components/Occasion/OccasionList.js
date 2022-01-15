@@ -1,9 +1,9 @@
 //import required dependencies and components
 import React, { useEffect, useReducer, useState } from "react";
 import Occasions from "./Occasions";
-import stateReducer from "../utils/stateReducer";
-import { StateContext } from "../utils/stateContext";
-import { getOccasions } from "../services/occasionServices";
+import stateReducer from "../../utils/stateReducer";
+import { StateContext } from "../../utils/stateContext";
+import { getOccasions } from "/Users/jordanhardy/Documents/coder/skemi/T3A2-Skemi-FrontEnd/src/services/occasionServices.js";
 import {
    Container,
    Typography,
@@ -12,7 +12,7 @@ import {
    Grid,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { getAdminById } from "../services/userServices";
+import { getAdminById } from "/Users/jordanhardy/Documents/coder/skemi/T3A2-Skemi-FrontEnd/src/services/userServices.js";
 
 //occasion list function renders a page with a list of the occasions 
 // returned from the database

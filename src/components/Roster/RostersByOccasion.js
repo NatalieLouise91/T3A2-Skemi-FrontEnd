@@ -1,10 +1,10 @@
 //import required dependencies and components
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useGlobalState } from "../utils/stateContext";
+import { useGlobalState } from "../../utils/stateContext";
 import { Grid, Container } from "@material-ui/core";
 import RosterCard from "./RosterCard";
-import Spinner from "./Spinner";
+import Spinner from "../UI/Spinner";
 
 // function returns and renders an mui component with roster information associated to an occasion
 export default function RostersByOccasion() {

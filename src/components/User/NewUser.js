@@ -1,8 +1,8 @@
 //import required dependencies and components
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { signUp } from "../services/authServices";
-import { useGlobalState } from "../utils/stateContext";
+import { signUp } from "/Users/jordanhardy/Documents/coder/skemi/T3A2-Skemi-FrontEnd/src/services/authServices.js";
+import { useGlobalState } from "../../utils/stateContext";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";

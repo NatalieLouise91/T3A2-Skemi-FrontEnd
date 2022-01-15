@@ -1,7 +1,7 @@
 //import required dependencies and components
-import { useGlobalState } from "../utils/stateContext";
+import { useGlobalState } from "../../utils/stateContext";
 import { Grid, Container } from "@material-ui/core";
-import UserRosterCard from "./UserRosterCard";
+import UserRosterCard from "../User/UserRosterCard.js";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";

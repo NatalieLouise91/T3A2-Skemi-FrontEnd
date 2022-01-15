@@ -6,14 +6,14 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import { Typography } from "@material-ui/core";
-import { getOccasionById } from "../services/occasionServices";
+import { getOccasionById } from "/Users/jordanhardy/Documents/coder/skemi/T3A2-Skemi-FrontEnd/src/services/occasionServices.js";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
 import Divider from "@mui/material/Divider";
 import { makeStyles } from "@material-ui/styles";
 import { Grid } from "@material-ui/core";
-import Spinner from "./Spinner";
+import Spinner from "../UI/Spinner";
 
 // sets mui theme for component
 const useStyles = makeStyles({
