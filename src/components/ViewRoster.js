@@ -1,3 +1,4 @@
+//import required dependencies and components
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Card from "@material-ui/core/Card";
@@ -10,24 +11,35 @@ import { getRosterById, deleteRoster } from "../services/rosterServices";
 import { useGlobalState } from "../utils/stateContext";
 import ConfirmDialog from "./ConfirmDialog";
 
+// function renders a specific roster records information based on an id
 export default function ViewRoster() {
+   //set state
    const [roster, setRoster] = useState(null);
+
+   //params for occasion record id from url
    const { id } = useParams();
    let navigate = useNavigate();
+
+   //destructuring dispatch and store called from global state
    const { store, dispatch } = useGlobalState();
+   const { loggedInUser } = store;
+  
+
+   // state for confirm modal
    const [confirmDialog, setConfirmDialog] = useState({
       isOpen: false,
       title: "",
       subTitle: "",
    });
-   const { loggedInUser } = store;
 
+   //side effect to get specific roster record by roster id
    useEffect(() => {
       getRosterById(id)
          .then((roster) => setRoster(roster))
          .catch((error) => console.log(error));
    }, [id]);
 
+   //function to handle deleting roster record from database
    if (!roster) return null;
    const onDelete = () => {
       deleteRoster(id)
@@ -38,6 +50,8 @@ export default function ViewRoster() {
          .catch((error) => console.log(error));
    };
 
+   //renders a card for a roster with relevant information from the database
+   //  and buttons to delete the roster and edit the occasion or go back to all events
    return (
       <div>
          <Card elevation={1}>
@@ -51,6 +65,8 @@ export default function ViewRoster() {
                      <IconButton>
                         <EditOutlinedIcon
                            onClick={() => {
+                              // nested callback functions to display a confirm action modal
+                              //  then navigate to update form
                               setConfirmDialog({
                                  isOpen: true,
                                  title: "Are you sure to update this record?",
@@ -65,6 +81,8 @@ export default function ViewRoster() {
                      <IconButton>
                         <DeleteOutlineOutlinedIcon
                            onClick={() => {
+                              // nested callback functions to display a confirm action modal
+                              //  then navigate to update form
                               setConfirmDialog({
                                  isOpen: true,
                                  title: "Are you sure to delete this record?",

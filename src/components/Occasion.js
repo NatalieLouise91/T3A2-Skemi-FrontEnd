@@ -1,7 +1,9 @@
+//imports required dependencies and components
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Typography } from "@material-ui/core";
 
+// component to display data from occasion/event record 
 const Occasion = ({ occasion }) => {
    return (
       <>

@@ -1,3 +1,4 @@
+//import required dependencies and components
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGlobalState } from "../utils/stateContext";
@@ -100,57 +101,53 @@ function handleSubmit(e) {
   }
 
 useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-        if (inputField.length === 1) {
-            const nextId = getLastId() + 1;
+   if (Object.keys(formErrors).length === 0 && isSubmit) {
+      if (inputField.length === 1) {
+         const nextId = getLastId() + 1;
 
-            createRoster({...inputField[0], id: nextId})
+         createRoster({ ...inputField[0], id: nextId })
             .then((roster) => {
-                dispatch({ type: "addRoster", data: roster }); 
-                navigate('/')
-                window.location.reload(); 
+               dispatch({ type: "addRoster", data: roster });
+               navigate("/");
+               window.location.reload();
             })
             .catch((error) => console.log(error));
-            
-        } 
-        
-        if (inputField.length === 2) {
-            const nextId = getLastId() + 1;
+      }
 
-            createRoster({...inputField[0], id: nextId})
+      if (inputField.length === 2) {
+         const nextId = getLastId() + 1;
+
+         createRoster({ ...inputField[0], id: nextId }).then((roster) => {
+            dispatch({ type: "addRoster", data: roster });
+         });
+         createRoster({ ...inputField[1], id: nextId + 1 })
             .then((roster) => {
-                dispatch({ type: "addRoster", data: roster }); 
-            })
-            createRoster({...inputField[1], id: nextId + 1})
-            .then((roster) => {
-                dispatch({ type: "addRoster", data: roster }); 
-                navigate('/')
-                window.location.reload();
+               dispatch({ type: "addRoster", data: roster });
+               navigate("/");
+               window.location.reload();
             })
             .catch((error) => console.log(error));
-        } 
-        
-        if (inputField.length === 3) {
-            const nextId = getLastId() + 1;
+      }
 
-            createRoster({...inputField[0], id: nextId})
+      if (inputField.length === 3) {
+         const nextId = getLastId() + 1;
+
+         createRoster({ ...inputField[0], id: nextId }).then((roster) => {
+            dispatch({ type: "addRoster", data: roster });
+         });
+         createRoster({ ...inputField[1], id: nextId + 1 }).then((roster) => {
+            dispatch({ type: "addRoster", data: roster });
+         });
+         createRoster({ ...inputField[2], id: nextId + 2 })
             .then((roster) => {
-                dispatch({ type: "addRoster", data: roster }); 
-            })
-            createRoster({...inputField[1], id: nextId + 1})
-            .then((roster) => {
-                dispatch({ type: "addRoster", data: roster }); 
-            })
-            createRoster({...inputField[2], id: nextId + 2})
-            .then((roster) => {
-                dispatch({ type: "addRoster", data: roster }); 
-                navigate('/')
-                window.location.reload();
+               dispatch({ type: "addRoster", data: roster });
+               navigate("/");
+               window.location.reload();
             })
             .catch((error) => console.log(error));
-        }
- }
-},[formErrors])
+      }
+   }
+}, [formErrors, dispatch, isSubmit, navigate, inputField]);
 
 // validate function to set error messages if user incorrectly enters in a field
 
