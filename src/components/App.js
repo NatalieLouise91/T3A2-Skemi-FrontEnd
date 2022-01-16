@@ -19,6 +19,7 @@ import OccasionList from "../components/Occasion/OccasionList";
 import Login from "../components/User/Login";
 import NewUser from "../components/User/NewUser";
 import ViewRoster from "./Roster/ViewRoster";
+import ForgotPassword from './User/ForgotPassword'
 
 const theme = createTheme({
    palette: {
@@ -97,6 +98,10 @@ const App = () => {
                         exact
                         path="events/update/:id"
                         element={<CreateOccasion />}
+                     />
+                     <Route
+                        path="/forgot_password"
+                        element={<ForgotPassword />}
                      />
                   </Routes>
                </BrowserRouter>
