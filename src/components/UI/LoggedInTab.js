@@ -1,6 +1,6 @@
 //import required dependencies and components
 import React, { useState, useEffect } from "react";
-import { Button, ButtonGroup } from "@material-ui/core";
+import { Button, ButtonGroup, Typography } from "@material-ui/core";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 import { getAdminById } from "../../services/userServices.js";
@@ -94,11 +94,14 @@ const LoggedInTab = ({ loggedInUser, handleLogout }) => {
                         </Button>
                      ) : null
                   )}
-                  
+
             </ButtonGroup>
          )}
 
          <div style={{ flexGrow: 1 }} />
+         <Typography style={{ marginRight: 20 }}>
+            Welcome <strong>{loggedInUser}</strong> !
+         </Typography>
 
          <Button
             style={{ color: "inherit" }}
