@@ -28,7 +28,6 @@ import AppRegistrationOutlinedIcon from "@mui/icons-material/AppRegistrationOutl
 import LoggedInTab from "./LoggedInTab";
 import Spinner from "./Spinner";
 
-
 // sets mui theme for component
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -75,7 +74,6 @@ const Nav = ({ loggedInUser, logout, props }) => {
    const [admin, setAdmin] = useState(null);
    const adminUser = 1;
 
-
    //functionss to set anchor state
    const handleMenu = (event) => {
       setAnchor(event.currentTarget);
@@ -119,7 +117,6 @@ const Nav = ({ loggedInUser, logout, props }) => {
 
    if (!admin) return null;
 
-
    //returns and renders navbar and loggintab component
    return (
       <div className={classes.root}>
@@ -132,7 +129,7 @@ const Nav = ({ loggedInUser, logout, props }) => {
                   component={Link}
                   to="/"
                >
-                  <EventNoteIcon fontsize="large" />
+                  <EventNoteIcon fontSize="large" />
                </IconButton>
                <Typography variant="h5">Skemi</Typography>
                <div style={{ flexGrow: 1 }} />
@@ -268,7 +265,6 @@ const Nav = ({ loggedInUser, logout, props }) => {
                ) : isMobile && !loggedInUser ? (
                   <>
                      <IconButton
-                        color="red"
                         className={classes.menuButton}
                         edge="start"
                         aria-label="menu"

@@ -20,6 +20,7 @@ import Login from "../components/User/Login";
 import NewUser from "../components/User/NewUser";
 import ViewRoster from "./Roster/ViewRoster";
 import ForgotPassword from './User/ForgotPassword'
+import ResetPassword from './User/ResetPassword'
 
 const theme = createTheme({
    palette: {
@@ -102,6 +103,10 @@ const App = () => {
                      <Route
                         path="/forgot_password"
                         element={<ForgotPassword />}
+                     />
+                     <Route
+                        path="/reset_password"
+                        element={<ResetPassword />}
                      />
                   </Routes>
                </BrowserRouter>

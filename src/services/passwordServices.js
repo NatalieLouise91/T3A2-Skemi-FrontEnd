@@ -10,6 +10,12 @@ export async function forgotPassword(data) {
    return response.data.email;
 }
 
+export async function resetPassword(data) {
+   const response = await skemiAPI.post("/api/forgot_password", data);
+   console.log(response);
+   return response.data.email;
+}
+
 // const baseURL = skemiAPI;
 
 // export const forgotPassword = (email) => {
