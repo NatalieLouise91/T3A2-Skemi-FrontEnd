@@ -15,7 +15,8 @@
 | [11](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#repositories-and-deployed-website) | App Links |
 | [12](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#final-tech-stack) | Final Tech Stack |
 | [13](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#project-management) | Project Management |
-| [14](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#testing) | Testing |
+| [14](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#sample-screenshots) | Sample Screenshots |
+| [15](https://github.com/NatalieLouise91/T3A2-Skemi-FrontEnd#testing) | Testing |
  
 
 # Part A Documentation
@@ -94,21 +95,21 @@ MUI started back in 2014, to unify React and Material Design and offers a comple
 
 ## Architecture Diagram
 
-![app-architecture-diagram](./docs/app-architecture-diagram.png)
+![app-architecture-diagram](./docs/architecture-diagram/app-architecture-diagram.png)
 
 ## Dataflow Diagram
 
 ### Standard User DFD
 
-![standard-user-DFD](./docs/standard-user-DFD.png)
+![standard-user-DFD](./docs/data-flow-diagram/standard-user-DFD.png)
 
 ### Admin User DFD - Create and Read Features
 
-![admin-user-create-read-features](./docs/admin-create-read-DFD.png)
+![admin-user-create-read-features](./docs/data-flow-diagram/admin-create-read-DFD.png)
 
 ### Admin User DFD - Search and Update Features
 
-![admin-user-search-update-features](./docs/admin-search-update-DFD.png)
+![admin-user-search-update-features](./docs/data-flow-diagram/admin-search-update-DFD.png)
 
 ## User Stories
 
@@ -178,58 +179,57 @@ MUI started back in 2014, to unify React and Material Design and offers a comple
 
 ## User Registration Desktop, Tablet & Mobile
 
-![user-registration-wireframes](./docs/user-registration-wireframes.png)
+![user-registration-wireframes](./docs/wireframes/user-registration-wireframes.png)
 
 **Note:** - the first user created for the application is the default administration user and will have administrative permissions. All other users after are defaulted to standard users. 
 
 ## Standard User Mobile Wireframes
 
-![standard-user-mobile-wireframes](./docs/standard-mobile-wireframes.png)
+![standard-user-mobile-wireframes](./docs/wireframes/standard-mobile-wireframes.png)
 
 ## Standard User Tablet Wireframes
 
-![standard-user-tablet-wireframes](./docs/standard-tablet-wireframes.png)
+![standard-user-tablet-wireframes](./docs/wireframes/standard-tablet-wireframes.png)
 
 ## Standard User Desktop Wireframes
 
-![standard-user-desktop-wireframes](./docs/standard-desktop-wireframes.png)
+![standard-user-desktop-wireframes](./docs/wireframes/standard-desktop-wireframes.png)
 
 ## Admin User Mobile Wireframes: Read & Delete Events
 
-![admin-mobile-wireframes-part1](./docs/admin-mobile-wireframes-part1.png)
+![admin-mobile-wireframes-part1](./docs/wireframes/admin-mobile-wireframes-part1.png)
 
 ## Admin User Mobile Wireframes: Create & Update Events Rosters
 
-![admin-mobile-wireframes-part2](./docs/admin-mobile-wireframes-part2.png)
+![admin-mobile-wireframes-part2](./docs/wireframes/admin-mobile-wireframes-part2.png)
 
 ## Admin User Mobile Wireframes: Delete Individual Shifts
 
-![admin-mobile-wireframes-part3](./docs/admin-mobile-wireframes-part3.png)
+![admin-mobile-wireframes-part3](./docs/wireframes/admin-mobile-wireframes-part3.png)
 
 ## Admin User Tablet Wireframes: Read & Delete Events
 
-![admin-tablet-wireframes-part1](./docs/admin-tablet-wireframes-part1.png)
+![admin-tablet-wireframes-part1](./docs/wireframes/admin-tablet-wireframes-part1.png)
 
 ## Admin User Tablet Wireframes: Create & Update Events Rosters
 
-![admin-tablet-wireframes-part2](./docs/admin-tablet-wireframes-part2.png)
+![admin-tablet-wireframes-part2](./docs/wireframes/admin-tablet-wireframes-part2.png)
 
 ## Admin User Tablet Wireframes: Delete Individual Shifts
 
-![admin-tablet-wireframes-part3](./docs/admin-tablet-wireframes-part3.png)
+![admin-tablet-wireframes-part3](./docs/wireframes/admin-tablet-wireframes-part3.png)
 
 ## Admin User Desktop Wireframes: Read & Delete Events
 
-![admin-desktop-wireframes-part3](./docs/admin-desktop-wireframes-part1.png)
+![admin-desktop-wireframes-part3](./docs/wireframes/admin-desktop-wireframes-part1.png)
 
 ## Admin User Desktop Wireframes: Create & Update Events Rosters
 
-![admin-desktop-wireframes-part2](./docs/admin-desktop-wireframes-part2.png)
+![admin-desktop-wireframes-part2](./docs/wireframes/admin-desktop-wireframes-part2.png)
 
 ## Admin User Desktop Wireframes: Delete Individual Shifts
 
-![admin-desktop-wireframes-part3](./docs/admin-desktop-wireframes-part3.png)
-
+![admin-desktop-wireframes-part3](./docs/wireframes/admin-desktop-wireframes-part3.png)
 
 
 # Part B Documentation
@@ -309,6 +309,50 @@ In addition to the above, a proper source control methodology was utilised to ac
 
 [Trello Board](https://trello.com/b/jMPLIWRs/full-stack-app)
 
+## Sample Screenshots
+
+### Home Page Admin User
+
+![home-page](./docs/screenshots/home-page.png)
+
+### Home Page Standard User
+
+![home-page-standard-user](./docs/screenshots/home-page-standard-user.png)
+
+### User Profile
+
+![user-profile](./docs/screenshots/user-profile.png)
+
+### Create New Event 
+
+![create-new-event](./docs/screenshots/create-event-form-validation.png)
+
+*form validation for incorrect user input*
+
+### Create New Roster
+
+![roster-form](./docs/screenshots/roster-form.png)
+
+### View Occasion Details
+
+![view-occasion-details](./docs/screenshots/view-occasion.png)
+
+### View Occasion Roster
+
+![view-occasion-roster](./docs/screenshots/view-occasion-roster.png)
+
+### Event Schedule
+
+![event-schedule](./docs/screenshots/event-schedule.png)
+
+### Individual Roster
+
+![edit-delete-roster](./docs/screenshots/edit-delete-roster.png)
+
+### Delete Record Notification
+
+![delete-record-notification](./docs/screenshots/delete-record-notification.png)
+
 
 ## Testing 
 
@@ -326,7 +370,7 @@ Rspec testing was utilised to test all functions within each Rails controller.
 
 ### User Feature
 
-![Development-Testing-Authentication](./docs/Development-Testing-Authentication.png)
+![Development-Testing-Authentication](./docs/development-testing/Development-Testing-Authentication.png)
 
 **Demonstration of Testing:**
 Link to the demonstration of user authentication testing can be found [here](https://streamable.com/rkteex)
@@ -335,16 +379,16 @@ Link to the demonstration of user authentication testing can be found [here](htt
 ### Event Feature
 
 **Create Event:**
-![Development-Testing-Create-Event](./docs/Development-Testing-Create-Event.png)
+![Development-Testing-Create-Event](./docs/development-testing/Development-Testing-Create-Event.png)
 
 **Read Event:** 
-![Development-Testing-Read-Event](./docs/Development-Testing-Read-Event.png)
+![Development-Testing-Read-Event](./docs/development-testing/Development-Testing-Read-Event.png)
 
 **Edit Event:** 
-![Development-Testing-Edit-Event](./docs/Development-Testing-Edit-Event.png)
+![Development-Testing-Edit-Event](./docs/development-testing/Development-Testing-Edit-Event.png)
 
 **Delete Event:**
-![Development-Testing-Delete-Event](./docs/Development-Testing-Delete-Event.png)
+![Development-Testing-Delete-Event](./docs/development-testing/Development-Testing-Delete-Event.png)
 
 **Demonstration of Testing:**
 Link to the demonstration of Event testing can be found [here](https://streamable.com/3936yk) 
@@ -352,23 +396,73 @@ Link to the demonstration of Event testing can be found [here](https://streamabl
 ### Roster Feature
 
 **Create Roster:**
-![Development-Testing-Create-Roster](./docs/Development-Testing-Create-Roster.png)
+![Development-Testing-Create-Roster](./docs/development-testing/Development-Testing-Create-Roster.png)
 
 **Read Roster:**
-![Development-Testing-Read-Roster](./docs/Development-Testing-Read-Roster.png)
+![Development-Testing-Read-Roster](./docs/development-testing/Development-Testing-Read-Roster.png)
 
 **Edit Roster:**
-![Development-Testing-Edit-Roster](./docs/Development-Testing-Edit-Roster.png)
+![Development-Testing-Edit-Roster](./docs/development-testing/Development-Testing-Edit-Roster.png)
 
 **Delete Roster:**
-![Development-Testing-Delete-Roster](./docs/Development-Testing-Delete-Roster.png)
+![Development-Testing-Delete-Roster](./docs/development-testing/Development-Testing-Delete-Roster.png)
 
 **Demonstration of Testing:**
 Link to the demonstration of Roster testing can be found [here](https://streamable.com/i924k5)
 
 
 ### Event Schedule Feature
-![Development-Testing-Event-Schedule](./docs/Development-Testing-Event-Schedule.png)
+![Development-Testing-Event-Schedule](./docs/development-testing/Development-Testing-Event-Schedule.png)
 
 **Demonstration of Testing:**
 Link to the demonstration of Event Schedule testing can be found [here](https://streamable.com/x3xid8)
+
+### Manual User Testing Production
+
+### User Feature
+
+![Production-Testing-Authentication](./docs/production-testing/Production-Testing-Authentication.png)
+
+**Demonstration of Testing:**
+Link to the demonstration of user authentication testing on the deployed application be found [here]()
+
+### Event Feature
+
+**Create Event:**
+![Production-Testing-Create-Event](./docs/production-testing/Production-Testing-Create-Event.png)
+
+**Read Event:** 
+![Production-Testing-Read-Event](./docs/production-testing/Production-Testing-Read-Event.png)
+
+**Edit Event:** 
+![Production-Testing-Edit-Event](./docs/production-testing/Production-Testing-Edit-Event.png)
+
+**Delete Event:**
+![Production-Testing-Delete-Event](./docs/production-testing/Production-Testing-Delete-Event.png)
+
+**Demonstration of Testing:**
+Link to the demonstration of Event testing on the deployed application can be found [here]() 
+
+### Roster Feature
+
+**Create Roster:**
+![Production-Testing-Create-Roster](./docs/production-testing/Production-Testing-Create-Roster.png)
+
+**Read Roster:**
+![Production-Testing-Read-Roster](./docs/production-testing/Production-Testing-Read-Roster.png)
+
+**Edit Roster:**
+![Production-Testing-Edit-Roster](./docs/production-testing/Production-Testing-Edit-Roster.png)
+
+**Delete Roster:**
+![Production-Testing-Delete-Roster](./docs/production-testing/Production-Testing-Delete-Roster.png)
+
+**Demonstration of Testing:**
+Link to the demonstration of Roster testing on the deployed application can be found [here]()
+
+### Event Schedule Feature
+![Production-Testing-Event-Schedule](./docs/production-testing/Production-Testing-Event-Schedule.png)
+
+**Demonstration of Testing:**
+Link to the demonstration of Event Schedule testing on the deployed application can be found [here]()
+
