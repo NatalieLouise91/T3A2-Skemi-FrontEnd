@@ -132,9 +132,12 @@ export default function NewUser() {
                      fullWidth
                      required
                   />
-                  <p className={classes.root}>
-                     <ErrorOutlineIcon fontSize="small" /> {formErrors.email}
-                  </p>
+
+                  {formErrors.email &&
+                     <p className={classes.root}>
+                        <ErrorOutlineIcon fontSize="small" /> {formErrors.email}
+                     </p>
+                  }
 
                   <TextField
                      type="password"
@@ -148,9 +151,11 @@ export default function NewUser() {
                      fullWidth
                      required
                   />
-                  <p className={classes.root}>
-                     <ErrorOutlineIcon fontSize="small" /> {formErrors.password}
-                  </p>
+                  {formErrors.password &&
+                     <p className={classes.root}>
+                        <ErrorOutlineIcon fontSize="small" /> {formErrors.password}
+                     </p>
+                  }
 
                   <TextField
                      type="password"
@@ -164,10 +169,13 @@ export default function NewUser() {
                      fullWidth
                      required
                   />
-                  <p className={classes.root}>
-                     <ErrorOutlineIcon fontSize="small" />{" "}
-                     {formErrors.password_confirmation}
-                  </p>
+
+                  {formErrors.password_confirmation && 
+                     <p className={classes.root}>
+                        <ErrorOutlineIcon fontSize="small" />{" "}
+                        {formErrors.password_confirmation}
+                     </p>
+                  }
 
                   <TextField
                      type="text"
@@ -181,10 +189,13 @@ export default function NewUser() {
                      fullWidth
                      required
                   />
-                  <p className={classes.root}>
-                     <ErrorOutlineIcon fontSize="small" />{" "}
-                     {formErrors.first_name}
-                  </p>
+
+                  {formErrors.first_name &&
+                     <p className={classes.root}>
+                        <ErrorOutlineIcon fontSize="small" />{" "}
+                        {formErrors.first_name}
+                     </p>
+                  }
 
                   <TextField
                      type="text"
@@ -198,10 +209,13 @@ export default function NewUser() {
                      fullWidth
                      required
                   />
-                  <p className={classes.root}>
-                     <ErrorOutlineIcon fontSize="small" />{" "}
-                     {formErrors.last_name}
-                  </p>
+
+                  {formErrors.last_name &&
+                     <p className={classes.root}>
+                        <ErrorOutlineIcon fontSize="small" />{" "}
+                        {formErrors.last_name}
+                     </p>
+                  }
 
                   <TextField
                      type="text"
@@ -215,9 +229,12 @@ export default function NewUser() {
                      fullWidth
                      required
                   />
-                  <p className={classes.root}>
-                     <ErrorOutlineIcon fontSize="small" /> {formErrors.phone}
-                  </p>
+
+                  {formErrors.phone && 
+                     <p className={classes.root}>
+                        <ErrorOutlineIcon fontSize="small" /> {formErrors.phone}
+                     </p>
+                  }
 
                   <Button onClick={handleSubmit} type="submit" color="primary">
                      Register

@@ -67,10 +67,10 @@ export default function reducer(state, action) {
       // referenced in EditRosterForm.js
       case "updateRoster": {
          const roster = state.rosters.find(
-            (roster) => roster.id === action.data.id
+            (roster) => String(roster.id) === action.data.id
          );
          const theRest = state.rosters.filter(
-            (roster) => roster.id !== action.data.id
+            (roster) => String(roster.id) !== action.data.id
          );
          const updatedRoster = Object.assign(roster, action.data);
          return {
