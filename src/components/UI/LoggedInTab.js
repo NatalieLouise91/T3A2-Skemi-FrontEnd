@@ -82,6 +82,19 @@ const LoggedInTab = ({ loggedInUser, handleLogout }) => {
                >
                   Event's Schedule
                </Button>
+
+               {/* maps over users and returns the user id to navigate to the users
+               profile */}
+               {displayComponent &&
+                  users.map((user) =>
+                     user.email === loggedInUser ? (
+                        <Button component={Link} to={`/users/${user.id}`}>
+                           <PersonOutlineOutlinedIcon />
+                           My Profile
+                        </Button>
+                     ) : null
+                  )}
+                  
             </ButtonGroup>
          )}
 

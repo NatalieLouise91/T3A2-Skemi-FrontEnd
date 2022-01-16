@@ -33,7 +33,7 @@ export default function TeamOccasionSchedule({ user }) {
                      title={user.first_name}
                      subheader={user.email}
                   />
-                  <CardContent>{user.phone}</CardContent>
+                  <CardContent> +61 {user.phone}</CardContent>
                </Card>
             </Grid>
             {rosters.map((roster) =>

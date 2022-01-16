@@ -35,6 +35,7 @@ const useStyles = makeStyles({
 
 
 const CreateOccasion = () => {
+
    // sets classes for mui theme and variable for initial state data
    const classes = useStyles();
    const initialFormData = {
@@ -299,6 +300,7 @@ const CreateOccasion = () => {
                   fullWidth
                   required
                />
+
                {formErrors.time && (
                   <p className={classes.root}>
                      <ErrorOutlineIcon fontSize="small" /> {formErrors.time}
@@ -344,6 +346,7 @@ const CreateOccasion = () => {
                      {formErrors.contact_phone}
                   </p>
                )}
+
                <InputLabel id="author" className={classes.field}>
                   Author
                </InputLabel>

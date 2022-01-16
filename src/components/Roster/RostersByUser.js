@@ -56,7 +56,7 @@ export default function RostersByUser() {
             <>
                <Grid container spacing={4}>
                   {rosters.map((roster) =>
-                     roster.user_id === id ? (
+                     String(roster.user_id) === id ? (
                         <Grid key={roster.id} item xs={12} sm={6} md={3}>
                            <UserRosterCard roster={roster} />
                         </Grid>
