@@ -39,6 +39,7 @@ const ExpandMore = styled((props) => {
 }));
 
 // function renders a card component displaying the user roster
+
 export default function UserRosterCard({ roster }) {
    // setting the display component state
    const [displayComponent, setDisplayComponent] = useState(false);
@@ -68,36 +69,40 @@ export default function UserRosterCard({ roster }) {
 
    //date data variables
    const classes = useStyles();
-   // const date = new Date();
-   // const month = date.getMonth() + 1;
-   // const day = date.getDate();
-   // const year = date.getFullYear();
+   const date = new Date();
+   const month = date.getMonth() + 1;
+   const day = date.getDate();
+   const year = date.getFullYear();
 
-   // const currentDay = new Date(year, month, day);
+   const currentDay = new Date(year, month, day);
    let dates = [];
 
-   // //function gets data for date display
-   // function getDates(startDate, daysToAdd) {
-   //    for (let i = 0; i <= daysToAdd; i++) {
-   //       let currentDate = new Date();
-   //       currentDate.setDate(startDate.getDate() + i);
-   //       let oldFormat =
-   //          currentDate.getFullYear() +
-   //          "/" +
-   //          (currentDate.getMonth() + 1) +
-   //          "/" +
-   //          currentDate.getDate();
-   //       let date = new Date(oldFormat);
-   //       let dateString = new Date(
-   //          date.getTime() - date.getTimezoneOffset() * 60000
-   //       )
-   //          .toISOString()
-   //          .split("T")[0];
-   //       dates.push(dateString);
-   //    }
+   // function gets data for date display
+   function getDates(startDate, daysToAdd) {
+     for (let i = 0; i <= daysToAdd; i++) {
+         let currentDate = new Date();
+         currentDate.setDate(startDate.getDate() + i);
+         let oldFormat =
+            currentDate.getFullYear() +
+            "/" +
+            (currentDate.getMonth() + 1) +
+            "/" +
+            currentDate.getDate();
+         let date = new Date(oldFormat);
+         let dateString = new Date(
+            date.getTime() - date.getTimezoneOffset() * 60000
+         )
+            .toISOString()
+            .split("T")[0];
+         dates.push(dateString);
+      }
 
-   //    return dates;
-   // }
+      return dates;
+   }
+
+   // function to return todays date + three dates into the future
+
+   getDates(currentDay, 3)
 
    //sets state for styling of roster card
    const [expanded, setExpanded] = React.useState(false);

@@ -57,7 +57,7 @@ export default function RostersByOccasion() {
          {displayComponent && (
             <Grid container spacing={3}>
                {rosters.map((roster) =>
-                  roster.event_id === id ? (
+                  String(roster.event_id) === id ? (
                      <Grid key={roster.id} item xs={12} sm={6} md={3}>
                         <RosterCard roster={roster} />
                      </Grid>
