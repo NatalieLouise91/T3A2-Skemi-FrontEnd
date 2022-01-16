@@ -128,6 +128,15 @@ export default function Login() {
                         <ErrorOutlineIcon fontSize="small" /> {errors}
                      </p>
                   )}
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                     <Link
+                        underline="none"
+                        component={RouterLink}
+                        to="/forgot_password"
+                     >
+                        Forgot Password
+                     </Link>
+                  </div>
                   <Typography
                      textAlign="center"
                      variant="caption"
