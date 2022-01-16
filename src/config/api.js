@@ -2,7 +2,7 @@ import axios from "axios";
 
 //variable to set axios api url
 const skemiAPI = axios.create({
-   baseURL: "http://localhost:3000",
+   baseURL: process.env.REACT_APP_API_ENDPOINT,
 });
 
 // getting and setting auth token
