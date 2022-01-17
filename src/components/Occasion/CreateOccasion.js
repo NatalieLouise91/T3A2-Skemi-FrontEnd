@@ -119,7 +119,7 @@ const CreateOccasion = () => {
                   type: "updateOccasion",
                   data: { id: id, ...formData },
                });
-               navigate(`/events/${id}`);
+               navigate("/");
                window.location.reload();
             });
          } else {

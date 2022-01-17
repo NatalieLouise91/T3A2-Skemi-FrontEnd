@@ -7,13 +7,13 @@ import skemiAPI from "../config/api";
 export async function forgotPassword(data) {
    const response = await skemiAPI.post("/api/forgot_password", data);
    console.log(response);
-   return response.data.email;
+   return response.data
 }
 
 export async function resetPassword(data) {
    const response = await skemiAPI.post("/api/forgot_password", data);
    console.log(response);
-   return response.data.email;
+   return response.data
 }
 
 // const baseURL = skemiAPI;
