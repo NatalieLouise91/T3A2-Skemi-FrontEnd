@@ -39,7 +39,9 @@ export default function ForgotPassword() {
             password_confirmation: "",
          });
       } else {
-         resetPassword(formData);
+         resetPassword(formData).then((data) => {
+            console.log(data);
+         });
       }
       navigate("/login");
    }
@@ -85,7 +87,7 @@ export default function ForgotPassword() {
                      InputLabelProps={{ shrink: true }}
                      label="New Password:"
                      name="password"
-                     type="text"
+                     type="password"
                      id="password"
                      value={formData.password}
                      onChange={handleFormData}
@@ -97,7 +99,7 @@ export default function ForgotPassword() {
                      InputLabelProps={{ shrink: true }}
                      label="Confirm Password:"
                      name="password_confirmation"
-                     type="text"
+                     type="password"
                      id="password_confirmation"
                      value={formData.password_confirmation}
                      onChange={handleFormData}

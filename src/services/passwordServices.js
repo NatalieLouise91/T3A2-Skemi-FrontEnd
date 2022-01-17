@@ -11,7 +11,7 @@ export async function forgotPassword(data) {
 }
 
 export async function resetPassword(data) {
-   const response = await skemiAPI.post("/api/forgot_password", data);
+   const response = await skemiAPI.post("/api/reset_password", data);
    console.log(response);
    return response.data
 }
