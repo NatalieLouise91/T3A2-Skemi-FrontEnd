@@ -424,7 +424,7 @@ Link to the demonstration of Event Schedule testing can be found [here](https://
 ![Production-Testing-Authentication](./docs/production-testing/Production-Testing-Authentication.png)
 
 **Demonstration of Testing:**
-Link to the demonstration of user authentication testing on the deployed application be found [here]()
+Link to the demonstration of user authentication testing on the deployed application be found [here](https://streamable.com/fstviz)
 
 ### Event Feature
 
@@ -458,11 +458,11 @@ Link to the demonstration of Event testing on the deployed application can be fo
 ![Production-Testing-Delete-Roster](./docs/production-testing/Production-Testing-Delete-Roster.png)
 
 **Demonstration of Testing:**
-Link to the demonstration of Roster testing on the deployed application can be found [here]()
+Link to the demonstration of Roster testing on the deployed application can be found [here](https://streamable.com/dy9uo6)
 
 ### Event Schedule Feature
 ![Production-Testing-Event-Schedule](./docs/production-testing/Production-Testing-Event-Schedule.png)
 
 **Demonstration of Testing:**
-Link to the demonstration of Event Schedule testing on the deployed application can be found [here]()
+Link to the demonstration of Event Schedule testing on the deployed application can be found [here](https://streamable.com/8c2vel)
 
