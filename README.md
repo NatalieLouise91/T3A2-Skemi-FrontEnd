@@ -441,7 +441,7 @@ Link to the demonstration of user authentication testing on the deployed applica
 ![Production-Testing-Delete-Event](./docs/production-testing/Production-Testing-Delete-Event.png)
 
 **Demonstration of Testing:**
-Link to the demonstration of Event testing on the deployed application can be found [here]() 
+Link to the demonstration of Event testing on the deployed application can be found [here](https://streamable.com/stjd26) 
 
 ### Roster Feature
 

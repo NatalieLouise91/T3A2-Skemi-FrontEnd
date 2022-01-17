@@ -96,7 +96,7 @@ export default function ForgotPassword() {
                   <TextField
                      InputLabelProps={{ shrink: true }}
                      label="Confirm Password:"
-                     name="Password"
+                     name="password_confirmation"
                      type="text"
                      id="password_confirmation"
                      value={formData.password_confirmation}
